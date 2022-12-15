@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:padding="7dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <io.github.florent37.shapeofview.shapes.RoundRectView
+        android:id="@+id/shape"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:shape_roundRect_bottomLeftRadius="15dp"
+        app:shape_roundRect_bottomRightRadius="15dp"
+        app:shape_roundRect_topLeftRadius="15dp"
+        app:shape_roundRect_topRightRadius="15dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_poster"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/bg_shimmer" />
+
+    </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/progress_circular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shimmer"
+        android:fontFamily="@font/worksans"
+        android:maxLines="2"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_release_date"
+        android:layout_width="match_parent"
+        android:layout_height="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shimmer"
+        android:fontFamily="@font/worksans"
+        android:maxLines="1"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"/>
+
+    <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+        android:id="@+id/progress_circular"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="150dp"
+        app:direction="clockwise"
+        app:dotColor="?colorPrimary"
+        app:dotWidth="14dp"
+        app:drawDot="true"
+        app:enableProgressAnimation="true"
+        app:progressCap="round"
+        app:progressColor="?colorPrimary"
+        app:startAngle="270"
+        app:textSize="13sp"
+        app:textColor="@color/colorShimmer"
+        app:fillBackground="true"
+        app:progressBackgroundColor="@color/colorShimmer"
+        app:formattingPattern="@string/pattern"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

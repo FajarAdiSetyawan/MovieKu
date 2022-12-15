@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_name_creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creator"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_creator"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/worksans"
+        android:layout_marginTop="5dp"
+        android:textSize="15sp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

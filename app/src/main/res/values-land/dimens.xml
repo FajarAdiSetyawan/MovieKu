@@ -1,0 +1,9 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<resources>
+    <dimen name="fab_margin">48dp</dimen>
+</resources>

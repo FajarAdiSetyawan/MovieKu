@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:scrollbars="none"
+    android:scrollbarSize="0dp"
+    android:background="@color/bg_layout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_layout">
+
+        <TextView
+            android:id="@+id/tv_title_ori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/quicksand_bold"
+            android:lines="1"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+            android:id="@+id/progress_circular"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:baselineAlignBottom="false"
+            app:direction="clockwise"
+            app:dotColor="?colorPrimary"
+            app:dotWidth="14dp"
+            app:drawDot="true"
+            app:enableProgressAnimation="true"
+            app:fillBackground="true"
+            app:formattingPattern="@string/pattern"
+            app:layout_anchorGravity="start|bottom"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori"
+            app:progressBackgroundColor="@color/text_color_flip"
+            app:progressCap="round"
+            app:progressColor="?colorPrimary"
+            app:startAngle="270"
+            app:textColor="@color/text_color"
+            app:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_user_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/user_score"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/progress_circular"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori" />
+
+        <TextView
+            android:id="@+id/tv_vote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/airing_today"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/progress_circular"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_score" />
+
+        <View
+            android:id="@+id/divide_1"
+            android:layout_width="1dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori" />
+
+        <LinearLayout
+            android:id="@+id/layout_trailer"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/divide_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_play_arrow_24"
+                app:tint="@color/text_color" />
+
+            <TextView
+                android:id="@+id/tv_trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/play_trailer" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/worksans"
+            android:text="@string/release_date"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vote" />
+
+        <TextView
+            android:id="@+id/tv_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/worksans"
+            android:text="@string/time"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vote" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/layout_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_runtime"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
+            android:layout_marginTop="20dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_genre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/tv_genre_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_for_genre_empty"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:fontFamily="@font/worksans"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_genre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <TextView
+            android:id="@+id/tv_tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/worksans"
+            android:text="@string/tagline"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_genre" />
+
+        <TextView
+            android:id="@+id/tv_overview_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/overview"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tagline" />
+
+        <TextView
+            android:id="@+id/tv_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand"
+            android:justificationMode="inter_word"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_creator"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/layout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/rv_creator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/facts"
+                android:textSize="18sp"
+                android:layout_gravity="start"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="top"
+                    android:gravity="top"
+                    android:layout_weight="0.5"
+                    tools:ignore="Suspicious0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Status"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tv_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/worksans"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/quicksand_bold"
+                            android:text="Type"
+                            android:textSize="18sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tv_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/worksans"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5"
+                    android:gravity="top"
+                    android:layout_gravity="top">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:text="@string/language"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="visible"
+                        tools:listitem="@layout/item_also_known"/>
+
+                    <TextView
+                        android:id="@+id/tv_language_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                tools:ignore="Suspicious0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Network"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_network"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible"
+                    tools:listitem="@layout/item_network"/>
+
+                <TextView
+                    android:id="@+id/tv_network_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_for_network_empty"
+                    android:fontFamily="@font/worksans"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_social_media"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/iv_fb"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_facebook"
+                android:layout_marginEnd="20dp"
+                app:tint="@color/text_color"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_twit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_twitter"
+                android:layout_marginEnd="20dp"
+                app:tint="@color/text_color"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_ig"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_instagram"
+                android:layout_marginEnd="20dp"
+                app:tint="@color/text_color"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_link"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_baseline_insert_link_24"
+                app:tint="@color/text_color"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_top_cast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/top_billed_cast"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_social_media" />
+
+        <TextView
+            android:id="@+id/tv_more_cast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/worksans"
+            android:text="@string/view_more"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_social_media" />
+
+        <RelativeLayout
+            android:id="@+id/layout_cast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_top_cast"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_cast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/include_loading_cast" />
+                    <include layout="@layout/include_loading_cast" />
+                    <include layout="@layout/include_loading_cast" />
+                    <include layout="@layout/include_loading_cast" />
+                    <include layout="@layout/include_loading_cast" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/tv_cast_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_for_cast_empty"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:fontFamily="@font/worksans"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_collection"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bg_card"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="3dp"
+            app:cardUseCompatPadding="true"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_cast">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                >
+
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_season"
+                    android:text="@string/season"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+                <TextView
+                    android:id="@+id/tv_year_season"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/worksans"
+                    android:textStyle="bold"
+                    android:text="@string/recommendations"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_season"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_season"
+                    android:background="@color/text_color"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_year_season"/>
+
+                <TextView
+                    android:id="@+id/tv_episode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/worksans"
+                    android:textStyle="bold"
+                    android:text="@string/episode"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_season"
+                    app:layout_constraintStart_toEndOf="@+id/divider"
+                    android:layout_marginStart="10dp"/>
+
+                <io.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/shape"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:shape_roundRect_bottomLeftRadius="60dp"
+                    app:shape_roundRect_bottomRightRadius="60dp"
+                    app:shape_roundRect_topLeftRadius="60dp"
+                    app:shape_roundRect_topRightRadius="60dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/iv_poster_season"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@color/md_yellow_A200" />
+
+                </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+                <TextView
+                    android:id="@+id/tv_overview_season"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand"
+                    android:justificationMode="inter_word"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_episode" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_all_season"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_collection"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/view_all_seasons"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_all_season"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/recommendations"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recommend">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="20dp"
+                android:visibility="visible" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/include_loading_items" />
+                    <include layout="@layout/include_loading_items" />
+                    <include layout="@layout/include_loading_items" />
+                    <include layout="@layout/include_loading_items" />
+                    <include layout="@layout/include_loading_items" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/tv_recommend_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_for_recommendations_tv_empty"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:fontFamily="@font/worksans"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_keyword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Keyword"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_recommend" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_keyword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
+            android:layout_marginTop="20dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_keyword_genre"/>
+
+            <TextView
+                android:id="@+id/tv_keyword_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_for_keyword_empty"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:fontFamily="@font/worksans"
+                android:textSize="15sp"
+                android:visibility="gone"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+                    <include layout="@layout/include_loading_genre_keyword" />
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_layout">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:titleTextAppearance="@style/titleToolbarDetail"
+            android:background="@color/color_primary"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabFav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabRippleColor="@color/md_blue_900"
+            app:tabSelectedTextColor="@color/md_blue_600"
+            app:tabTextColor="@color/text_color"
+            app:tabIndicatorColor="@color/md_blue_500"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabGravity="center"
+            app:tabMode="scrollable"
+            android:background="@android:color/transparent"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorFullWidth="true"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            android:elevation="0dp"
+            android:visibility="visible"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pagerFavorite"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tabKeywordSearch"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="wrap_content" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

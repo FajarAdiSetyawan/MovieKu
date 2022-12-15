@@ -1,0 +1,15 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+    <translate
+        android:duration="@android:integer/config_mediumAnimTime"
+        android:fromYDelta="0%p"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toYDelta="-100%p" />
+    <alpha android:fromAlpha="1.0" android:toAlpha="0.0"
+        android:duration="@android:integer/config_shortAnimTime" />
+</set>

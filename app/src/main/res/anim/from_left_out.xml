@@ -1,0 +1,12 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate android:fromXDelta="0"
+        android:toXDelta="-100%p"
+        android:duration="@integer/transition_page_duration"/>
+    <alpha android:fromAlpha="1.0" android:toAlpha="0.0" android:duration="@integer/transition_page_duration" />
+</set>

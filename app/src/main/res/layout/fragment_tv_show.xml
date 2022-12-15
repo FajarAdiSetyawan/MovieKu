@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="80dp"
+    android:scrollIndicators="none"
+    android:scrollbars="none"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_layout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#fff"
+            app:sliderIndicatorUnselectedColor="#5A5A5A"
+            app:sliderScrollTimeInSec="1"
+            app:sliderStartAutoCycle="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/airing_today"
+            android:textStyle="bold"
+            android:fontFamily="@font/quicksand_bold"
+            android:letterSpacing="0.15"
+            android:textSize="20sp"
+            android:background="@drawable/tab_indicator"
+            android:layout_marginTop="15dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:paddingBottom="5dp"
+            android:alpha="0.9"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_trending_tv_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/imageSlider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tv_popular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/trending"
+                android:layout_marginStart="10dp"
+                android:textSize="18sp" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutTrendingTvShow"
+                android:layout_below="@+id/tv_popular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tabSelectedTextColor="@color/text_color"
+                app:tabTextColor="@color/text_color"
+                app:tabIndicatorColor="@color/tab_color_purple"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabGravity="center"
+                app:tabMode="fixed"
+                app:tabBackground="@color/bg_layout"
+                app:tabIndicatorFullWidth="false"
+                app:tabMinWidth="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                android:elevation="0dp"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pagerTrendingTvShow"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tabLayoutTrendingTvShow"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/layout_trending_tv_show"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:padding="12dp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutTvShow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tabSelectedTextColor="@color/text_color"
+                app:tabTextColor="@color/text_color"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabIndicatorColor="@color/tab_color_purple"
+                app:tabGravity="center"
+                app:tabMode="fixed"
+                app:tabBackground="@color/bg_layout"
+                app:tabIndicatorFullWidth="false"
+                app:tabMinWidth="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                android:elevation="0dp"/>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pagerTvShow"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tabLayoutTvShow"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

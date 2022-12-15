@@ -1,0 +1,27 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="330.01dp"
+    android:height="330.01dp"
+    android:viewportWidth="330.01"
+    android:viewportHeight="330.01">
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M315.01,300h-55.24c42.45,-29.89 70.24,-79.26 70.24,-135c0,-90.98 -74.02,-165 -165,-165C74.02,0 0,74.02 0,165c0,90.98 74.02,165 165.01,165h150c8.28,0 15,-6.72 15,-15C330.01,306.72 323.29,300 315.01,300zM30,165C30,90.56 90.57,30 165.01,30c74.44,0 135,60.56 135,135c0,74.44 -60.56,135 -135,135C90.57,300 30,239.44 30,165z"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M165,225m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M165,105m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M105,165m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0"/>
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M225,165m-30,0a30,30 0,1 1,60 0a30,30 0,1 1,-60 0"/>
+</vector>

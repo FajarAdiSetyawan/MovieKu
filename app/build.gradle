@@ -1,0 +1,128 @@
+/*
+ * Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:40
+ * fajaras465@gmail.com
+ * Copyright (c) 2022.
+ */
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+//    id 'com.google.gms.google-services'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.fajaradisetyawan.movieku"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "MOVIEDB_API_KEY", moviedb_api_key)
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    // Default dependencies & Testing
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+    // Preferences
+    implementation "androidx.preference:preference-ktx:$preference"
+
+    // Work Manager for scheduling Task
+    implementation "androidx.work:work-runtime:$workRuntime"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    // Retrofit + GSON
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+
+    // Room components
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+
+    // Kotlin coroutine dependencies
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines"
+
+    // design
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    // shape view
+    implementation "io.github.florent37:shapeofview:$shapeofview"
+
+    // Paging 3
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
+
+    // custom toast
+    implementation "com.github.Spikeysanju:MotionToast:$motionToast"
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer"
+
+    // lottie animation
+    implementation "com.airbnb.android:lottie:$lottie"
+
+    implementation "com.github.antonKozyriatskyi:CircularProgressIndicator:$circularProgress"
+
+    implementation "com.github.smarteist:autoimageslider:$slider"
+
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+}
+
+kapt {
+    correctErrorTypes true
+}

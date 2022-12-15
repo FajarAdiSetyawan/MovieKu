@@ -1,0 +1,35 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/anim_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/movieFragment"
+        android:enabled="true"
+        android:icon="@drawable/anim_movie"
+        android:title="@string/movie" />
+    <item
+        android:id="@+id/tvShowFragment"
+        android:enabled="true"
+        android:icon="@drawable/anim_tv"
+        android:title="@string/tvshow" />
+    <item
+        android:id="@+id/popularPersonFragment"
+        android:enabled="true"
+        android:icon="@drawable/anim_person"
+        android:title="@string/person" />
+    <item
+        android:id="@+id/settingFragment"
+        android:enabled="true"
+        android:icon="@drawable/anim_setting"
+        android:title="@string/setting" />
+</menu>

@@ -1,0 +1,51 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="28dp"
+            android:height="28dp"
+            android:viewportWidth="28"
+            android:viewportHeight="28">
+            <path
+                android:name="path_1"
+                android:pathData="M 12.592 3.498 C 13.415 2.838 14.585 2.838 15.408 3.498 L 23.158 9.715 C 23.69 10.142 24 10.787 24 11.47 L 24 22.75 C 24 23.993 22.993 25 21.75 25 L 19.25 25 C 18.007 25 17 23.993 17 22.75 L 17 16.25 C 17 15.836 16.664 15.5 16.25 15.5 L 11.75 15.5 C 11.336 15.5 11 15.836 11 16.25 L 11 22.75 C 11 23.993 9.993 25 8.75 25 L 6.25 25 C 5.007 25 4 23.993 4 22.75 L 4 11.47 C 4 10.787 4.31 10.142 4.842 9.715 L 12.592 3.498 Z"
+                android:fillColor="#212121"
+                android:strokeWidth="1"/>
+            <path
+                android:name="path"
+                android:pathData="M 12.592 3.496 C 13.415 2.836 14.585 2.836 15.408 3.496 L 23.158 9.715 C 23.69 10.142 24 10.787 24 11.47 L 24 22.75 C 24 23.993 22.993 25 21.75 25 L 18.75 25 C 17.507 25 16.5 23.993 16.5 22.75 L 16.5 16.75 C 16.5 16.336 16.164 16 15.75 16 L 12.25 16 C 11.836 16 11.5 16.336 11.5 16.75 L 11.5 22.75 C 11.5 23.993 10.493 25 9.25 25 L 6.25 25 C 5.007 25 4 23.993 4 22.75 L 4 11.47 C 4 10.787 4.31 10.142 4.842 9.715 L 12.592 3.496 Z M 14.469 4.666 C 14.195 4.446 13.805 4.446 13.531 4.666 L 5.781 10.885 C 5.603 11.027 5.5 11.242 5.5 11.47 L 5.5 22.75 C 5.5 23.164 5.836 23.5 6.25 23.5 L 9.25 23.5 C 9.664 23.5 10 23.164 10 22.75 L 10 16.75 C 10 15.507 11.007 14.5 12.25 14.5 L 15.75 14.5 C 16.993 14.5 18 15.507 18 16.75 L 18 22.75 C 18 23.164 18.336 23.5 18.75 23.5 L 21.75 23.5 C 22.164 23.5 22.5 23.164 22.5 22.75 L 22.5 11.47 C 22.5 11.242 22.397 11.027 22.219 10.885 L 14.469 4.666 Z"
+                android:fillColor="#212121"
+                android:strokeWidth="1"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="path_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:startOffset="200"
+                    android:duration="400"
+                    android:valueFrom="1"
+                    android:valueTo="0"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:startOffset="600"
+                    android:duration="200"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

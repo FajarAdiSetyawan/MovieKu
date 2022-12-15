@@ -1,0 +1,22 @@
+/*
+ * Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:40
+ * fajaras465@gmail.com
+ * Copyright (c) 2022.
+ */
+
+//pluginManagement {
+//    repositories {
+//        gradlePluginPortal()
+//        google()
+//        mavenCentral()
+//    }
+//}
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//}
+rootProject.name = "MovieKu"
+include ':app'

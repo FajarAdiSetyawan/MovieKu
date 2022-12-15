@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite"/>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.movie.MovieFragment"
+        android:label="fragment_movie"
+        tools:layout="@layout/fragment_movie" >
+        <action
+            android:id="@+id/action_movieFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.tvshow.TvShowFragment"
+        android:label="fragment_tv_show"
+        tools:layout="@layout/fragment_tv_show" >
+        <action
+            android:id="@+id/action_tvShowFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/popularPersonFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.people.PopularPersonFragment"
+        android:label="fragment_popular_person"
+        tools:layout="@layout/fragment_popular_person" >
+        <action
+            android:id="@+id/action_popularPersonFragment_to_detailPersonFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.DetailMovieFragment"
+        android:label="fragment_detail_movie"
+        tools:layout="@layout/fragment_detail_movie" >
+        <argument
+            android:name="movieId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_detailMovieFragment_self"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_detailPersonFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_genreFragment"
+            app:destination="@id/genreFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_keywordFragment"
+            app:destination="@id/keywordFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_allPeopleMovieFragment"
+            app:destination="@id/allPeopleMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_detailCompanyFragment"
+            app:destination="@id/detailCompanyFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTvFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.DetailTvFragment"
+        android:label="fragment_detail_tv"
+        tools:layout="@layout/fragment_detail_tv">
+        <argument
+            android:name="tvShowId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_detailTvFragment_self"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_detailPersonFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_keywordFragment"
+            app:destination="@id/keywordFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_genreFragment"
+            app:destination="@id/genreFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_allPeopleTvShowFragment"
+            app:destination="@id/allPeopleTvShowFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_detailNetworkFragment"
+            app:destination="@id/detailNetworkFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_allSeasonFragment"
+            app:destination="@id/allSeasonFragment" />
+        <action
+            android:id="@+id/action_detailTvFragment_to_seasonFragment"
+            app:destination="@id/seasonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPeopleFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.people.detail.DetailPeopleFragment"
+        android:label="DetailPersonFragment"
+        tools:layout="@layout/fragment_detail_people">
+        <argument
+            android:name="personId"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_detailPersonFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_detailPersonFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.CollectionFragment"
+        android:label="CollectionFragment"
+        tools:layout="@layout/fragment_collection">
+        <argument
+            android:name="collection"
+            app:argType="com.fajaradisetyawan.movieku.data.model.movie.Collection" />
+        <action
+            android:id="@+id/action_collectionFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/genreFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.search.genre.GenreFragment"
+        android:label="fragment_genre"
+        tools:layout="@layout/fragment_genre" >
+        <argument
+            android:name="genre"
+            app:argType="com.fajaradisetyawan.movieku.data.model.Genre" />
+        <action
+            android:id="@+id/action_genreFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_genreFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/keywordFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.search.keyword.KeywordFragment"
+        android:label="fragment_keyword"
+        tools:layout="@layout/fragment_keyword" >
+        <argument
+            android:name="keyword"
+            app:argType="com.fajaradisetyawan.movieku.data.model.Keyword" />
+        <action
+            android:id="@+id/action_keywordFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_keywordFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/allPeopleMovieFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.people.allPeople.AllPeopleMovieFragment"
+        android:label="AllPeopleMovieFragment"
+        tools:layout="@layout/fragment_all_people_movie">
+        <argument
+            android:name="movieDetail"
+            app:argType="com.fajaradisetyawan.movieku.data.remote.response.movie.MovieDetailResponse" />
+        <action
+            android:id="@+id/action_allPeopleMovieFragment_to_detailPeopleFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/allPeopleTvShowFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.people.allPeople.AllPeopleTvShowFragment"
+        android:label="AllPeopleTvShowFragment"
+        tools:layout="@layout/fragment_all_people_tv_show">
+        <argument
+            android:name="tvShowDetail"
+            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+        <action
+            android:id="@+id/action_allPeopleTvShowFragment_to_detailPeopleFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailCompanyFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.DetailCompanyFragment"
+        android:label="DetailCompanyFragment"
+        tools:layout="@layout/fragment_detail_company">
+        <argument
+            android:name="companies"
+            app:argType="com.fajaradisetyawan.movieku.data.model.Companies"/>
+        <action
+            android:id="@+id/action_detailCompanyFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailNetworkFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.DetailNetworkFragment"
+        android:label="DetailNetworkFragment"
+        tools:layout="@layout/fragment_detail_network">
+        <argument
+            android:name="network"
+            app:argType="com.fajaradisetyawan.movieku.data.model.Network"/>
+        <action
+            android:id="@+id/action_detailNetworkFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/seasonFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.season.SeasonFragment"
+        android:label="fragment_season"
+        tools:layout="@layout/fragment_season" >
+        <argument
+            android:name="tvShowDetail"
+            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+        <argument
+            android:name="season"
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.Seasons" />
+        <action
+            android:id="@+id/action_seasonFragment_to_episodeFragment"
+            app:destination="@id/episodeFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/allSeasonFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.season.AllSeasonFragment"
+        android:label="AllSeasonFragment"
+        tools:layout="@layout/fragment_all_season">
+        <argument
+            android:name="tvShowDetail"
+            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+        <action
+            android:id="@+id/action_allSeasonFragment_to_seasonFragment"
+            app:destination="@id/seasonFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.episode.EpisodeFragment"
+        android:label="EpisodeFragment"
+        tools:layout="@layout/fragment_episode">
+        <argument
+            android:name="tvShowDetail"
+            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+        <argument
+            android:name="season"
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.Seasons" />
+        <argument
+            android:name="episode"
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.Episode" />
+        <action
+            android:id="@+id/action_episodeFragment_to_detailPeopleFragment"
+            app:destination="@id/detailPeopleFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+    </fragment>
+
+
+</navigation>

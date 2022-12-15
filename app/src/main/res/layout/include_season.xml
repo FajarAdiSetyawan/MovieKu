@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Fajar Adi Setyawan on 12/12/2022 - 10:35:6
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_layout">
+
+    <RelativeLayout
+        android:id="@+id/layout_season"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv_total_episode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/episodef"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/text_color"
+            android:fontFamily="@font/quicksand_bold"
+            android:textSize="17sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_episode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_total_episode"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:nestedScrollingEnabled="true"
+            tools:listitem="@layout/item_episode" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_episode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+
+            android:layout_below="@+id/tv_total_episode">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_shimmer"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="17sp"/>
+
+                <include layout="@layout/include_loading_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <include layout="@layout/include_loading_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <include layout="@layout/include_loading_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+                <include layout="@layout/include_loading_episode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <TextView
+            android:id="@+id/tv_episode_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_for_episode_empty"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:fontFamily="@font/worksans"
+            android:textSize="15sp"
+            android:layout_below="@+id/tv_total_episode"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/failed_load"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_failed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_failed_to_load"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:fontFamily="@font/quicksand_bold"
+                android:textSize="16sp"
+                tools:visibility="visible" />
+
+
+            <Button
+                android:id="@+id/btn_try_again"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/try_again"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/img_search"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="empty.json"
+                app:lottie_loop="true"
+                android:layout_gravity="center"
+                app:lottie_speed="1"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/data_for_episode_empty"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

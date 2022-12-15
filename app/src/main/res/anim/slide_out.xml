@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:38
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:duration="300"
+        android:fromAlpha="0"
+        android:toAlpha="1" />
+
+    <translate
+        android:duration="300"
+        android:fromXDelta="-100%"
+        android:toXDelta="0%" />
+
+</set>

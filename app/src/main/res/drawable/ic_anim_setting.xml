@@ -1,0 +1,62 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <group android:name="group">
+                <path
+                    android:name="path"
+                    android:pathData="M 12 9.5 C 13.381 9.5 14.5 10.619 14.5 12 C 14.5 13.381 13.381 14.5 12 14.5 C 10.619 14.5 9.5 13.381 9.5 12 C 9.5 10.619 10.619 9.5 12 9.5 Z"
+                    android:fillColor="#000"
+                    android:strokeWidth="1"/>
+                <group android:name="group_1">
+                    <path
+                        android:name="path_1"
+                        android:pathData="M 20.168 7.25 C 19.485 6.058 17.971 5.65 16.788 6.339 C 15.76 6.936 14.474 6.188 14.474 4.992 C 14.474 3.616 13.366 2.5 12 2.5 C 10.634 2.5 9.525 3.616 9.525 4.992 C 9.525 6.188 8.24 6.936 7.212 6.339 C 6.028 5.65 4.515 6.058 3.832 7.25 C 3.149 8.443 3.554 9.967 4.738 10.654 C 5.765 11.253 5.765 12.747 4.738 13.346 C 3.554 14.034 3.149 15.559 3.832 16.75 C 4.515 17.942 6.028 18.35 7.211 17.663 L 7.212 17.663 C 8.24 17.064 9.525 17.812 9.525 19.008 C 9.525 20.384 10.634 21.5 12 21.5 C 13.366 21.5 14.474 20.384 14.474 19.008 C 14.474 17.812 15.76 17.064 16.788 17.663 C 17.971 18.35 19.485 17.942 20.168 16.75 C 20.852 15.559 20.445 14.034 19.263 13.346 L 19.262 13.346 C 18.234 12.747 18.234 11.253 19.263 10.654 C 20.445 9.967 20.852 8.443 20.168 7.25 Z"
+                        android:fillColor="#000"
+                        android:fillAlpha="0"
+                        android:strokeColor="#000000"
+                        android:strokeWidth="1"/>
+                </group>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="rotation"
+                    android:duration="800"
+                    android:valueFrom="0"
+                    android:valueTo="360"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+                <objectAnimator
+                    android:propertyName="pivotX"
+                    android:duration="800"
+                    android:valueFrom="12"
+                    android:valueTo="12"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+                <objectAnimator
+                    android:propertyName="pivotY"
+                    android:duration="800"
+                    android:valueFrom="12"
+                    android:valueTo="12"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/accelerate_decelerate_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

@@ -1,0 +1,18 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2022.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="28dp"
+    android:viewportWidth="28"
+    android:viewportHeight="28">
+  <path
+      android:pathData="M12.592,3.498C13.415,2.838 14.585,2.838 15.408,3.498L23.158,9.715C23.69,10.142 24,10.787 24,11.47L24,22.75C24,23.993 22.993,25 21.75,25L19.25,25C18.007,25 17,23.993 17,22.75L17,16.25C17,15.836 16.664,15.5 16.25,15.5L11.75,15.5C11.336,15.5 11,15.836 11,16.25L11,22.75C11,23.993 9.993,25 8.75,25L6.25,25C5.007,25 4,23.993 4,22.75L4,11.47C4,10.787 4.31,10.142 4.842,9.715L12.592,3.498Z"
+      android:strokeWidth="1"
+      android:fillColor="#212121"
+      android:fillType="nonZero"
+      android:strokeColor="#00000000"/>
+</vector>
