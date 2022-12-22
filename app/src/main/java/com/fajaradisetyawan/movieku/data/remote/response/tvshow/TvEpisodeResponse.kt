@@ -6,10 +6,14 @@
 
 package com.fajaradisetyawan.movieku.data.remote.response.tvshow
 
+import android.os.Parcelable
+import com.fajaradisetyawan.movieku.data.model.people.Cast
 import com.fajaradisetyawan.movieku.data.model.people.Crew
 import com.fajaradisetyawan.movieku.data.model.tvshow.GuestStar
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class TvEpisodeResponse(
     @SerializedName("id")
     var id: Int = 0,
@@ -52,4 +56,6 @@ data class TvEpisodeResponse(
 
     @SerializedName("guest_stars")
     val guestStar: List<GuestStar>,
-)
+): Parcelable {
+    val baseUrl get() = "https://image.tmdb.org/t/p/w400"
+}

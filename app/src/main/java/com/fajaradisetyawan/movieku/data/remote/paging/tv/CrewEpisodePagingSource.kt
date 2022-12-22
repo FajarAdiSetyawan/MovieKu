@@ -6,6 +6,7 @@
 
 package com.fajaradisetyawan.movieku.data.remote.paging.tv
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.fajaradisetyawan.movieku.BuildConfig
 import com.fajaradisetyawan.movieku.data.model.people.Crew
@@ -24,7 +25,7 @@ class CrewEpisodePagingSource(
         return try {
             val response = tvShowApi.getCreditEpisodeTvShow(idTv, idSeason, idEpisode, BuildConfig.MOVIEDB_API_KEY)
             val crew = response.crew
-
+            Log.d("TAG", "onSuccessCrewEpisode: idTv: $idTv idSeason: $idSeason, idEpisode: $idEpisode")
             LoadResult.Page(
                 data = crew,
                 prevKey = null,

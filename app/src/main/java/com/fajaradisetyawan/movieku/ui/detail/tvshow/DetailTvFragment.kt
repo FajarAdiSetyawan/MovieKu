@@ -590,8 +590,8 @@ class DetailTvFragment : Fragment() {
             }
 
             creatorAdapter!!.setOnItemClickListener { creator ->
-//                val sendData = DetailTvFragmentDirections.actionDetailTvShowFragmentToDetailPersonFragment(creator.id)
-//                Navigation.findNavController(requireView()).navigate(sendData)
+                val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToDetailPersonFragment(creator.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
             }
         }
     }

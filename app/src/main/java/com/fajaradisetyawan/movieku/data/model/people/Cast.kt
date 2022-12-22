@@ -7,6 +7,7 @@
 package com.fajaradisetyawan.movieku.data.model.people
 
 import android.os.Parcelable
+import com.fajaradisetyawan.movieku.data.model.Genre
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -36,7 +37,7 @@ data class Cast(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("roles")
-    val roles: List<Role>,
+    var roles: MutableList<Role> = ArrayList(),
     @SerializedName("total_episode_count")
     val totalEpisodeCount: Int,
 ): Parcelable {

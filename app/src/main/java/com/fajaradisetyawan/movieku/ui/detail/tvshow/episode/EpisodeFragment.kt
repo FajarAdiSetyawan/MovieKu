@@ -14,7 +14,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,8 +21,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -32,11 +34,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.fajaradisetyawan.movieku.R
-import com.fajaradisetyawan.movieku.adapter.AllCastAdapter
-import com.fajaradisetyawan.movieku.adapter.AllCrewAdapter
-import com.fajaradisetyawan.movieku.adapter.GuestStarAdapter
+import com.fajaradisetyawan.movieku.adapter.*
+import com.fajaradisetyawan.movieku.adapter.paging.StateAdapter
 import com.fajaradisetyawan.movieku.data.model.tvshow.Episode
 import com.fajaradisetyawan.movieku.databinding.FragmentEpisodeBinding
+import com.fajaradisetyawan.movieku.ui.detail.tvshow.episode.viewmodel.EpisodeViewModel
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,13 +51,13 @@ class EpisodeFragment : Fragment() {
     private val binding get() = fragmentEpisodeBinding!!
 
     private val args by navArgs<EpisodeFragmentArgs>()
+    private val viewModel by viewModels<EpisodeViewModel>()
 
     private var duration = ""
     private var name = ""
 
-    private var guestStarAdapter: GuestStarAdapter? = null
-    private var regularSeasonAdapter: AllCastAdapter? = null
-    private var crewEpisodeAdapter: AllCrewAdapter? = null
+    private var directedByAdapter: DirectedByAdapter? = null
+    private var writtenByAdapter: WrittenByAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,15 +72,20 @@ class EpisodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tvShowDetail = args.tvShowDetail
-        val seasons = args.season
         val episode = args.episode
 
+        Log.d("TAG", "onSuccessEpisode: $episode")
+
         populateEpisode(episode)
+        getCrew(episode)
+        getRegularSeason(episode)
+        getGuestStar(episode)
+        getDirectedBy(episode)
+        getWrittenBy(episode)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun populateEpisode(episode: Episode){
+    private fun populateEpisode(episode: Episode) {
         with(binding) {
             name = episode.name.toString()
             binding.tvTitle.text = episode.name
@@ -86,11 +93,15 @@ class EpisodeFragment : Fragment() {
             val progress = episode.voteAverage * 10
 
             if (progress >= 70) {
-                layoutContent.progressCircular.progressColor = ContextCompat.getColor(requireActivity(), R.color.md_green_A700)
-                layoutContent.progressCircular.dotColor = ContextCompat.getColor(requireActivity(), R.color.md_green_900)
+                layoutContent.progressCircular.progressColor =
+                    ContextCompat.getColor(requireActivity(), R.color.md_green_A700)
+                layoutContent.progressCircular.dotColor =
+                    ContextCompat.getColor(requireActivity(), R.color.md_green_900)
             } else {
-                layoutContent.progressCircular.progressColor = ContextCompat.getColor(requireActivity(), R.color.md_yellow_500)
-                layoutContent.progressCircular.dotColor = ContextCompat.getColor(requireActivity(), R.color.md_yellow_800)
+                layoutContent.progressCircular.progressColor =
+                    ContextCompat.getColor(requireActivity(), R.color.md_yellow_500)
+                layoutContent.progressCircular.dotColor =
+                    ContextCompat.getColor(requireActivity(), R.color.md_yellow_800)
             }
 
             layoutContent.progressCircular.setProgress(progress, 100.0)
@@ -99,15 +110,14 @@ class EpisodeFragment : Fragment() {
             val voteCount = NumberFormat.getNumberInstance(Locale.US).format(episode.voteCount)
             layoutContent.tvVote.text = resources.getString(R.string.vote, voteCount)
 
-            if (episode.airDate == null || episode.airDate == ""){
+            if (episode.airDate == null || episode.airDate == "") {
                 layoutContent.tvReleaseDate.text = "-"
-            }else{
+            } else {
                 layoutContent.tvReleaseDate.text = ParseDateTime.parseDate(episode.airDate)
             }
 
             val hours: Int = episode.runtime / 60
             val minutes: Int = episode.runtime % 60
-
             duration = if (episode.runtime <= 60) {
                 resources.getString(R.string.timemin, episode.runtime)
             } else {
@@ -115,7 +125,6 @@ class EpisodeFragment : Fragment() {
             }
 
             layoutContent.tvRuntime.text = duration
-
 
             when (episode.overview) {
                 "" -> binding.tvOverview.text =
@@ -165,134 +174,228 @@ class EpisodeFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun getRegularSeason(episode: Episode){
-//        binding.layoutContent.apply {
-//            rvRegular.layoutManager =
-//                LinearLayoutManager(
-//                    requireActivity(),
-//                    LinearLayoutManager.HORIZONTAL,
-//                    false
-//                )
-//            rvRegular.setHasFixedSize(true)
-//
-//            regularSeasonAdapter = AllCastAdapter()
-//            rvRegular.adapter = regularSeasonAdapter
-//
-//            shimmerRegular.visibility = View.VISIBLE
-//            shimmerRegular.startShimmer()
-//
-//            if (episode.) {
-//                rvRegular.visibility = View.INVISIBLE
-//                tvRegularEmpty.visibility = View.VISIBLE
-//            } else {
-//                regularSeasonAdapter!!.submitList(cast)
-//                regularSeasonAdapter!!.notifyDataSetChanged()
-//                rvRegular.visibility = View.VISIBLE
-//
-//            }
-//
-//            viewModel.episodeCastTvShowFailure.observe(viewLifecycleOwner){error ->
-//                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//
-//            regularSeasonAdapter!!.setOnItemClickListener { cast ->
-//                val sendData = EpisodeFragmentDirections.actionEpisodeFragmentToDetailPersonFragment(cast.id)
-//                Navigation.findNavController(requireView()).navigate(sendData)
-//            }
-//        }
+    private fun getRegularSeason(episode: Episode) {
+        val adapter = CastPagingAdapter()
+
+        binding.layoutContent.apply {
+            rvRegular.layoutManager =
+                LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            rvRegular.setHasFixedSize(true)
+
+            rvRegular.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = StateAdapter { adapter.retry() },
+                footer = StateAdapter { adapter.retry() }
+            )
+
+            viewModel.getCreditsEpisode(episode)
+            viewModel.cast.observe(viewLifecycleOwner) { result ->
+                adapter.submitData(viewLifecycleOwner.lifecycle, result)
+            }
+
+            adapter.addLoadStateListener { loadState ->
+                when (val state = loadState.source.refresh) {
+                    is LoadState.NotLoading -> {
+                        hideLoadingCast()
+                        if (adapter.itemCount < 1) {
+                            tvRegularEmpty.visibility = View.VISIBLE
+                        } else {
+                            tvRegularEmpty.visibility = View.GONE
+                        }
+                    }
+                    is LoadState.Loading -> {
+                        showLoadingCast()
+                    }
+                    is LoadState.Error -> {
+                        showErrorCast()
+                        Toast.makeText(
+                            requireActivity(),
+                            state.error.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            adapter.setOnItemClickListener { cast ->
+                val sendData = EpisodeFragmentDirections.actionEpisodeFragmentToDetailPeopleFragment(cast.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun getGuestStar(idTv: Int, idSeason: Int, idEpisode: Int){
-//        binding.layoutContent.apply {
-//            rvGuestStar.layoutManager =
-//                LinearLayoutManager(
-//                    requireActivity(),
-//                    LinearLayoutManager.HORIZONTAL,
-//                    false
-//                )
-//            rvGuestStar.setHasFixedSize(true)
-//
-//            guestStarAdapter = GuestStarAdapter()
-//            rvGuestStar.adapter = guestStarAdapter
-//
-//            shimmerGuestStar.visibility = View.VISIBLE
-//            shimmerGuestStar.startShimmer()
-//
-//            viewModel.episodeGuestStar(idTv, idSeason, idEpisode)
-//            viewModel.episodeGuestStarSuccess.observe(viewLifecycleOwner){guest ->
-//                shimmerGuestStar.visibility = View.GONE
-//                shimmerGuestStar.stopShimmer()
-//
-//                if (guest!!.isEmpty()) {
-//                    rvGuestStar.visibility = View.INVISIBLE
-//                    tvGuestStarEmpty.visibility = View.VISIBLE
-//                } else {
-//                    guestStarAdapter!!.submitList(guest)
-//                    guestStarAdapter!!.notifyDataSetChanged()
-//                    rvGuestStar.visibility = View.VISIBLE
-//
-//                }
-//                Log.d("TAG", "onSuccessGuestStar: $guest")
-//            }
-//
-//            viewModel.episodeGuestStarFailure.observe(viewLifecycleOwner){error ->
-//                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//
-//            guestStarAdapter!!.setOnItemClickListener { guest ->
-//                val sendData = EpisodeFragmentDirections.actionEpisodeFragmentToDetailPersonFragment(guest.id)
-//                Navigation.findNavController(requireView()).navigate(sendData)
-//            }
-//        }
+    private fun getGuestStar(episode: Episode) {
+        val adapter = GuestStarPagingAdapter()
+
+        binding.layoutContent.apply {
+            rvGuestStar.layoutManager =
+                LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            rvGuestStar.setHasFixedSize(true)
+
+            rvGuestStar.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = StateAdapter { adapter.retry() },
+                footer = StateAdapter { adapter.retry() }
+            )
+
+            viewModel.getCreditsEpisode(episode)
+            viewModel.guestStar.observe(viewLifecycleOwner) { result ->
+                adapter.submitData(viewLifecycleOwner.lifecycle, result)
+            }
+
+            adapter.addLoadStateListener { loadState ->
+                when (val state = loadState.source.refresh) {
+                    is LoadState.NotLoading -> {
+                        hideLoadingGuest()
+                        if (adapter.itemCount < 1) {
+                            tvGuestStarEmpty.visibility = View.VISIBLE
+                        } else {
+                            tvGuestStarEmpty.visibility = View.GONE
+                        }
+                    }
+                    is LoadState.Loading -> {
+                        showLoadingGuest()
+                    }
+                    is LoadState.Error -> {
+                        showErrorGuest()
+                        Toast.makeText(
+                            requireActivity(),
+                            state.error.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            adapter.setOnItemClickListener { cast ->
+                val sendData = EpisodeFragmentDirections.actionEpisodeFragmentToDetailPeopleFragment(cast.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun getCrew(idTv: Int, idSeason: Int, idEpisode: Int){
-//        binding.layoutContent.apply {
-//            rvCrew.layoutManager =
-//                LinearLayoutManager(
-//                    requireActivity(),
-//                    LinearLayoutManager.HORIZONTAL,
-//                    false
-//                )
-//            rvCrew.setHasFixedSize(true)
-//
-//            crewEpisodeAdapter = CrewEpisodeAdapter()
-//            rvCrew.adapter = crewEpisodeAdapter
-//
-//            shimmerCrew.visibility = View.VISIBLE
-//            shimmerCrew.startShimmer()
-//
-//            viewModel.episodeCrewTvShow(idTv, idSeason, idEpisode)
-//            viewModel.episodeCrewTvShowSuccess.observe(viewLifecycleOwner){crew ->
-//                shimmerCrew.visibility = View.GONE
-//                shimmerCrew.stopShimmer()
-//
-//                if (crew!!.isEmpty()) {
-//                    rvCrew.visibility = View.INVISIBLE
-//                    tvCrewEmpty.visibility = View.VISIBLE
-//                } else {
-//                    crewEpisodeAdapter!!.setCrew(crew)
-//                    crewEpisodeAdapter!!.notifyDataSetChanged()
-//                    rvCrew.visibility = View.VISIBLE
-//
-//                }
-//                Log.d("TAG", "onSuccessCrewEpisode: $crew")
-//            }
-//
-//            viewModel.episodeCrewTvShowFailure.observe(viewLifecycleOwner){error ->
-//                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//
-//            crewEpisodeAdapter!!.setOnItemClickListener { crew ->
-//                val sendData = EpisodeFragmentDirections.actionEpisodeFragmentToDetailPersonFragment(crew.id)
-//                Navigation.findNavController(requireView()).navigate(sendData)
-//            }
-//        }
+    private fun getCrew(episode: Episode) {
+        val adapter = CrewPagingAdapter()
+
+        binding.layoutContent.apply {
+            rvCrew.layoutManager =
+                LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+            rvCrew.setHasFixedSize(true)
+
+            rvCrew.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = StateAdapter { adapter.retry() },
+                footer = StateAdapter { adapter.retry() }
+            )
+
+            viewModel.getCreditsEpisode(episode)
+            viewModel.crew.observe(viewLifecycleOwner) { result ->
+                adapter.submitData(viewLifecycleOwner.lifecycle, result)
+            }
+
+            adapter.addLoadStateListener { loadState ->
+                when (val state = loadState.source.refresh) {
+                    is LoadState.NotLoading -> {
+                        hideLoadingCrew()
+                        if (adapter.itemCount < 1) {
+                            tvCrewEmpty.visibility = View.VISIBLE
+                        } else {
+                            tvCrewEmpty.visibility = View.GONE
+                        }
+                    }
+                    is LoadState.Loading -> {
+                        showLoadingCrew()
+                    }
+                    is LoadState.Error -> {
+                        showErrorCrew()
+                        Toast.makeText(
+                            requireActivity(),
+                            state.error.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            adapter.setOnItemClickListener { crew ->
+                val sendData =
+                    EpisodeFragmentDirections.actionEpisodeFragmentToDetailPeopleFragment(crew.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getDirectedBy(episode: Episode){
+        binding.layoutContent.apply {
+            rvDirected.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            rvDirected.setHasFixedSize(true)
+
+            directedByAdapter = DirectedByAdapter()
+            rvDirected.adapter = directedByAdapter
+
+            viewModel.getDetailEpisode(episode.idTvShow, episode.seasonNumber, episode.episodeNumber)
+            viewModel.detail.observe(viewLifecycleOwner) { detail ->
+
+                if (detail!!.crew.isNotEmpty()) {
+                    tvDirectedEmpty.visibility = View.GONE
+                    directedByAdapter!!.setDirector(detail.crew)
+                    directedByAdapter!!.notifyDataSetChanged()
+                    rvDirected.visibility = View.VISIBLE
+                } else {
+                    rvDirected.visibility = View.GONE
+                    tvDirectedEmpty.visibility = View.VISIBLE
+                }
+            }
+
+            directedByAdapter!!.setOnItemClickListener { crew ->
+                val sendData =
+                    EpisodeFragmentDirections.actionEpisodeFragmentToDetailPeopleFragment(crew.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getWrittenBy(episode: Episode){
+        binding.layoutContent.apply {
+            rvWritten.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+            rvWritten.setHasFixedSize(true)
+
+            writtenByAdapter = WrittenByAdapter()
+            rvWritten.adapter = writtenByAdapter
+
+            viewModel.getDetailEpisode(episode.idTvShow, episode.seasonNumber, episode.episodeNumber)
+            viewModel.detail.observe(viewLifecycleOwner) { detail ->
+
+                if (detail!!.crew.isNotEmpty()) {
+                    tvWrittenEmpty.visibility = View.GONE
+                    writtenByAdapter!!.setWriter(detail.crew)
+                    writtenByAdapter!!.notifyDataSetChanged()
+                    rvWritten.visibility = View.VISIBLE
+                } else {
+                    rvWritten.visibility = View.GONE
+                    tvWrittenEmpty.visibility = View.VISIBLE
+                }
+            }
+
+            directedByAdapter!!.setOnItemClickListener { crew ->
+                val sendData =
+                    EpisodeFragmentDirections.actionEpisodeFragmentToDetailPeopleFragment(crew.id)
+                Navigation.findNavController(requireView()).navigate(sendData)
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -332,7 +435,7 @@ class EpisodeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("UseCompatTextViewDrawableApis")
     private fun scrollToolbar(colorToolbar: Int?, textColor: Int?) {
-        if (colorToolbar != null && textColor != null){
+        if (colorToolbar != null && textColor != null) {
             requireActivity().window.statusBarColor = colorToolbar
             binding.layoutToolbar.setBackgroundColor(colorToolbar)
             binding.tvTitle.setTextColor(textColor)
@@ -341,15 +444,41 @@ class EpisodeFragment : Fragment() {
             binding.btnBack.setBackgroundColor(textColor)
             binding.btnBack.compoundDrawableTintList =
                 ColorStateList.valueOf(colorToolbar)
-        }else {
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.color_primary)
-            binding.layoutToolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+        } else {
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.color_primary)
+            binding.layoutToolbar.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.color_primary
+                )
+            )
             binding.tvTitle.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-            binding.tvOverview.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
-            binding.btnBack.setTextColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-            binding.btnBack.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.white))
+            binding.tvOverview.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.white
+                )
+            )
+            binding.btnBack.setTextColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.color_primary
+                )
+            )
+            binding.btnBack.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.white
+                )
+            )
             binding.btnBack.compoundDrawableTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.color_primary
+                    )
+                )
         }
 
         val activity = activity as AppCompatActivity?
@@ -393,8 +522,18 @@ class EpisodeFragment : Fragment() {
                             binding.collapsingToolbar.setCollapsedTitleTextColor(textColor)
                             nav.setTint(textColor)
                         } else {
-                            binding.toolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-                            binding.collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+                            binding.toolbar.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    R.color.color_primary
+                                )
+                            )
+                            binding.collapsingToolbar.setCollapsedTitleTextColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    R.color.white
+                                )
+                            )
                             binding.toolbar.setTitleTextColor(R.color.white)
                             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
                         }
@@ -410,6 +549,96 @@ class EpisodeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun showLoadingCast() {
+        binding.layoutContent.apply {
+            shimmerRegular.visibility = View.VISIBLE
+            shimmerRegular.startShimmer()
+            rvRegular.visibility = View.GONE
+            failedLoadRegular.visibility = View.GONE
+            tvRegularEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoadingCast() {
+        binding.layoutContent.apply {
+            shimmerRegular.visibility = View.GONE
+            shimmerRegular.stopShimmer()
+            rvRegular.visibility = View.VISIBLE
+            failedLoadRegular.visibility = View.GONE
+            tvRegularEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun showErrorCast() {
+        binding.layoutContent.apply {
+            shimmerRegular.visibility = View.GONE
+            shimmerRegular.stopShimmer()
+            rvRegular.visibility = View.GONE
+            failedLoadRegular.visibility = View.VISIBLE
+            tvRegularEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun showLoadingCrew() {
+        binding.layoutContent.apply {
+            shimmerCrew.visibility = View.VISIBLE
+            shimmerCrew.startShimmer()
+            rvCrew.visibility = View.GONE
+            failedLoadCrew.visibility = View.GONE
+            tvCrewEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoadingCrew() {
+        binding.layoutContent.apply {
+            shimmerCrew.visibility = View.GONE
+            shimmerCrew.stopShimmer()
+            rvCrew.visibility = View.VISIBLE
+            failedLoadCrew.visibility = View.GONE
+            tvCrewEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun showErrorCrew() {
+        binding.layoutContent.apply {
+            shimmerCrew.visibility = View.GONE
+            shimmerCrew.stopShimmer()
+            rvCrew.visibility = View.GONE
+            failedLoadCrew.visibility = View.VISIBLE
+            tvCrewEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun showLoadingGuest() {
+        binding.layoutContent.apply {
+            shimmerGuestStar.visibility = View.VISIBLE
+            shimmerGuestStar.startShimmer()
+            rvGuestStar.visibility = View.GONE
+            failedLoadGuest.visibility = View.GONE
+            tvGuestStarEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoadingGuest() {
+        binding.layoutContent.apply {
+            shimmerGuestStar.visibility = View.GONE
+            shimmerGuestStar.stopShimmer()
+            rvGuestStar.visibility = View.VISIBLE
+            failedLoadGuest.visibility = View.GONE
+            tvGuestStarEmpty.visibility = View.GONE
+        }
+    }
+
+    private fun showErrorGuest() {
+        binding.layoutContent.apply {
+            shimmerGuestStar.visibility = View.GONE
+            shimmerGuestStar.stopShimmer()
+            rvGuestStar.visibility = View.GONE
+            failedLoadGuest.visibility = View.VISIBLE
+            tvGuestStarEmpty.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {

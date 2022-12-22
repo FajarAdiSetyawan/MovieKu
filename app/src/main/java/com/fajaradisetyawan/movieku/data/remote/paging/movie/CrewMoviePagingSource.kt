@@ -21,7 +21,7 @@ class CrewMoviePagingSource(
 ) : PagingSource<Int, Crew>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Crew> {
         return try {
-            val response = movieApi.getMovieCredits(idMovie, BuildConfig.MOVIEDB_API_KEY)
+            val response = movieApi.getMovieCreditsPaging(idMovie, BuildConfig.MOVIEDB_API_KEY)
             val crew = response.crew
 
             LoadResult.Page(

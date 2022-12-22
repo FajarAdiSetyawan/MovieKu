@@ -78,6 +78,7 @@
 
     <style name="TabLayoutTextStyle" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:letterSpacing">0.2</item>
     </style>
 
     <style name="Theme.MovieKu.NoActionBar">

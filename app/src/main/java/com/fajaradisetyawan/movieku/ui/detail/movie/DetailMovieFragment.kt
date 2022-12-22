@@ -118,8 +118,6 @@ class DetailMovieFragment : Fragment() {
                 getExternalIds(movieId)
             }
         }
-
-
     }
 
     @SuppressLint("SetTextI18n", "ResourceAsColor", "StringFormatMatches", "NotifyDataSetChanged")

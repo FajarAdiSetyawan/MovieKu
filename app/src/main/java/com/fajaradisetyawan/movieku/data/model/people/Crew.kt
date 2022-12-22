@@ -21,7 +21,7 @@ data class Crew(
     @SerializedName("gender")
     val gender: Int,
     @SerializedName("job")
-    val job: String,
+    val job: String = "",
     @SerializedName("name")
     val name: String,
     @SerializedName("original_name")

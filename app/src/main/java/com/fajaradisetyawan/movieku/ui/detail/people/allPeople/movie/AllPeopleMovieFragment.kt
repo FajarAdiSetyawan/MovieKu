@@ -1,10 +1,10 @@
 /*
- * Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:40
+ * Created by Fajar Adi Setyawan on 21/12/2022 - 11:38:54
  * fajaras465@gmail.com
  * Copyright (c) 2022.
  */
 
-package com.fajaradisetyawan.movieku.ui.detail.people.allPeople
+package com.fajaradisetyawan.movieku.ui.detail.people.allPeople.movie
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -15,17 +15,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.paging.LoadState
 import androidx.palette.graphics.Palette
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -33,15 +31,15 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.fajaradisetyawan.movieku.R
-import com.fajaradisetyawan.movieku.adapter.CastPagingAdapter
-import com.fajaradisetyawan.movieku.adapter.CrewPagingAdapter
-import com.fajaradisetyawan.movieku.adapter.paging.StateAdapter
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieDetailResponse
 import com.fajaradisetyawan.movieku.databinding.FragmentAllPeopleMovieBinding
-import com.fajaradisetyawan.movieku.ui.detail.people.allPeople.viewmodel.AllPeopleMovieViewModel
+import com.fajaradisetyawan.movieku.ui.detail.people.allPeople.movie.viewmodel.AllPeopleMovieViewModel
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class AllPeopleMovieFragment : Fragment() {
@@ -81,8 +79,64 @@ class AllPeopleMovieFragment : Fragment() {
         activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
 
         populateMovie(movie)
-        allCrewMovie(movie.id)
-        allCastMovie(movie.id)
+        val pagerAdapter = ViewPagerAdapter(requireActivity(), movie.id)
+        binding.pagerAllPeople.adapter = pagerAdapter
+
+        viewModel.getCreditMovie(movie.id)
+        viewModel.movieCredit.observe(viewLifecycleOwner){ result ->
+            val badge1Drawable: BadgeDrawable = binding.tabAllPeople.getTabAt(0)!!.orCreateBadge
+            badge1Drawable.isVisible = true
+            badge1Drawable.maxCharacterCount = 3
+            badge1Drawable.badgeGravity = BadgeDrawable.BOTTOM_END
+            if (result!!.cast.isNotEmpty()){
+                badge1Drawable.number = result.cast.size
+            }else{
+                badge1Drawable.number = 0
+            }
+
+            val badge2Drawable: BadgeDrawable = binding.tabAllPeople.getTabAt(1)!!.orCreateBadge
+            badge2Drawable.isVisible = true
+            badge2Drawable.maxCharacterCount = 3
+            badge2Drawable.badgeGravity = BadgeDrawable.BOTTOM_END
+            if (result.crew.isNotEmpty()){
+                badge2Drawable.number = result.crew.size
+            }else{
+                badge2Drawable.number = 0
+            }
+        }
+
+        TabLayoutMediator(binding.tabAllPeople, binding.pagerAllPeople) { tab, position ->
+            val tabNames =
+                listOf(resources.getString(R.string.cast), resources.getString(R.string.crew))
+            tab.text = tabNames[position]
+        }.attach()
+    }
+
+    internal class ViewPagerAdapter(
+        fragmentActivity: FragmentActivity,
+        private val movieId: Int
+    ) : FragmentStateAdapter(fragmentActivity) {
+
+        override fun createFragment(position: Int): Fragment {
+            //bundle to send genre id
+            val bundle = Bundle()
+            bundle.putInt("movieId", movieId)
+
+            val castMovie = AllCastMovieFragment()
+            val crewMovie = AllCrewMovieFragment()
+
+            castMovie.arguments = bundle
+            crewMovie.arguments = bundle
+
+            return when (position) {
+                0 -> castMovie
+                else -> crewMovie
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return 2
+        }
     }
 
     private fun populateMovie(movieDetail: MovieDetailResponse) {
@@ -175,112 +229,6 @@ class AllPeopleMovieFragment : Fragment() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun allCastMovie(idMovie: Int) {
-        val adapter = CastPagingAdapter()
-
-        binding.layoutContent.apply {
-            rvAllCast.layoutManager =
-                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            rvAllCast.setHasFixedSize(true)
-
-            rvAllCast.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = StateAdapter { adapter.retry() },
-                footer = StateAdapter { adapter.retry() }
-            )
-
-            viewModel.getCreditsMovie(idMovie)
-            viewModel.cast.observe(viewLifecycleOwner) { result ->
-                adapter.submitData(viewLifecycleOwner.lifecycle, result)
-            }
-
-            adapter.addLoadStateListener { loadState ->
-                when (val state = loadState.source.refresh) {
-                    is LoadState.NotLoading -> {
-                        hideLoadingCast()
-                        if (adapter.itemCount < 1) {
-                            tvCastEmpty.visibility = View.VISIBLE
-                        } else {
-                            tvCastEmpty.visibility = View.GONE
-                        }
-                    }
-                    is LoadState.Loading -> {
-                        showLoadingCast()
-                    }
-                    is LoadState.Error -> {
-                        showErrorCast()
-                        Toast.makeText(
-                            requireActivity(),
-                            state.error.message.orEmpty(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-            adapter.setOnItemClickListener { cast ->
-                val sendData =
-                    AllPeopleMovieFragmentDirections.actionAllPeopleMovieFragmentToDetailPeopleFragment(
-                        cast.id
-                    )
-                Navigation.findNavController(requireView()).navigate(sendData)
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun allCrewMovie(idMovie: Int) {
-        val adapter = CrewPagingAdapter()
-
-        binding.layoutContent.apply {
-            rvAllCrew.layoutManager =
-                LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-            rvAllCrew.setHasFixedSize(true)
-
-            rvAllCrew.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = StateAdapter { adapter.retry() },
-                footer = StateAdapter { adapter.retry() }
-            )
-
-            viewModel.getCreditsMovie(idMovie)
-            viewModel.crew.observe(viewLifecycleOwner) { result ->
-                adapter.submitData(viewLifecycleOwner.lifecycle, result)
-            }
-
-            adapter.addLoadStateListener { loadState ->
-                when (val state = loadState.source.refresh) {
-                    is LoadState.NotLoading -> {
-                        hideLoadingCrew()
-                        if (adapter.itemCount < 1) {
-                            tvCrewEmpty.visibility = View.VISIBLE
-                        } else {
-                            tvCrewEmpty.visibility = View.GONE
-                        }
-                    }
-                    is LoadState.Loading -> {
-                        showLoadingCrew()
-                    }
-                    is LoadState.Error -> {
-                        showErrorCrew()
-                        Toast.makeText(
-                            requireActivity(),
-                            state.error.message.orEmpty(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-            adapter.setOnItemClickListener { crew ->
-                val sendData =
-                    AllPeopleMovieFragmentDirections.actionAllPeopleMovieFragmentToDetailPeopleFragment(
-                        crew.id
-                    )
-                Navigation.findNavController(requireView()).navigate(sendData)
-            }
-        }
-    }
-
     @SuppressLint("ResourceType")
     private fun toolbarColor(resource: Bitmap?) {
         if (resource != null) {
@@ -362,65 +310,6 @@ class AllPeopleMovieFragment : Fragment() {
         })
     }
 
-    private fun showLoadingCast() {
-        binding.layoutContent.apply {
-            shimmerCast.visibility = View.VISIBLE
-            shimmerCast.startShimmer()
-            rvAllCast.visibility = View.GONE
-            failedLoadCast.visibility = View.GONE
-            tvCastEmpty.visibility = View.GONE
-        }
-    }
-
-    private fun hideLoadingCast() {
-        binding.layoutContent.apply {
-            shimmerCast.visibility = View.GONE
-            shimmerCast.stopShimmer()
-            rvAllCast.visibility = View.VISIBLE
-            failedLoadCast.visibility = View.GONE
-            tvCastEmpty.visibility = View.GONE
-        }
-    }
-
-    private fun showErrorCast() {
-        binding.layoutContent.apply {
-            shimmerCast.visibility = View.GONE
-            shimmerCast.stopShimmer()
-            rvAllCast.visibility = View.GONE
-            failedLoadCast.visibility = View.VISIBLE
-            tvCastEmpty.visibility = View.GONE
-        }
-    }
-
-    private fun showLoadingCrew() {
-        binding.layoutContent.apply {
-            shimmerCrew.visibility = View.VISIBLE
-            shimmerCrew.startShimmer()
-            rvAllCrew.visibility = View.GONE
-            failedLoadCrew.visibility = View.GONE
-            tvCrewEmpty.visibility = View.GONE
-        }
-    }
-
-    private fun hideLoadingCrew() {
-        binding.layoutContent.apply {
-            shimmerCrew.visibility = View.GONE
-            shimmerCrew.stopShimmer()
-            rvAllCrew.visibility = View.VISIBLE
-            failedLoadCrew.visibility = View.GONE
-            tvCrewEmpty.visibility = View.GONE
-        }
-    }
-
-    private fun showErrorCrew() {
-        binding.layoutContent.apply {
-            shimmerCrew.visibility = View.GONE
-            shimmerCrew.stopShimmer()
-            rvAllCrew.visibility = View.GONE
-            failedLoadCrew.visibility = View.VISIBLE
-            tvCrewEmpty.visibility = View.GONE
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()

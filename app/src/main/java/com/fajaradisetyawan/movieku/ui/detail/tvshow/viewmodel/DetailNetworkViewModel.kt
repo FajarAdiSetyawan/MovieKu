@@ -26,7 +26,7 @@ class DetailNetworkViewModel @Inject constructor(
     private val idNetwork = MutableLiveData<String>()
     val tvShow = idNetwork.switchMap { networkId ->
         if (networkId.isNotEmpty()){
-            repository.getTvShowByNetwork(networkId)
+            repository.getTvShowByNetwork(networkId).cachedIn(viewModelScope)
         }else{
             repository.getTvShowByNetwork("").cachedIn(viewModelScope)
         }

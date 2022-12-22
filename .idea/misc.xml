@@ -38,7 +38,11 @@
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/container_search.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/content_main.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/dialog_error.xml" value="0.18055555555555555" />
-        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_people_movie.xml" value="0.17203947368421052" />
+        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_cast_movie.xml" value="0.17203947368421052" />
+        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_cast_tv.xml" value="0.17203947368421052" />
+        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_crew_movie.xml" value="0.17203947368421052" />
+        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_crew_tv.xml" value="0.17203947368421052" />
+        <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_people_movie.xml" value="0.1" />
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_people_tv_show.xml" value="0.1625" />
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_all_season.xml" value="0.17203947368421052" />
         <entry key="..\:/Source Code/Android/MovieKu/app/src/main/res/layout/fragment_collection.xml" value="0.136" />

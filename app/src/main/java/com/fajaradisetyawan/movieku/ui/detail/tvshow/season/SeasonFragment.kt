@@ -290,7 +290,7 @@ class SeasonFragment : Fragment() {
             }
 
             adapter.setOnItemClickListener { episode ->
-                val sendData = SeasonFragmentDirections.actionSeasonFragmentToEpisodeFragment(tvDetail, seasons, episode)
+                val sendData = SeasonFragmentDirections.actionSeasonFragmentToEpisodeFragment(episode)
                 Navigation.findNavController(requireView()).navigate(sendData)
             }
         }

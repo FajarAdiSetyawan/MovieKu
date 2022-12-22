@@ -7,6 +7,7 @@
 package com.fajaradisetyawan.movieku.adapter.detail
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -32,7 +33,6 @@ class CastDetailAdapter: RecyclerView.Adapter<CastDetailAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cast: Cast) {
             with(binding) {
-
                 if (cast.department == "Acting"){
                     tvCastName.text = cast.name
                     tvCharacter.text = cast.character
@@ -58,7 +58,7 @@ class CastDetailAdapter: RecyclerView.Adapter<CastDetailAdapter.ViewHolder>() {
                             .into(ivProfile)
                     }
                 }else{
-                    cast.toString()
+                    itemView.visibility = View.GONE
                 }
             }
             itemView.setOnClickListener {

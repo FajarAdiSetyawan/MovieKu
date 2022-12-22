@@ -28,6 +28,8 @@ class CastPagingAdapter: PagingDataAdapter<Cast, CastPagingAdapter.ViewHolder>(C
         onItemClickListener = listener
     }
 
+    var character = ""
+
     inner class ViewHolder(private val binding: ItemAllCastCrewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cast: Cast) {
@@ -55,8 +57,17 @@ class CastPagingAdapter: PagingDataAdapter<Cast, CastPagingAdapter.ViewHolder>(C
                 }
 
                 tvName.text = cast.name
+
                 if (cast.totalEpisodeCount != 0){
-                    tvCharacterOrJob.text = itemView.resources.getString(R.string.episode_count, cast.name, cast.totalEpisodeCount)
+                    for ((index, roles) in cast.roles.withIndex()) {
+                        character = roles.character
+
+                        if (index != (cast.roles.size - 1)) {
+                            character = ""
+                        }
+                    }
+
+                    tvCharacterOrJob.text = itemView.resources.getString(R.string.episode_count, character , cast.totalEpisodeCount)
                 }else{
                     tvCharacterOrJob.text = cast.character
                 }
@@ -66,6 +77,7 @@ class CastPagingAdapter: PagingDataAdapter<Cast, CastPagingAdapter.ViewHolder>(C
                     it(cast)
                 }
             }
+
         }
     }
 

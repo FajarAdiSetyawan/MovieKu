@@ -14,7 +14,6 @@ import androidx.paging.liveData
 import com.fajaradisetyawan.movieku.BuildConfig
 import com.fajaradisetyawan.movieku.data.model.ExternalIds
 import com.fajaradisetyawan.movieku.data.model.NetworkDetail
-import com.fajaradisetyawan.movieku.data.model.tvshow.Seasons
 import com.fajaradisetyawan.movieku.data.remote.endpoint.TvShowApi
 import com.fajaradisetyawan.movieku.data.remote.paging.tv.*
 import com.fajaradisetyawan.movieku.data.remote.response.CreditResponse
@@ -239,6 +238,26 @@ class TvShowRepository @Inject constructor(private val tvShowApi: TvShowApi) {
 
                 override fun onFailure(call: Call<NetworkDetail>, t: Throwable) {
                     Log.d("TAG", "onFailureDetailNetwork: ${t.message}")
+                }
+            })
+        return liveData
+    }
+
+    fun getDetailEpisode(idTv: Int, idSeason: Int, idEpisode: Int): MutableLiveData<TvEpisodeResponse?> {
+        val liveData = MutableLiveData<TvEpisodeResponse?>()
+        tvShowApi.getEpisodeTvShow(idTv, idSeason, idEpisode, BuildConfig.MOVIEDB_API_KEY)
+            .enqueue(object : retrofit2.Callback<TvEpisodeResponse> {
+                override fun onResponse(
+                    call: Call<TvEpisodeResponse>,
+                    response: Response<TvEpisodeResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        liveData.postValue(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<TvEpisodeResponse>, t: Throwable) {
+                    Log.d("TAG", "onFailureDetailEpisode: ${t.message}")
                 }
             })
         return liveData

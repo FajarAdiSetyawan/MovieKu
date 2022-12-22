@@ -49,11 +49,6 @@ data class Episode(
     @SerializedName("runtime")
     var runtime: Int = 0,
 
-    @SerializedName("crew")
-    var crew: MutableList<Crew> = ArrayList(),
-
-    @SerializedName("guest_stars")
-    var guestStar: MutableList<GuestStar> = ArrayList(),
 ): Parcelable {
     val baseUrl get() = "https://image.tmdb.org/t/p/w400"
 }

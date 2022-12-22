@@ -57,7 +57,7 @@ class GuestStarPagingAdapter : PagingDataAdapter<GuestStar, GuestStarPagingAdapt
                 }
 
                 tvName.text = guestStar.name
-                tvCharacterOrJob.text = guestStar.job
+                tvCharacterOrJob.text = guestStar.character
             }
 
             itemView.setOnClickListener {

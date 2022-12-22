@@ -20,7 +20,7 @@ class CastMoviePagingSource(
 ) : PagingSource<Int, Cast>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Cast> {
         return try {
-            val response = movieApi.getMovieCredits(idMovie, BuildConfig.MOVIEDB_API_KEY)
+            val response = movieApi.getMovieCreditsPaging(idMovie, BuildConfig.MOVIEDB_API_KEY)
             val cast = response.cast
 
             LoadResult.Page(

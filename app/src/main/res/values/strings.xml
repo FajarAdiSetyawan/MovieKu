@@ -75,12 +75,14 @@
     <string name="know_for">Know For</string>
     <string name="birthdate">Birthdate</string>
     <string name="place_of_birth">Place of Birth</string>
-    <string name="deathday">Deathday</string>
+    <string name="deathday">Death day</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="biography">Biography</string>
     <string name="cast_all">Cast %1$d</string>
-    <string name="crew_all">Cast %1$d</string>
+    <string name="crew_all">Crew %1$d</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
     <string name="episode_cast">%1$d Episodes</string>
     <string name="facts">Facts</string>
     <string name="creator">Creator</string>

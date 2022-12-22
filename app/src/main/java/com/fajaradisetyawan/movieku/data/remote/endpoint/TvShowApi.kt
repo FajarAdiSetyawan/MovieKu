@@ -30,7 +30,7 @@ interface TvShowApi {
         @Query("api_key") apiKey: String
     ): Call<TvShowVideoResponse>
 
-    @GET("tv/{id}/credits")
+    @GET("tv/{id}/aggregate_credits")
     suspend fun getTvShowCreditsPaging(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String
@@ -118,13 +118,6 @@ interface TvShowApi {
         @Path("id") tvShowId: Int,
         @Query("api_key") apiKey: String,
     ): Call<ExternalIds>
-
-    @GET("tv/{id}/season/{season}")
-    fun getSeasonTvShow(
-        @Path("id") tvShowId: Int,
-        @Path("season") seasonId: Int,
-        @Query("api_key") apiKey: String,
-    ): Call<Seasons>
 
     @GET("tv/{id}/season/{season}")
     suspend fun getAllEpisodeTvShow(

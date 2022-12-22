@@ -35,7 +35,7 @@
             app:formattingPattern="@string/pattern"
             app:layout_anchorGravity="start|bottom"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori"
+            app:layout_constraintTop_toTopOf="parent"
             app:progressBackgroundColor="@color/text_color_flip"
             app:progressCap="round"
             app:progressColor="?colorPrimary"
@@ -54,7 +54,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/progress_circular"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_ori" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_vote"
@@ -104,32 +104,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:gravity="center">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_gravity="center"
                     android:layout_weight="0.5"
-                    tools:ignore="Suspicious0dp">
+                    android:layout_gravity="top"
+                    android:gravity="top">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/worksans"
+                        android:fontFamily="@font/quicksand_bold"
                         android:text="@string/directed_by"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/tv_directed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/quicksand_bold"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_directed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_marginTop="10dp"
+                        android:padding="@dimen/dimen_0"
+                        tools:listitem="@layout/item_also_known"/>
+
+                    <TextView
+                        android:id="@+id/tv_directed_empty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -137,26 +149,37 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_weight="0.5"
-                    android:layout_gravity="center">
+                    android:gravity="top"
+                    android:layout_gravity="top">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/worksans"
-                        android:text="@string/written_by"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/tv_written"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/quicksand_bold"
+                        android:text="@string/written_by"
                         android:textSize="18sp"
                         android:textStyle="bold"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_written"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="visible"
+                        tools:listitem="@layout/item_also_known"/>
+
+                    <TextView
+                        android:id="@+id/tv_written_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"/>
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -224,6 +247,37 @@
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/failed_load_regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_failed_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_failed_to_load"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="16sp"
+                    tools:visibility="visible" />
+
+
+                <Button
+                    android:id="@+id/btn_try_again_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/try_again"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+            </LinearLayout>
         </RelativeLayout>
 
         <TextView
@@ -289,6 +343,37 @@
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/failed_load_guest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_failed_guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_failed_to_load"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="16sp"
+                    tools:visibility="visible" />
+
+
+                <Button
+                    android:id="@+id/btn_try_again_guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/try_again"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+            </LinearLayout>
         </RelativeLayout>
 
         <TextView
@@ -355,6 +440,37 @@
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/failed_load_crew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_failed_crew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_failed_to_load"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="16sp"
+                    tools:visibility="visible" />
+
+
+                <Button
+                    android:id="@+id/btn_try_again_crew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/try_again"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+            </LinearLayout>
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
