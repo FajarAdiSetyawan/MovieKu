@@ -32,28 +32,77 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_overview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand"
-            android:justificationMode="inter_word"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_overview_title" />
-
-        <TextView
-            android:id="@+id/tv_no_movie"
+        <RelativeLayout
+            android:id="@+id/layout_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_overview" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview_title"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand"
+                android:justificationMode="inter_word"
+                android:textSize="15sp"
+                />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/worksans"
+                    android:lines="5"
+                    android:background="@drawable/bg_shimmer"
+                    android:textSize="16sp"
+                    />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_no_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_overview"
+            android:layout_marginTop="10dp"
+            >
+            <TextView
+                android:id="@+id/tv_no_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:textSize="16sp"
+                android:textColor="@color/text_color"/>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_no_movie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/worksans"
+                    android:background="@drawable/bg_shimmer"
+                    android:textSize="16sp"
+                    />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </RelativeLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"
@@ -64,7 +113,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
             android:background="@color/text_color"
-            app:layout_constraintTop_toBottomOf="@+id/tv_no_movie"/>
+            app:layout_constraintTop_toBottomOf="@+id/layout_no_movie"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

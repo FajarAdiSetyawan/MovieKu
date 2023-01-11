@@ -24,21 +24,23 @@
         android:theme="@style/Theme.MovieKu"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SplashScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.MainActivity"
+            android:name="com.fajaradisetyawan.movieku.feature.ui.SplashScreenActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".ui.MainActivity">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.fajaradisetyawan.movieku.feature.ui.MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName="com.fajaradisetyawan.movieku.feature.ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fajaradisetyawan.movieku.ui.MainActivity" />
+                android:value="com.fajaradisetyawan.movieku.feature.ui.MainActivity" />
         </activity>
     </application>
 

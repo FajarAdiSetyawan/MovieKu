@@ -11,7 +11,7 @@ import com.fajaradisetyawan.movieku.data.model.ExternalIds
 import com.fajaradisetyawan.movieku.data.remote.response.KeywordResponse
 import com.fajaradisetyawan.movieku.data.remote.response.CreditResponse
 import com.fajaradisetyawan.movieku.data.remote.response.movie.CollectionResponse
-import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieDetailResponse
+import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieResponse
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieVideoResponse
 import retrofit2.Call
@@ -80,7 +80,7 @@ interface MovieApi {
     fun getDetailMovie(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String
-    ): Call<MovieDetailResponse>
+    ): Call<MovieDetail>
 
 
     @GET("movie/{id}/keywords")

@@ -76,4 +76,6 @@ ext {
     circularProgress = '1.3.0'
     slider = '1.4.0'
     motionToast = '1.4'
+    firebaseCore = '21.1.1'
+    firebaseTranslate = '17.0.1'
 }

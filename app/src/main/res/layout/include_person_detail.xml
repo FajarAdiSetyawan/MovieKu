@@ -108,13 +108,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_know_for"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/worksans"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_know_for"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_know_for"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans"
+                            android:background="@drawable/bg_shimmer"
+                            android:textSize="16sp"
+                            />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -135,13 +155,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_birthdate"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/worksans"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_birthdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_birthdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans"
+                            android:background="@drawable/bg_shimmer"
+                            android:textSize="16sp"
+                            />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -167,13 +207,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_gender"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/worksans"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans"
+                            android:background="@drawable/bg_shimmer"
+                            android:textSize="16sp"
+                            />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -255,13 +315,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tv_place"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/worksans"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="10dp">
+                    <TextView
+                        android:id="@+id/tv_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/worksans"
+                        android:textSize="15sp" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/worksans"
+                            android:background="@drawable/bg_shimmer"
+                            android:textSize="16sp"
+                            />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -280,19 +360,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_personal_info"/>
 
-    <TextView
-        android:id="@+id/tv_biography"
+
+
+    <RelativeLayout
+        android:id="@id/layout_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/quicksand"
-        android:justificationMode="inter_word"
-        android:textSize="15sp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_biography" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_biography"
+        >
+        <TextView
+            android:id="@+id/tv_biography"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand"
+            android:justificationMode="inter_word"
+            android:textSize="15sp"
+            />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_biography"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:fontFamily="@font/worksans"
+                android:background="@drawable/bg_shimmer"
+                android:textSize="16sp"
+                />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabPerson"
@@ -309,7 +414,7 @@
         app:tabSelectedTextColor="@color/color_secondary"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/text_color"
-        app:layout_constraintTop_toBottomOf="@+id/tv_biography"
+        app:layout_constraintTop_toBottomOf="@+id/layout_bio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

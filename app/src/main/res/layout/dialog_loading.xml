@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Fajar Adi Setyawan on 2/1/2023 - 13:15:21
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="30dp"
+    android:layout_marginEnd="30dp"
+    app:cardCornerRadius="20dp"
+    android:orientation="vertical"
+    style="@style/Widget.Material3.CardView.Filled"
+    app:cardBackgroundColor="@color/bg_card"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_dialog_loading"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/loading"
+                app:lottie_loop="true"
+                android:layout_gravity="center"
+                app:lottie_speed="1"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_msg_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:fontFamily="@font/poppins">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

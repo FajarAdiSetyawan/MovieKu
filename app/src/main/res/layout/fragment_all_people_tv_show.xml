@@ -76,6 +76,22 @@
                 app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabAllPeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabRippleColor="@color/md_deep_purple_900"
+            app:tabSelectedTextColor="@color/md_blue_400"
+            app:tabTextColor="@color/text_color"
+            app:tabIndicatorColor="@color/md_blue_400"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabMode="fixed"
+            app:tabBackground="@color/bg_layout"
+            android:background="@color/bg_layout"
+            app:tabIndicatorFullWidth="false"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            android:elevation="0dp"/>
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -86,9 +102,11 @@
         android:layout_marginBottom="30dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <include
-            android:id="@+id/layout_content"
-            layout="@layout/include_all_cast_crew" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pagerAllPeople"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
 
 
     </androidx.core.widget.NestedScrollView>

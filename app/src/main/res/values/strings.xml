@@ -6,12 +6,12 @@
 
 <resources>
     <string name="app_name">Movie Ku</string>
-    <string name="title_movie">Title Movie</string>
+    <string name="title_movie" translatable="false">Title Movie</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="release_date">Release Date :</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="welcome">Welcome.</string>
     <string name="search_for_a_movie_tv_show">Search for a movie, tv show ....</string>
     <string name="sub_title">Millions of movies, TV shows and people to discover. Explore now.</string>
@@ -108,6 +108,10 @@
     <string name="episode_count">%1$s (%2$d Episodes)</string>
 
     <string name="offline">No Connection ☹️</string>
+    <string name="success">Success</string>
+    <string name="delete">Delete</string>
+    <string name="success_fav">Add %1$s to favorites</string>
+    <string name="deleted_fav">Deleted %1$s from favorites</string>
     <string name="msgoffline">Please Connect to the Internet to continue.</string>
     <string name="connect">Connect</string>
     <string name="setting">Setting</string>
@@ -120,4 +124,75 @@
     <string name="also_known_as">Also Known As</string>
     <string name="data_for_network_empty">Data for Network Empty</string>
     <string name="language">Language</string>
+    <string name="downloading_modal">Please wait language is being downloaded.</string>
+
+
+    <string name="pref_key_theme">pref_key_theme</string>
+    <string name="pref_key_accout">pref_key_accout</string>
+    <string name="pref_key_peak">pref_key_peak</string>
+    <string name="pref_key_energy">pref_key_energy</string>
+    <string name="pref_key_share">pref_key_share</string>
+    <string name="pref_key_feedback">pref_key_feedback</string>
+    <string name="pref_key_about">pref_key_about</string>
+    <string name="pref_key_logout">pref_key_logout</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_lang_title">Language</string>
+    <string name="pref_account_title">Account</string>
+    <string name="pref_feedback_title">Feedback</string>
+    <string name="pref_about_title">About</string>
+    <string name="pref_share_title">Share</string>
+    <string name="pref_logout_title">Logout</string>
+    <string name="pref_account_summary">Change profile</string>
+    <string name="pref_feedback_summary">Send Feedback Application </string>
+    <string name="pref_about_summary">About Application </string>
+    <string name="pref_share_summary">Share Application</string>
+    <string name="pref_logout_summary">Logout Form Application</string>
+    <string name="pref_theme_label_auto">System Default</string>
+    <string name="pref_theme_label_dark">Dark Mode</string>
+    <string name="pref_theme_label_light">Light Mode</string>
+    <string name="pref_lang_label_en">English</string>
+    <string name="pref_lang_label_in">Indonesia</string>
+    <string name="pref_theme_entry_auto">THEME_AUTOMATIC</string>
+    <string name="pref_theme_entry_dark">THEME_DARK</string>
+    <string name="pref_theme_entry_light">THEME_LIGHT</string>
+    <string name="pref_lang_entry_en">LANG_EN</string>
+    <string name="pref_lang_entry_in">LANG_IN</string>
+    <string name="pref_display_group_title">Display</string>
+    <string name="pref_display_group_title_profile">Account</string>
+    <string name="pref_display_group_title_application">Application</string>
+    <string name="pref_theme_title_account">Account</string>
+    <string name="pref_lang_entry_auto">LANGUAGE_AUTOMATIC</string>
+    <string name="pref_key_lang">pref_key_language</string>
+    <string name="english">Bahasa Indonesia</string>
+    <string name="indonesia">Bahasa Indonesia</string>
+
+    <string-array name="pref_themes_label">
+        <item>@string/pref_theme_label_auto</item>
+        <item>@string/pref_theme_label_dark</item>
+        <item>@string/pref_theme_label_light</item>
+    </string-array>
+
+    <string-array name="pref_themes_entry">
+        <item>@string/pref_theme_entry_auto</item>
+        <item>@string/pref_theme_entry_dark</item>
+        <item>@string/pref_theme_entry_light</item>
+    </string-array>
+
+    <string-array name="pref_lang_label">
+        <item>@string/pref_lang_label_en</item>
+        <item>@string/pref_lang_label_in</item>
+    </string-array>
+
+    <string-array name="pref_lang_entry">
+        <item>@string/pref_lang_entry_en</item>
+        <item>@string/pref_lang_entry_in</item>
+    </string-array>
+
+    <!-- Language select dialog -->
+    <string name="change">Change</string>
+    <string-array name="lang_select">
+        <item>English</item>
+        <item>Indonesian</item>
+    </string-array>
+    <string name="cancel">Cancel</string>
 </resources>

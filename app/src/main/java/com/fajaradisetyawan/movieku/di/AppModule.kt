@@ -6,10 +6,14 @@
 
 package com.fajaradisetyawan.movieku.di
 
+import android.content.Context
+import androidx.room.Room
+import com.fajaradisetyawan.movieku.data.local.FavoriteDatabase
 import com.fajaradisetyawan.movieku.data.remote.endpoint.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -52,4 +56,29 @@ object AppModule {
     @Singleton
     fun providePersonApi(retrofit: Retrofit): PeopleApi =
         retrofit.create(PeopleApi::class.java)
+
+
+    @Singleton
+    @Provides
+    fun provideFavDatabase(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        FavoriteDatabase::class.java,
+        "movie_db"
+    ).build()
+
+    @Singleton
+    @Provides
+    fun provideFavMovieDao(db: FavoriteDatabase) = db.favoriteMovieDao()
+
+    @Singleton
+    @Provides
+    fun provideFavTvDao(db: FavoriteDatabase) = db.favoriteTvShowDao()
+
+    @Singleton
+    @Provides
+    fun provideFavPeopleDao(db: FavoriteDatabase) = db.favoritePeopleDao()
+
+
 }

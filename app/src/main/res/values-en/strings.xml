@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Fajar Adi Setyawan on 4/1/2023 - 10:55:58
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<resources>
+    <string name="app_name">Movie Ku</string>
+    <string name="title_movie" translatable="false">Title Movie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="release_date">Release Date :</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="welcome">Welcome.</string>
+    <string name="search_for_a_movie_tv_show">Search for a movie, tv show ....</string>
+    <string name="sub_title">Millions of movies, TV shows and people to discover. Explore now.</string>
+    <string name="popular">Popular</string>
+    <string name="pattern">%.0f</string>
+    <string name="today">Today</string>
+    <string name="week">This Week</string>
+    <string name="vote">%1$s Votes</string>
+
+    <string name="movie">Movie</string>
+    <string name="tvshow">Tv Show</string>
+    <string name="keyword">Keyword</string>
+    <string name="collection">Collection</string>
+    <string name="companies">Companies</string>
+    <string name="network">Network</string>
+    <string name="people">People</string>
+
+
+    <string name="time">🕗 %02d Hour %02d Min</string>
+    <string name="timemin">🕗 %02d Min</string>
+    <string name="now_playing">Now Playing</string>
+
+    <string name="up_coming">Up Coming</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="trending">Trending</string>
+
+    <string name="on_air">On Tv</string>
+    <string name="airing_today">Airing Today</string>
+    <string name="user_score">User Score</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="tagline">Tagline</string>
+    <string name="overview">Overview</string>
+    <string name="top_billed_cast">Top Billed Cast</string>
+    <string name="view_more">View More</string>
+    <string name="view_the_collection">View the collection</string>
+    <string name="part_of_the">Part of the %1$s</string>
+    <string name="number_of_movies">Number Of Movies: %1$d</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="data_for_recommendations_movie_empty">We don\'t have enough data to suggest any movies based on %1$s. You can help by rating movies you\'ve seen.</string>
+    <string name="data_for_recommendations_tv_empty">We don\'t have enough data to suggest any TV shows based on %1$s. You can help by rating TV shows you\'ve seen.</string>
+    <string name="data_for_genre_empty">No Genre have been added</string>
+    <string name="data_for_keyword_empty">No keywords have been added</string>
+    <string name="data_for_cast_empty">No Cast have been added</string>
+    <string name="data_for_guest_empty">No Guest Stars have been added</string>
+    <string name="data_for_season_empty">No Seasons have been added</string>
+    <string name="data_for_episode_empty">No Episode have been added</string>
+    <string name="data_for_company_empty">No Company have been added</string>
+    <string name="data_for_crew_empty">No Crew have been added</string>
+    <string name="data_for_movie_empty">No Movie found.</string>
+    <string name="data_for_tvshow_empty">No TV shows found.</string>
+    <string name="data_for_collection_empty">No Collection found.</string>
+    <string name="data_for_person_empty">No Person found.</string>
+    <string name="biography_empty">We don\'t have a biography for %1$s.</string>
+    <string name="birthdate_with_age">%1$s (%2$d years old).</string>
+    <string name="original_language">Original Language</string>
+    <string name="budget">Budget</string>
+    <string name="revenue">Revenue</string>
+    <string name="production_companies">Production Companies</string>
+
+    <string name="personal_info">Personal Info</string>
+    <string name="know_for">Know For</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="place_of_birth">Place of Birth</string>
+    <string name="deathday">Death day</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="biography">Biography</string>
+    <string name="cast_all">Cast %1$d</string>
+    <string name="crew_all">Crew %1$d</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
+    <string name="episode_cast">%1$d Episodes</string>
+    <string name="facts">Facts</string>
+    <string name="creator">Creator</string>
+    <string name="season">Season %1$d</string>
+    <string name="episode">%1$d Episode</string>
+    <string name="episode_name">%1$d. %2$s</string>
+    <string name="episodef">Episode %1$d</string>
+    <string name="overview_season_empty">%1$s of %2$s premiered %3$s</string>
+    <string name="overview_episode_empty">We don\'t have an overview %1$s</string>
+    <string name="back_to_main">Back to main</string>
+    <string name="back_to_season">Back to season list</string>
+    <string name="view_all_seasons">View All Seasons</string>
+    <string name="directed_by">Directed By</string>
+    <string name="written_by">Written By</string>
+    <string name="guest_stars">Guest Stars</string>
+    <string name="no_search_results_found">No Search Results Found</string>
+    <string name="in_movie">In Movie</string>
+    <string name="in_tv_shows">In Tv Shows</string>
+    <string name="search_result">Search Result</string>
+    <string name="homepage">Homepage</string>
+    <string name="result_could_not_be_loaded">Result could not be loaded</string>
+    <string name="retry">Retry</string>
+    <string name="episode_count">%1$s (%2$d Episodes)</string>
+
+    <string name="offline">No Connection ☹️</string>
+    <string name="success">Success</string>
+    <string name="delete">Delete</string>
+    <string name="success_fav">Add %1$s to favorites</string>
+    <string name="deleted_fav">Deleted %1$s from favorites</string>
+    <string name="msgoffline">Please Connect to the Internet to continue.</string>
+    <string name="connect">Connect</string>
+    <string name="setting">Setting</string>
+    <string name="popular_people">Popular People</string>
+    <string name="popular_people_empty">Popular People Empty</string>
+    <string name="try_again">Try Again</string>
+    <string name="data_failed_to_load">Data failed to load</string>
+    <string name="favorite">Favorite</string>
+    <string name="person">Person</string>
+    <string name="also_known_as">Also Known As</string>
+    <string name="data_for_network_empty">Data for Network Empty</string>
+    <string name="language">Language</string>
+    <string name="downloading_modal">Please wait language is being downloaded.</string>
+
+
+    <string name="pref_key_theme">pref_key_theme</string>
+    <string name="pref_key_accout">pref_key_accout</string>
+    <string name="pref_key_peak">pref_key_peak</string>
+    <string name="pref_key_energy">pref_key_energy</string>
+    <string name="pref_key_share">pref_key_share</string>
+    <string name="pref_key_feedback">pref_key_feedback</string>
+    <string name="pref_key_about">pref_key_about</string>
+    <string name="pref_key_logout">pref_key_logout</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_lang_title">Language</string>
+    <string name="pref_account_title">Account</string>
+    <string name="pref_feedback_title">Feedback</string>
+    <string name="pref_about_title">About</string>
+    <string name="pref_share_title">Share</string>
+    <string name="pref_logout_title">Logout</string>
+    <string name="pref_account_summary">Change profile</string>
+    <string name="pref_feedback_summary">Send Feedback Application </string>
+    <string name="pref_about_summary">About Application </string>
+    <string name="pref_share_summary">Share Application</string>
+    <string name="pref_logout_summary">Logout Form Application</string>
+    <string name="pref_theme_label_auto">System Default</string>
+    <string name="pref_theme_label_dark">Dark Mode</string>
+    <string name="pref_theme_label_light">Light Mode</string>
+    <string name="pref_lang_label_en">English</string>
+    <string name="pref_lang_label_in">Indonesia</string>
+    <string name="pref_theme_entry_auto">THEME_AUTOMATIC</string>
+    <string name="pref_theme_entry_dark">THEME_DARK</string>
+    <string name="pref_theme_entry_light">THEME_LIGHT</string>
+    <string name="pref_lang_entry_en">LANG_EN</string>
+    <string name="pref_lang_entry_in">LANG_IN</string>
+    <string name="pref_display_group_title">Display</string>
+    <string name="pref_display_group_title_profile">Account</string>
+    <string name="pref_display_group_title_application">Application</string>
+    <string name="pref_theme_title_account">Account</string>
+    <string name="pref_lang_entry_auto">LANGUAGE_AUTOMATIC</string>
+    <string name="pref_key_lang">pref_key_language</string>
+    <string name="english">English</string>
+    <string name="indonesia">Bahasa Indonesia</string>
+
+    <string-array name="pref_themes_label">
+        <item>@string/pref_theme_label_auto</item>
+        <item>@string/pref_theme_label_dark</item>
+        <item>@string/pref_theme_label_light</item>
+    </string-array>
+
+    <string-array name="pref_themes_entry">
+        <item>@string/pref_theme_entry_auto</item>
+        <item>@string/pref_theme_entry_dark</item>
+        <item>@string/pref_theme_entry_light</item>
+    </string-array>
+
+    <string-array name="pref_lang_label">
+        <item>@string/pref_lang_label_en</item>
+        <item>@string/pref_lang_label_in</item>
+    </string-array>
+
+    <string-array name="pref_lang_entry">
+        <item>@string/pref_lang_entry_en</item>
+        <item>@string/pref_lang_entry_in</item>
+    </string-array>
+
+    <!-- Language select dialog -->
+    <string name="change">Change</string>
+    <string-array name="lang_select">
+        <item>English</item>
+        <item>Indonesian</item>
+    </string-array>
+    <string name="cancel">Cancel</string>
+</resources>

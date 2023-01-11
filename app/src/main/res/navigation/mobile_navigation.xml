@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.home.HomeFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -34,12 +34,22 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.favorite.FavoriteFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.favorite.FavoriteFragment"
         android:label="FavoriteFragment"
-        tools:layout="@layout/fragment_favorite"/>
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailPeopleFragment"
+            app:destination="@id/detailPeopleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.movie.MovieFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.movie.MovieFragment"
         android:label="fragment_movie"
         tools:layout="@layout/fragment_movie" >
         <action
@@ -50,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvShowFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.tvshow.TvShowFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.tvshow.TvShowFragment"
         android:label="fragment_tv_show"
         tools:layout="@layout/fragment_tv_show" >
         <action
@@ -62,12 +72,18 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.setting.SettingFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/animate_slide_up_enter"
+            app:exitAnim="@anim/animate_slide_up_exit" />
+    </fragment>
     <fragment
         android:id="@+id/popularPersonFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.people.PopularPersonFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.people.PopularPersonFragment"
         android:label="fragment_popular_person"
         tools:layout="@layout/fragment_popular_person" >
         <action
@@ -78,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailMovieFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.DetailMovieFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.movie.DetailMovieFragment"
         android:label="fragment_detail_movie"
         tools:layout="@layout/fragment_detail_movie" >
         <argument
@@ -122,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailTvFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.DetailTvFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.DetailTvFragment"
         android:label="fragment_detail_tv"
         tools:layout="@layout/fragment_detail_tv">
         <argument
@@ -167,7 +183,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailPeopleFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.people.detail.DetailPeopleFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.people.detail.DetailPeopleFragment"
         android:label="DetailPersonFragment"
         tools:layout="@layout/fragment_detail_people">
         <argument
@@ -186,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectionFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.CollectionFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.movie.CollectionFragment"
         android:label="CollectionFragment"
         tools:layout="@layout/fragment_collection">
         <argument
@@ -200,7 +216,7 @@
     </fragment>
     <fragment
         android:id="@+id/genreFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.search.genre.GenreFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.search.genre.GenreFragment"
         android:label="fragment_genre"
         tools:layout="@layout/fragment_genre" >
         <argument
@@ -219,7 +235,7 @@
     </fragment>
     <fragment
         android:id="@+id/keywordFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.search.keyword.KeywordFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.search.keyword.KeywordFragment"
         android:label="fragment_keyword"
         tools:layout="@layout/fragment_keyword" >
         <argument
@@ -238,12 +254,12 @@
     </fragment>
     <fragment
         android:id="@+id/allPeopleMovieFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.people.allPeople.movie.AllPeopleMovieFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.people.allPeople.movie.AllPeopleMovieFragment"
         android:label="AllPeopleMovieFragment"
         tools:layout="@layout/fragment_all_people_movie">
         <argument
             android:name="movieDetail"
-            app:argType="com.fajaradisetyawan.movieku.data.remote.response.movie.MovieDetailResponse" />
+            app:argType="com.fajaradisetyawan.movieku.data.model.movie.MovieDetail" />
         <action
             android:id="@+id/action_allPeopleMovieFragment_to_detailPeopleFragment"
             app:destination="@id/detailPeopleFragment"
@@ -252,12 +268,12 @@
     </fragment>
     <fragment
         android:id="@+id/allPeopleTvShowFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.people.allPeople.tv.AllPeopleTvShowFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.people.allPeople.tv.AllPeopleTvShowFragment"
         android:label="AllPeopleTvShowFragment"
         tools:layout="@layout/fragment_all_people_tv_show">
         <argument
             android:name="tvShowDetail"
-            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail" />
         <action
             android:id="@+id/action_allPeopleTvShowFragment_to_detailPeopleFragment"
             app:destination="@id/detailPeopleFragment"
@@ -266,7 +282,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailCompanyFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.movie.DetailCompanyFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.movie.DetailCompanyFragment"
         android:label="DetailCompanyFragment"
         tools:layout="@layout/fragment_detail_company">
         <argument
@@ -280,7 +296,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailNetworkFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.DetailNetworkFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.DetailNetworkFragment"
         android:label="DetailNetworkFragment"
         tools:layout="@layout/fragment_detail_network">
         <argument
@@ -295,12 +311,12 @@
     </fragment>
     <fragment
         android:id="@+id/seasonFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.season.SeasonFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.season.SeasonFragment"
         android:label="fragment_season"
         tools:layout="@layout/fragment_season" >
         <argument
             android:name="tvShowDetail"
-            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail" />
         <argument
             android:name="season"
             app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.Seasons" />
@@ -312,12 +328,12 @@
     </fragment>
     <fragment
         android:id="@+id/allSeasonFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.season.AllSeasonFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.season.AllSeasonFragment"
         android:label="AllSeasonFragment"
         tools:layout="@layout/fragment_all_season">
         <argument
             android:name="tvShowDetail"
-            app:argType="com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowDetailResponse" />
+            app:argType="com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail" />
         <action
             android:id="@+id/action_allSeasonFragment_to_seasonFragment"
             app:destination="@id/seasonFragment"
@@ -327,7 +343,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.fajaradisetyawan.movieku.ui.detail.tvshow.episode.EpisodeFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.episode.EpisodeFragment"
         android:label="EpisodeFragment"
         tools:layout="@layout/fragment_episode">
         <argument

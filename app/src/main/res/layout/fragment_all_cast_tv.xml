@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_layout"
-    tools:context=".ui.detail.people.allPeople.tv.AllCastTvFragment">
+    tools:context=".feature.ui.detail.people.allPeople.tv.AllCastTvFragment">
 
     <RelativeLayout
         android:id="@+id/layout_cast"

@@ -57,12 +57,31 @@
                 app:shape_roundRect_topRightRadius="100dp"
                 android:layout_gravity="center_horizontal">
 
-                <ImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:scaleType="fitXY"
-                    android:src="@color/color_secondary" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:scaleType="fitXY"
+                        android:src="@color/color_secondary" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/iv_poster_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bg_shimmer" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
 
             </io.github.florent37.shapeofview.shapes.RoundRectView>
 
@@ -91,5 +110,18 @@
             layout="@layout/include_person_detail" />
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#F1C68C"
+        android:baselineAlignBottom="false"
+        android:src="@drawable/ic_baseline_favorite_24"
+        app:fabSize="normal"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="end|bottom"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

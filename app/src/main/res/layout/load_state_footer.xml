@@ -8,6 +8,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_layout">
 
     <RelativeLayout
@@ -15,12 +16,19 @@
         android:layout_height="match_parent"
         android:padding="20dp">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_height="wrap_content"/>
+            app:lottie_fileName="loading_paging.json"
+            app:lottie_loop="true"
+            app:lottie_scale="5"
+            android:layout_gravity="center"
+            app:lottie_speed="1"
+            />
 
         <TextView
             android:id="@+id/tv_error"

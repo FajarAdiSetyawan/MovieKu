@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217110101333",
+    "project_id": "movieku-373503",
+    "storage_bucket": "movieku-373503.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217110101333:android:ce7d2667fa3899447f43dc",
+        "android_client_info": {
+          "package_name": "com.fajaradisetyawan.movieku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217110101333-go76qhvpktq1tg9gma9icfn6lh4gg4em.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fajaradisetyawan.movieku",
+            "certificate_hash": "83a9c638ac4ab50124844edccc090e20c50c5a69"
+          }
+        },
+        {
+          "client_id": "217110101333-ne7m0eclpp13mpbqb76sc01mgkjoi190.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGA9iTcx774QBduCaTpIUVtJkNvekUUxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217110101333-ne7m0eclpp13mpbqb76sc01mgkjoi190.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

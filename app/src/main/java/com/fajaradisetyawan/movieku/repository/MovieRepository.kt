@@ -15,11 +15,11 @@ import com.fajaradisetyawan.movieku.BuildConfig
 import com.fajaradisetyawan.movieku.data.model.CompaniesDetail
 import com.fajaradisetyawan.movieku.data.model.ExternalIds
 import com.fajaradisetyawan.movieku.data.remote.endpoint.MovieApi
-import com.fajaradisetyawan.movieku.data.remote.paging.movie.*
+import com.fajaradisetyawan.movieku.data.pagination.movie.*
 import com.fajaradisetyawan.movieku.data.remote.response.CreditResponse
 import com.fajaradisetyawan.movieku.data.remote.response.KeywordResponse
 import com.fajaradisetyawan.movieku.data.remote.response.movie.CollectionResponse
-import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieDetailResponse
+import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieResponse
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieVideoResponse
 import retrofit2.Call
@@ -110,18 +110,18 @@ class MovieRepository @Inject constructor(private val movieApi: MovieApi) {
         return liveData
     }
 
-    fun getDetailMovie(movieId: Int): MutableLiveData<MovieDetailResponse?> {
-        val movieDetail = MutableLiveData<MovieDetailResponse?>()
+    fun getDetailMovie(movieId: Int): MutableLiveData<MovieDetail?> {
+        val movieDetail = MutableLiveData<MovieDetail?>()
         movieApi.getDetailMovie(movieId, BuildConfig.MOVIEDB_API_KEY)
-            .enqueue(object : retrofit2.Callback<MovieDetailResponse> {
+            .enqueue(object : retrofit2.Callback<MovieDetail> {
                 override fun onResponse(
-                    call: Call<MovieDetailResponse>,
-                    response: Response<MovieDetailResponse>
+                    call: Call<MovieDetail>,
+                    response: Response<MovieDetail>
                 ) {
                     movieDetail.postValue(response.body())
                 }
 
-                override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
                     Log.d("TAG", "onFailureDetailMovie: ${t.message}")
                 }
 

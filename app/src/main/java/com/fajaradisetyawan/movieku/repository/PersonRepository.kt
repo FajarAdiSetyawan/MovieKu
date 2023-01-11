@@ -15,7 +15,7 @@ import com.fajaradisetyawan.movieku.BuildConfig
 import com.fajaradisetyawan.movieku.data.model.ExternalIds
 import com.fajaradisetyawan.movieku.data.model.people.PeopleDetail
 import com.fajaradisetyawan.movieku.data.remote.endpoint.PeopleApi
-import com.fajaradisetyawan.movieku.data.remote.paging.people.PersonPopularPagingSource
+import com.fajaradisetyawan.movieku.data.pagination.people.PersonPopularPagingSource
 import com.fajaradisetyawan.movieku.data.remote.response.people.MovieCreditPeopleResponse
 import com.fajaradisetyawan.movieku.data.remote.response.people.TvCreditPeopleResponse
 import retrofit2.Call

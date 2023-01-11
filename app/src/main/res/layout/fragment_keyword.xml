@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.search.keyword.KeywordFragment"
+    tools:context=".feature.ui.search.keyword.KeywordFragment"
     android:background="@color/bg_layout">
 
     <com.google.android.material.appbar.AppBarLayout

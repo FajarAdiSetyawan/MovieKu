@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.HomeFragment"
+    tools:context=".feature.ui.home.HomeFragment"
     android:background="@color/bg_layout"
     android:scrollbars="none"
     android:layout_marginBottom="80dp"
@@ -81,13 +81,6 @@
                 <include
                     android:id="@+id/search_box_container"
                     layout="@layout/container_search" />
-
-                <ImageView
-                    android:id="@+id/iv_fav"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_favorite_24"
-                    app:tint="@color/white" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

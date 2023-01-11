@@ -8,7 +8,7 @@ package com.fajaradisetyawan.movieku.data.remote.endpoint
 
 import com.fajaradisetyawan.movieku.data.model.ExternalIds
 import com.fajaradisetyawan.movieku.data.model.NetworkDetail
-import com.fajaradisetyawan.movieku.data.model.tvshow.Seasons
+import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 import com.fajaradisetyawan.movieku.data.remote.response.CreditResponse
 import com.fajaradisetyawan.movieku.data.remote.response.KeywordResponse
 import com.fajaradisetyawan.movieku.data.remote.response.tvshow.*
@@ -72,13 +72,13 @@ interface TvShowApi {
     fun getDetailTvShow(
         @Path("id") tvShowId: Int,
         @Query("api_key") apiKey: String
-    ): Call<TvShowDetailResponse>
+    ): Call<TvShowDetail>
 
     @GET("tv/{id}")
     suspend fun getAllSeasonTvShow(
         @Path("id") tvShowId: Int,
         @Query("api_key") apiKey: String
-    ): TvShowDetailResponse
+    ): TvShowDetail
 
     @GET("tv/{id}/keywords")
     fun getKeywordTvShow(

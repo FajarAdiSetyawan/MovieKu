@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.movie.UpComingMovieFragment"
+    tools:context=".feature.ui.movie.UpComingMovieFragment"
     android:background="@color/bg_layout">
 
     <androidx.recyclerview.widget.RecyclerView

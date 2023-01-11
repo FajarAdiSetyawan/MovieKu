@@ -45,28 +45,73 @@
                 app:shape_roundRect_bottomLeftRadius="30dp"
                 app:shape_roundRect_bottomRightRadius="30dp">
 
-                <ImageView
-                    android:id="@+id/iv_backdrops"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:scaleType="fitXY"
-                    android:src="@color/color_primary" />
+                    android:layout_height="wrap_content">
 
-                <View
+                    <ImageView
+                        android:id="@+id/iv_backdrops"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:scaleType="fitXY"
+                        android:visibility="gone"
+                        android:src="@color/color_primary" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/iv_backdrops_shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp"
+                            android:scaleType="fitXY"
+                            android:src="@color/colorShimmer" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <View
+                        android:id="@+id/view_gradient"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/bg_gradient"
+                        android:rotation="180"
+                        android:visibility="visible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/bg_gradient"
-                    android:rotation="180" />
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_poster"
-                    android:layout_width="120dp"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/bg_shimmer" />
+                    <ImageView
+                        android:id="@+id/iv_poster"
+                        android:layout_width="120dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:scaleType="fitXY"
+                        android:visibility="gone"
+                        android:src="@drawable/bg_shimmer" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/iv_poster_shimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="150dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bg_shimmer" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                </RelativeLayout>
+
             </io.github.florent37.shapeofview.shapes.RoundRectView>
 
             <androidx.appcompat.widget.Toolbar

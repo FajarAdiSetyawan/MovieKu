@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="0dp"
+            app:title="@string/favorite"
             app:titleTextAppearance="@style/titleToolbarDetail"
             android:background="@color/color_primary"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -33,13 +34,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabRippleColor="@color/md_blue_900"
-            app:tabSelectedTextColor="@color/md_blue_600"
+            app:tabSelectedTextColor="@color/md_blue_500"
             app:tabTextColor="@color/text_color"
             app:tabIndicatorColor="@color/md_blue_500"
             app:tabIndicatorAnimationMode="elastic"
             app:tabGravity="center"
             app:tabMode="scrollable"
-            android:background="@android:color/transparent"
+            android:background="@color/bg_layout"
             app:tabBackground="@android:color/transparent"
             app:tabIndicatorFullWidth="true"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
@@ -53,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/tabKeywordSearch"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

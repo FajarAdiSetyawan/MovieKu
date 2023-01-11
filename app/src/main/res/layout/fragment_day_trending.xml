@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_layout"
-    tools:context=".ui.home.DayTrendingFragment">
+    tools:context=".feature.ui.home.DayTrendingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_day_trending"

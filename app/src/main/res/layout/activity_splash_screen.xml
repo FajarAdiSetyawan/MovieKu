@@ -10,8 +10,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SplashScreenActivity"
+    tools:context=".feature.ui.SplashScreenActivity"
     android:background="@color/bg_layout">
 
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:lottie_autoPlay="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_fileName="splash.json"
+        app:lottie_loop="true"
+        android:layout_gravity="center"
+        app:lottie_speed="1"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-//    id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
 }
@@ -55,6 +55,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
@@ -100,11 +101,15 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
+    // firebase
+    implementation "com.google.firebase:firebase-core:$firebaseCore"
+    implementation "com.google.mlkit:translate:$firebaseTranslate"
+
     // shape view
     implementation "io.github.florent37:shapeofview:$shapeofview"
 
     // Paging 3
-    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
 
     // custom toast
     implementation "com.github.Spikeysanju:MotionToast:$motionToast"
@@ -119,7 +124,7 @@ dependencies {
 
     implementation "com.github.smarteist:autoimageslider:$slider"
 
-    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }
 
