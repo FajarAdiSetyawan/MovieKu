@@ -1,7 +1,7 @@
 /*
- * Created by Fajar Adi Setyawan on 16/12/2022 - 12:16:4
+ * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:48
  * fajaras465@gmail.com
- * Copyright (c) 2022.
+ * Copyright (c) 2023.
  */
 
 package com.fajaradisetyawan.movieku.feature.adapter

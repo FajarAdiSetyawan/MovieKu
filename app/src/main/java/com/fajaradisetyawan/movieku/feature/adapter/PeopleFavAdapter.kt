@@ -1,5 +1,5 @@
 /*
- * Created by Fajar Adi Setyawan on 10/1/2023 - 10:1:0
+ * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:48
  * fajaras465@gmail.com
  * Copyright (c) 2023.
  */
@@ -66,7 +66,6 @@ class PeopleFavAdapter: RecyclerView.Adapter<PeopleFavAdapter.ViewHolder>() {
                 if (peopleDetail.birthday.equals(null) || peopleDetail.birthday == "" || peopleDetail.birthday == null) {
                     tvBirthdate.text = "-"
                 } else {
-                    tvBirthdate.visibility = View.VISIBLE
                     tvBirthdate.text = itemView.resources.getString(
                         R.string.birthdate_with_age, peopleDetail.birthday, ParseDateTime.getAge(
                             peopleDetail.birthday!!
@@ -81,12 +80,6 @@ class PeopleFavAdapter: RecyclerView.Adapter<PeopleFavAdapter.ViewHolder>() {
                 }
 
                 tvKnowFor.text = peopleDetail.department
-
-                tvRating.text =
-                    peopleDetail.popularity.toBigDecimal().setScale(1, RoundingMode.UP).toDouble().toString()
-                val rating = peopleDetail.popularity * 0.1
-                ratingBar.rating = rating.toFloat()
-
             }
 
             itemView.setOnClickListener {

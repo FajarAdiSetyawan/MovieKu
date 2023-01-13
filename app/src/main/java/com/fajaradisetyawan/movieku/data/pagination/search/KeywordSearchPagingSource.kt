@@ -1,29 +1,27 @@
 /*
- * Created by Fajar Adi Setyawan on 6/1/2023 - 11:20:42
+ * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:44
  * fajaras465@gmail.com
  * Copyright (c) 2023.
  */
 
-package com.fajaradisetyawan.movieku.data.pagination
+package com.fajaradisetyawan.movieku.data.pagination.search
 
 import androidx.paging.PagingSource
 import com.fajaradisetyawan.movieku.BuildConfig
-import com.fajaradisetyawan.movieku.data.model.Trending
-import com.fajaradisetyawan.movieku.data.model.movie.Movie
-import com.fajaradisetyawan.movieku.data.remote.endpoint.MovieApi
+import com.fajaradisetyawan.movieku.data.model.Keyword
 import com.fajaradisetyawan.movieku.data.remote.endpoint.SearchApi
-import com.fajaradisetyawan.movieku.data.remote.endpoint.TrendingApi
 import retrofit2.HttpException
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
-
-class MovieSearchPagingSource(private val searchApi: SearchApi) : PagingSource<Int, Movie>() {
-
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+class KeywordSearchPagingSource(
+    private val searchApi: SearchApi,
+    private val query: String
+): PagingSource<Int, Keyword>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Keyword> {
         return try {
             val position = params.key ?: STARTING_PAGE_INDEX
-            val response = searchApi.searchMovie(BuildConfig.MOVIEDB_API_KEY, "")
+            val response = searchApi.searchKeyword(BuildConfig.MOVIEDB_API_KEY, query, position)
             val result = response.results
 
             LoadResult.Page(
@@ -36,6 +34,5 @@ class MovieSearchPagingSource(private val searchApi: SearchApi) : PagingSource<I
         } catch (e: HttpException) {
             LoadResult.Error(e)
         }
-
     }
 }

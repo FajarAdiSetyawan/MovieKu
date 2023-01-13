@@ -1,7 +1,7 @@
 /*
- * Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:39
+ * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:45
  * fajaras465@gmail.com
- * Copyright (c) 2022.
+ * Copyright (c) 2023.
  */
 
 package com.fajaradisetyawan.movieku.feature.ui.home
@@ -58,8 +58,8 @@ class HomeFragment : Fragment() {
         }.attach()
 
         binding.searchBoxContainer.itemSearch.setOnClickListener {
-//            val sendData = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
-//            Navigation.findNavController(view).navigate(sendData)
+            val sendData = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            Navigation.findNavController(view).navigate(sendData)
         }
 
         binding.searchBoxContainer.ivFav.setOnClickListener {

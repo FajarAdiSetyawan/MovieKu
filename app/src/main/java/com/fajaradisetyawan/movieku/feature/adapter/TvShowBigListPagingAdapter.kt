@@ -1,7 +1,7 @@
 /*
- * Created by Fajar Adi Setyawan on 8/12/2022 - 11:52:40
+ * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:48
  * fajaras465@gmail.com
- * Copyright (c) 2022.
+ * Copyright (c) 2023.
  */
 
 package com.fajaradisetyawan.movieku.feature.adapter
@@ -53,7 +53,13 @@ class TvShowBigListPagingAdapter : PagingDataAdapter<TvShow, TvShowBigListPaging
 
                 tvTitle.text = tvShow.name
 
-                tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+                if (tvShow.firstAirDate.isNullOrEmpty() || tvShow.firstAirDate.equals(null) ||  tvShow.firstAirDate == ""){
+                    tvRelease.text = "-"
+                }else{
+                    tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+
+                }
+
                 if (tvShow.overview == "") {
                     tvOverview.text = itemView.resources.getString(
                         R.string.overview_episode_empty, tvShow.name,
