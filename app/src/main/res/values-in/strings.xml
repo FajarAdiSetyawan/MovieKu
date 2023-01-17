@@ -77,6 +77,7 @@
     <string name="facts">Facts</string>
     <string name="creator">Creator</string>
     <string name="season">Musim %1$d</string>
+    <string name="season_regular">Musim Reguler</string>
     <string name="episode">%1$d Episode</string>
     <string name="episode_name">%1$d. %2$s</string>
     <string name="episodef">Episode %1$d</string>

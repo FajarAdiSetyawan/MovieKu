@@ -8,6 +8,7 @@ package com.fajaradisetyawan.movieku.feature.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.data.model.movie.Movie
 import com.fajaradisetyawan.movieku.databinding.ItemListBigBinding
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
+import com.fajaradisetyawan.movieku.utils.Translator
 import java.math.RoundingMode
 
 
@@ -54,7 +56,7 @@ class MovieBigListPagingAdapter: PagingDataAdapter<Movie, MovieBigListPagingAdap
 
                 tvTitle.text = movie.title
 
-                if (movie.releaseDate == ""){
+                if (movie.releaseDate.isNullOrEmpty() || movie.releaseDate == ""){
                     tvRelease.text = "-"
                 }else{
                     tvRelease.text = ParseDateTime.parseDate(movie.releaseDate)
@@ -65,7 +67,19 @@ class MovieBigListPagingAdapter: PagingDataAdapter<Movie, MovieBigListPagingAdap
                         R.string.overview_episode_empty, movie.title,
                     )
                 } else {
-                    tvOverview.text = movie.overview
+                    val currentLanguage = itemView.resources.configuration.locale.language
+                    if (currentLanguage != "en"){
+                        Translator.translator.translate(movie.overview!!)
+                            .addOnSuccessListener { translatedText ->
+                                tvOverview.text = translatedText
+                            }
+                            .addOnFailureListener { exception ->
+                                // Error.
+                                Toast.makeText(itemView.context, "Error ${exception.message.toString()}", Toast.LENGTH_SHORT).show()
+                            }
+                    }else{
+                        tvOverview.text = movie.overview
+                    }
                 }
 
                 tvRating.text =

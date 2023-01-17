@@ -86,6 +86,7 @@
     <string name="episode_cast">%1$d Episodes</string>
     <string name="facts">Facts</string>
     <string name="creator">Creator</string>
+    <string name="season_regular">Season Regular</string>
     <string name="season">Season %1$d</string>
     <string name="episode">%1$d Episode</string>
     <string name="episode_name">%1$d. %2$s</string>

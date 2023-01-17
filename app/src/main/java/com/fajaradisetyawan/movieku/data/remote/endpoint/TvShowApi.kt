@@ -141,4 +141,12 @@ interface TvShowApi {
         @Path("idEpisode") episodeId: Int,
         @Query("api_key") apiKey: String,
     ): TvEpisodeCreditResponse
+
+    @GET("tv/{idTv}/season/{idSeason}/episode/{idEpisode}/credits")
+    fun getCreditEpisode(
+        @Path("idTv") tvShowId: Int,
+        @Path("idSeason") seasonId: Int,
+        @Path("idEpisode") episodeId: Int,
+        @Query("api_key") apiKey: String,
+    ): Call<TvEpisodeCreditResponse>
 }

@@ -10,7 +10,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:scrollbars="none"
     android:scrollbarSize="0dp"
     android:background="@color/bg_layout">
@@ -18,7 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_layout">
+        android:background="@color/bg_layout"
+        android:layout_margin="@dimen/dimen_16">
 
         <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
             android:id="@+id/progress_circular"
@@ -183,295 +183,40 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:text="Season Regulars"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_status" />
-
-
-        <RelativeLayout
-            android:id="@+id/layout_regular"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabPeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_regular"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:background="@color/bg_layout"
+            android:elevation="0dp"
+            app:tabBackground="@color/bg_layout"
+            app:tabGravity="center"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorColor="@color/color_secondary"
+            app:tabIndicatorFullWidth="false"
+            app:tabMode="auto"
+            android:layout_marginEnd="-7dp"
+            android:layout_marginStart="-7dp"
+            android:layout_marginTop="5dp"
+            app:tabSelectedTextColor="@color/color_secondary"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/text_color"
+            app:layout_constraintTop_toBottomOf="@+id/layout_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <TextView
-                android:id="@+id/tv_regular_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/data_for_cast_empty"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:fontFamily="@font/worksans"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/failed_load_regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_failed_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/data_failed_to_load"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:textSize="16sp"
-                    tools:visibility="visible" />
-
-
-                <Button
-                    android:id="@+id/btn_try_again_regular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/try_again"
-                    android:layout_marginTop="10dp"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_guest_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:text="@string/guest_stars"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_regular" />
-
-        <RelativeLayout
-            android:id="@+id/layout_guest_star"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pagerPeople"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tabPeople"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_guest_star"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_guest_star"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_guest_star"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <TextView
-                android:id="@+id/tv_guest_star_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/data_for_guest_empty"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:fontFamily="@font/worksans"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/failed_load_guest"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_failed_guest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/data_failed_to_load"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:textSize="16sp"
-                    tools:visibility="visible" />
-
-
-                <Button
-                    android:id="@+id/btn_try_again_guest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/try_again"
-                    android:layout_marginTop="10dp"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/tv_crew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/quicksand_bold"
-            android:text="Crew"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_guest_star" />
-
-
-        <RelativeLayout
-            android:id="@+id/layout_crew"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_crew"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_crew"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_crew"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-                    <include layout="@layout/include_loading_cast" />
-
-                </LinearLayout>
-
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <TextView
-                android:id="@+id/tv_crew_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/data_for_crew_empty"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:fontFamily="@font/worksans"
-                android:textSize="15sp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/failed_load_crew"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_failed_crew"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/data_failed_to_load"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:textSize="16sp"
-                    tools:visibility="visible" />
-
-
-                <Button
-                    android:id="@+id/btn_try_again_crew"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/try_again"
-                    android:layout_marginTop="10dp"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </LinearLayout>
-        </RelativeLayout>
+            android:layout_marginEnd="-7dp"
+            android:layout_marginStart="-7dp"
+            android:background="@color/bg_layout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="wrap_content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

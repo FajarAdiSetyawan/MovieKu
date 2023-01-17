@@ -360,4 +360,23 @@ class TvShowRepository @Inject constructor(private val tvShowApi: TvShowApi) {
             pagingSourceFactory = { GuestStarPagingSource(tvShowApi, idTv, idSeason, idEpisode) }
         ).liveData
 
+    fun getCreditEpisode(idTv: Int, idSeason: Int, idEpisode: Int): MutableLiveData<TvEpisodeCreditResponse?> {
+        val liveData = MutableLiveData<TvEpisodeCreditResponse?>()
+        tvShowApi.getCreditEpisode(idTv, idSeason, idEpisode, BuildConfig.MOVIEDB_API_KEY)
+            .enqueue(object : retrofit2.Callback<TvEpisodeCreditResponse> {
+                override fun onResponse(
+                    call: Call<TvEpisodeCreditResponse>,
+                    response: Response<TvEpisodeCreditResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        liveData.postValue(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<TvEpisodeCreditResponse>, t: Throwable) {
+                    Log.d("TAG", "onFailureCreditEpisode: ${t.message}")
+                }
+            })
+        return liveData
+    }
 }

@@ -41,6 +41,7 @@ import com.fajaradisetyawan.movieku.data.model.tvshow.Seasons
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 import com.fajaradisetyawan.movieku.databinding.FragmentSeasonBinding
 import com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.season.viewmodel.SeasonViewModel
+import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -77,9 +78,26 @@ class SeasonFragment : Fragment() {
         name = seasons.name!!
 
         binding.tvTitle.text = name
+        binding.toolbar.title = name
 
         if (seasons.overview != "") {
-            binding.tvOverview.text = seasons.overview
+            val currentLanguage = resources.configuration.locale.language
+            if (currentLanguage != "en") {
+                Translator.translator.translate(seasons.overview!!)
+                    .addOnSuccessListener { translatedText ->
+                        binding.tvOverview.text = translatedText
+                    }
+                    .addOnFailureListener { exception ->
+                        // Error.
+                        Toast.makeText(
+                            requireActivity(),
+                            "Error ${exception.message.toString()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            } else {
+                binding.tvOverview.text = seasons.overview
+            }
         } else {
             binding.tvOverview.visibility = View.GONE
         }
@@ -137,14 +155,12 @@ class SeasonFragment : Fragment() {
                     if (dominantSwatch == null) {
                         if (darkVibrantSwatch == null) {
                             requireActivity().window.statusBarColor = lightVibrantSwatch!!.rgb
-
                             scrollToolbar(
                                 lightVibrantSwatch.rgb,
                                 lightVibrantSwatch.bodyTextColor
                             )
                         } else {
                             requireActivity().window.statusBarColor = darkVibrantSwatch.rgb
-
                             scrollToolbar(darkVibrantSwatch.rgb, darkVibrantSwatch.bodyTextColor)
                         }
                     } else {
@@ -227,7 +243,6 @@ class SeasonFragment : Fragment() {
                             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
                         }
                     }
-
 
                 } else {
                     binding.toolbar.setBackgroundColor(Color.TRANSPARENT)

@@ -9,6 +9,7 @@ package com.fajaradisetyawan.movieku.feature.adapter
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -19,6 +20,7 @@ import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.data.model.tvshow.Seasons
 import com.fajaradisetyawan.movieku.databinding.ItemSeasonBinding
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
+import com.fajaradisetyawan.movieku.utils.Translator
 
 
 class SeasonListPagingAdapter(val titleTv: String): PagingDataAdapter<Seasons, SeasonListPagingAdapter.ViewHolder>(COMPARATOR) {
@@ -64,7 +66,19 @@ class SeasonListPagingAdapter(val titleTv: String): PagingDataAdapter<Seasons, S
                         yearSeasons
                     )
                 }else{
-                    tvOverviewSeason.text = seasons.overview
+                    val currentLanguage = itemView.resources.configuration.locale.language
+                    if (currentLanguage != "en"){
+                        Translator.translator.translate(seasons.overview!!)
+                            .addOnSuccessListener { translatedText ->
+                                tvOverviewSeason.text = translatedText
+                            }
+                            .addOnFailureListener { exception ->
+                                // Error.
+                                Toast.makeText(itemView.context, "Error ${exception.message.toString()}", Toast.LENGTH_SHORT).show()
+                            }
+                    }else{
+                        tvOverviewSeason.text = seasons.overview
+                    }
                 }
             }
 

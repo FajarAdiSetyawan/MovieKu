@@ -9,6 +9,7 @@ package com.fajaradisetyawan.movieku.feature.adapter
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -19,11 +20,13 @@ import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.data.model.tvshow.Episode
 import com.fajaradisetyawan.movieku.databinding.ItemEpisodeBinding
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
+import com.fajaradisetyawan.movieku.utils.Translator
 import java.math.RoundingMode
 
 
 class EpisodeListPagingAdapter : PagingDataAdapter<Episode, EpisodeListPagingAdapter.ViewHolder>(COMPARATOR) {
     private var onItemClickListener: ((Episode) -> Unit)? = null
+
 
     fun setOnItemClickListener(listener: (Episode) -> Unit) {
         onItemClickListener = listener
@@ -73,7 +76,19 @@ class EpisodeListPagingAdapter : PagingDataAdapter<Episode, EpisodeListPagingAda
                         R.string.overview_episode_empty, episode.name,
                     )
                 } else {
-                    tvOverview.text = episode.overview
+                    val currentLanguage = itemView.resources.configuration.locale.language
+                    if (currentLanguage != "en"){
+                        Translator.translator.translate(episode.overview!!)
+                            .addOnSuccessListener { translatedText ->
+                                tvOverview.text = translatedText
+                            }
+                            .addOnFailureListener { exception ->
+                                // Error.
+                                Toast.makeText(itemView.context, "Error ${exception.message.toString()}", Toast.LENGTH_SHORT).show()
+                            }
+                    }else{
+                        tvOverview.text = episode.overview
+                    }
                 }
 
                 tvRating.text =

@@ -8,6 +8,7 @@ package com.fajaradisetyawan.movieku.feature.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShow
 import com.fajaradisetyawan.movieku.databinding.ItemListBigBinding
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
+import com.fajaradisetyawan.movieku.utils.Translator
 import java.math.RoundingMode
 
 class TvShowBigListPagingAdapter : PagingDataAdapter<TvShow, TvShowBigListPagingAdapter.ViewHolder>(COMPARATOR) {
@@ -53,7 +55,7 @@ class TvShowBigListPagingAdapter : PagingDataAdapter<TvShow, TvShowBigListPaging
 
                 tvTitle.text = tvShow.name
 
-                if (tvShow.firstAirDate.isNullOrEmpty() || tvShow.firstAirDate.equals(null) ||  tvShow.firstAirDate == ""){
+                if (tvShow.firstAirDate.isEmpty() || tvShow.firstAirDate == ""){
                     tvRelease.text = "-"
                 }else{
                     tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
@@ -65,7 +67,19 @@ class TvShowBigListPagingAdapter : PagingDataAdapter<TvShow, TvShowBigListPaging
                         R.string.overview_episode_empty, tvShow.name,
                     )
                 } else {
-                    tvOverview.text = tvShow.overview
+                    val currentLanguage = itemView.resources.configuration.locale.language
+                    if (currentLanguage != "en"){
+                        Translator.translator.translate(tvShow.overview)
+                            .addOnSuccessListener { translatedText ->
+                                tvOverview.text = translatedText
+                            }
+                            .addOnFailureListener { exception ->
+                                // Error.
+                                Toast.makeText(itemView.context, "Error ${exception.message.toString()}", Toast.LENGTH_SHORT).show()
+                            }
+                    }else{
+                        tvOverview.text = tvShow.overview
+                    }
                 }
 
                 tvRating.text =

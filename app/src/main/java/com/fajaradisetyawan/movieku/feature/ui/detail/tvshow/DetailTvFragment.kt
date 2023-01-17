@@ -18,10 +18,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -41,6 +41,7 @@ import com.fajaradisetyawan.movieku.databinding.FragmentDetailTvBinding
 import com.fajaradisetyawan.movieku.feature.adapter.*
 import com.fajaradisetyawan.movieku.feature.adapter.detail.CastDetailAdapter
 import com.fajaradisetyawan.movieku.feature.ui.detail.tvshow.viewmodel.DetailTvShowViewModels
+import com.fajaradisetyawan.movieku.utils.CustomToastDialog
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
 import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.flexbox.FlexDirection
@@ -51,8 +52,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
 import java.text.NumberFormat
 import java.util.*
 
@@ -77,6 +76,8 @@ class DetailTvFragment : Fragment() {
     var duration = ""
     var title = ""
 
+    private var currentLanguage = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,6 +91,8 @@ class DetailTvFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        currentLanguage = resources.configuration.locale.language
 
         val tvId = args.tvShowId
 
@@ -200,7 +203,7 @@ class DetailTvFragment : Fragment() {
                     ivLink.visibility = View.VISIBLE
                     ivLink.setOnClickListener {
                         val intent =
-                            Intent(Intent.ACTION_VIEW, Uri.parse("${tvShowDetail.homepage}"))
+                            Intent(Intent.ACTION_VIEW, Uri.parse(tvShowDetail.homepage))
                         startActivity(intent)
                     }
                 }
@@ -485,7 +488,23 @@ class DetailTvFragment : Fragment() {
                     yearSeasons
                 )
             } else {
-                tvOverviewSeason.text = seasons.overview
+                if (currentLanguage != "en") {
+                    Translator.translator.translate(seasons.overview!!)
+                        .addOnSuccessListener { translatedText ->
+                            tvOverviewSeason.text = translatedText
+                        }
+                        .addOnFailureListener { exception ->
+                            // Error.
+                            Toast.makeText(
+                                requireActivity(),
+                                "Error ${exception.message.toString()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                } else {
+                    tvOverviewSeason.text = seasons.overview
+                }
+
             }
 
             Glide.with(requireActivity())
@@ -777,26 +796,9 @@ class DetailTvFragment : Fragment() {
             if (isFavorite) {
                 viewModel.addToFavorite(detail)
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                MotionToast.darkColorToast(
-                    requireActivity(),
-                    resources.getString(R.string.success),
-                    resources.getString(R.string.success_fav, detail.name),
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                )
+                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, detail.name))
             } else {
-                viewModel.removeFromFavorite(detail.id)
-                MotionToast.darkColorToast(
-                    requireActivity(),
-                    resources.getString(R.string.delete),
-                    resources.getString(R.string.deleted_fav, detail.name),
-                    MotionToastStyle.DELETE,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                )
+                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.delete), resources.getString(R.string.deleted_fav, detail.name))
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }
@@ -804,50 +806,25 @@ class DetailTvFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun prepareTranslate(detail: TvShowDetail) {
-        val currentLanguage = resources.configuration.locale.language
-        if (currentLanguage == "en") {
-            goneLoading(detail)
-        } else {
-            showLoading()
-            Translator.translator.downloadModelIfNeeded()
-                .addOnSuccessListener {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
-                    if (detail.overview != "") {
-                        Translator.translator.translate(detail.overview)
-                            .addOnSuccessListener { translatedText ->
-                                goneLoading(detail)
-                                binding.layoutContent.tvOverview.text = translatedText
-                            }
-                            .addOnFailureListener { exception ->
-                                // Error.
-                                MotionToast.darkColorToast(
-                                    requireActivity(),
-                                    "Error",
-                                    exception.message.toString(),
-                                    MotionToastStyle.ERROR,
-                                    MotionToast.GRAVITY_BOTTOM,
-                                    MotionToast.LONG_DURATION,
-                                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                                )
-                            }
-                    } else {
+        showLoading()
+        if (detail.overview != ""){
+            if (currentLanguage != "en"){
+                Translator.translator.translate(detail.overview)
+                    .addOnSuccessListener { translatedText ->
                         goneLoading(detail)
+                        binding.layoutContent.tvOverview.text = translatedText
                     }
-
-                }
-                .addOnFailureListener { exception ->
-                    // Model couldn’t be downloaded or other internal error.
-                    MotionToast.darkColorToast(
-                        requireActivity(),
-                        "Error",
-                        exception.message.toString(),
-                        MotionToastStyle.ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                    )
-                }
+                    .addOnFailureListener { exception ->
+                        // Error.
+                        CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                    }
+            }else{
+                goneLoading(detail)
+                binding.layoutContent.tvOverview.text = detail.overview
+            }
+        }else{
+            goneLoading(detail)
+            binding.layoutContent.tvOverview.text = "-"
         }
     }
 
