@@ -12,13 +12,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.databinding.FragmentHomeBinding
+import com.fajaradisetyawan.movieku.utils.CustomToastDialog
+import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -67,6 +72,20 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(view).navigate(sendData)
         }
 
+
+        val currentLanguage = resources.configuration.locale.language
+        if (currentLanguage != "en") {
+            CustomToastDialog.showLoadingDialog(requireActivity(), resources.getString(R.string.downloading_modal))
+            Translator.translator.downloadModelIfNeeded()
+                .addOnSuccessListener {
+                    CustomToastDialog.goneLoadingDialog()
+                }
+                .addOnFailureListener { exception ->
+                    // Model couldn’t be downloaded or other internal error.
+                    CustomToastDialog.goneLoadingDialog()
+                    CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                }
+        }
     }
 
     internal class ViewPagerAdapterTrending(

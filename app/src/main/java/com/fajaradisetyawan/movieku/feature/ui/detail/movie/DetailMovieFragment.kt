@@ -19,7 +19,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -39,6 +38,7 @@ import com.fajaradisetyawan.movieku.databinding.FragmentDetailMovieBinding
 import com.fajaradisetyawan.movieku.feature.adapter.*
 import com.fajaradisetyawan.movieku.feature.adapter.detail.CastDetailAdapter
 import com.fajaradisetyawan.movieku.feature.ui.detail.movie.viewmodel.DetailMovieViewModel
+import com.fajaradisetyawan.movieku.utils.CustomToastDialog
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
 import com.fajaradisetyawan.movieku.utils.Translator.translator
 import com.google.android.flexbox.FlexDirection
@@ -49,8 +49,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
 import java.text.NumberFormat
 import java.util.*
 
@@ -192,11 +190,6 @@ class DetailMovieFragment : Fragment() {
                 else -> {
                     layoutContent.tvBudget.text = "-"
                 }
-            }
-
-            when (movieDetail.overview) {
-                "" -> binding.layoutContent.tvOverview.text = "-"
-                else -> binding.layoutContent.tvOverview.text = movieDetail.overview
             }
 
             when {
@@ -767,26 +760,10 @@ class DetailMovieFragment : Fragment() {
             if (isFavorite) {
                 viewModel.addToFavorite(movieDetail)
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                MotionToast.darkColorToast(
-                    requireActivity(),
-                    resources.getString(R.string.success),
-                    resources.getString(R.string.success_fav, movieDetail.title),
-                    MotionToastStyle.SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                )
+                CustomToastDialog.successToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, movieDetail.title))
             } else {
                 viewModel.removeFromFavorite(movieDetail.id)
-                MotionToast.darkColorToast(
-                    requireActivity(),
-                    resources.getString(R.string.delete),
-                    resources.getString(R.string.deleted_fav, movieDetail.title),
-                    MotionToastStyle.DELETE,
-                    MotionToast.GRAVITY_BOTTOM,
-                    MotionToast.LONG_DURATION,
-                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                )
+                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.delete), resources.getString(R.string.deleted_fav, movieDetail.title))
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }
@@ -794,49 +771,25 @@ class DetailMovieFragment : Fragment() {
 
     private fun prepareTranslate(detail: MovieDetail){
         val currentLanguage = resources.configuration.locale.language
-        if (currentLanguage == "en") {
-            goneLoading(detail)
-        }else{
-            showLoading()
-            translator.downloadModelIfNeeded()
-                .addOnSuccessListener {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
-                    if (detail.overview != ""){
-                        translator.translate(detail.overview)
-                            .addOnSuccessListener { translatedText ->
-                                goneLoading(detail)
-                                binding.layoutContent.tvOverview.text = translatedText
-                            }
-                            .addOnFailureListener { exception ->
-                                // Error.
-                                MotionToast.darkColorToast(
-                                    requireActivity(),
-                                    "Error",
-                                    exception.message.toString(),
-                                    MotionToastStyle.ERROR,
-                                    MotionToast.GRAVITY_BOTTOM,
-                                    MotionToast.LONG_DURATION,
-                                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                                )
-                            }
-                    }else{
+        showLoading()
+        if (detail.overview != ""){
+            if (currentLanguage != "en"){
+                translator.translate(detail.overview)
+                    .addOnSuccessListener { translatedText ->
                         goneLoading(detail)
+                        binding.layoutContent.tvOverview.text = translatedText
                     }
-
-                }
-                .addOnFailureListener { exception ->
-                    // Model couldn’t be downloaded or other internal error.
-                    MotionToast.darkColorToast(
-                        requireActivity(),
-                        "Error",
-                        exception.message.toString(),
-                        MotionToastStyle.ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                    )
-                }
+                    .addOnFailureListener { exception ->
+                        // Error.
+                        CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                    }
+            }else{
+                goneLoading(detail)
+                binding.layoutContent.tvOverview.text = detail.overview
+            }
+        }else{
+            goneLoading(detail)
+            binding.layoutContent.tvOverview.text = "-"
         }
     }
 

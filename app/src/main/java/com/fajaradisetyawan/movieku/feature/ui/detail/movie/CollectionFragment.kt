@@ -34,6 +34,7 @@ import com.fajaradisetyawan.movieku.data.remote.response.movie.CollectionRespons
 import com.fajaradisetyawan.movieku.databinding.FragmentCollectionBinding
 import com.fajaradisetyawan.movieku.feature.adapter.MovieListBigAdapter
 import com.fajaradisetyawan.movieku.feature.ui.detail.movie.viewmodel.CollectionViewModel
+import com.fajaradisetyawan.movieku.utils.CustomToastDialog
 import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -93,11 +94,6 @@ class CollectionFragment : Fragment() {
 
 
             tvNoMovie.text = resources.getString(R.string.number_of_movies, collection.parts.size)
-            if (collection.overview != ""){
-                tvOverview.text = collection.overview
-            }else{
-                tvOverview.text = "-"
-            }
 
             shimmerCollectionMovie.visibility = View.GONE
             shimmerCollectionMovie.stopShimmer()
@@ -292,49 +288,25 @@ class CollectionFragment : Fragment() {
 
     private fun prepareTranslate(collection: CollectionResponse){
         val currentLanguage = resources.configuration.locale.language
-        if (currentLanguage == "en") {
-            goneLoading(collection)
-        }else{
-            showLoading()
-            Translator.translator.downloadModelIfNeeded()
-                .addOnSuccessListener {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
-                    if (collection.overview != ""){
-                        Translator.translator.translate(collection.overview)
-                            .addOnSuccessListener { translatedText ->
-                                goneLoading(collection)
-                                binding.layoutContent.tvOverview.text = translatedText
-                            }
-                            .addOnFailureListener { exception ->
-                                // Error.
-                                MotionToast.darkColorToast(
-                                    requireActivity(),
-                                    "Error",
-                                    exception.message.toString(),
-                                    MotionToastStyle.ERROR,
-                                    MotionToast.GRAVITY_BOTTOM,
-                                    MotionToast.LONG_DURATION,
-                                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                                )
-                            }
-                    }else{
+        showLoading()
+        if (collection.overview != ""){
+            if (currentLanguage != "en"){
+                Translator.translator.translate(collection.overview)
+                    .addOnSuccessListener { translatedText ->
                         goneLoading(collection)
+                        binding.layoutContent.tvOverview.text = translatedText
                     }
-
-                }
-                .addOnFailureListener { exception ->
-                    // Model couldn’t be downloaded or other internal error.
-                    MotionToast.darkColorToast(
-                        requireActivity(),
-                        "Error",
-                        exception.message.toString(),
-                        MotionToastStyle.ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                    )
-                }
+                    .addOnFailureListener { exception ->
+                        // Error.
+                        CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                    }
+            }else{
+                goneLoading(collection)
+                binding.layoutContent.tvOverview.text = collection.overview
+            }
+        }else{
+            goneLoading(collection)
+            binding.layoutContent.tvOverview.text = "-"
         }
     }
 

@@ -8,11 +8,13 @@ package com.fajaradisetyawan.movieku.feature.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.data.model.movie.Movie
 import com.fajaradisetyawan.movieku.databinding.ItemSliderBinding
+import com.fajaradisetyawan.movieku.utils.Translator
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 class SliderMovieAdapter: SliderViewAdapter<SliderMovieAdapter.ViewHolder>() {
@@ -54,7 +56,25 @@ class SliderMovieAdapter: SliderViewAdapter<SliderMovieAdapter.ViewHolder>() {
                 }
 
                 tvTitle.text = movie.title
-                tvOverview.text = movie.overview
+                if (movie.overview == "") {
+                    tvOverview.text = itemView.resources.getString(
+                        R.string.overview_episode_empty, movie.title,
+                    )
+                } else {
+                    val currentLanguage = itemView.resources.configuration.locale.language
+                    if (currentLanguage != "en"){
+                        Translator.translator.translate(movie.overview)
+                            .addOnSuccessListener { translatedText ->
+                                tvOverview.text = translatedText
+                            }
+                            .addOnFailureListener { exception ->
+                                // Error.
+                                Toast.makeText(itemView.context, "Error ${exception.message.toString()}", Toast.LENGTH_SHORT).show()
+                            }
+                    }else{
+                        tvOverview.text = movie.overview
+                    }
+                }
             }
 
             itemView.setOnClickListener {

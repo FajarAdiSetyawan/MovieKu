@@ -35,6 +35,7 @@ import com.fajaradisetyawan.movieku.feature.adapter.AlsoKnownAdapter
 import com.fajaradisetyawan.movieku.data.model.people.PeopleDetail
 import com.fajaradisetyawan.movieku.databinding.FragmentDetailPeopleBinding
 import com.fajaradisetyawan.movieku.feature.ui.detail.people.detail.viewmodel.DetailPeopleViewModel
+import com.fajaradisetyawan.movieku.utils.CustomToastDialog
 import com.fajaradisetyawan.movieku.utils.ParseDateTime
 import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.material.appbar.AppBarLayout
@@ -392,49 +393,25 @@ class DetailPeopleFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun prepareTranslate(people: PeopleDetail){
         val currentLanguage = resources.configuration.locale.language
-        if (currentLanguage == "en") {
-            goneLoading(people)
-        }else{
-            showLoading()
-            Translator.translator.downloadModelIfNeeded()
-                .addOnSuccessListener {
-                    // Model downloaded successfully. Okay to start translating.
-                    // (Set a flag, unhide the translation UI, etc.)
-                    if (people.biography != ""){
-                        Translator.translator.translate(people.biography)
-                            .addOnSuccessListener { translatedText ->
-                                goneLoading(people)
-                                binding.layoutContent.tvBiography.text = translatedText
-                            }
-                            .addOnFailureListener { exception ->
-                                // Error.
-                                MotionToast.darkColorToast(
-                                    requireActivity(),
-                                    "Error",
-                                    exception.message.toString(),
-                                    MotionToastStyle.ERROR,
-                                    MotionToast.GRAVITY_BOTTOM,
-                                    MotionToast.LONG_DURATION,
-                                    ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                                )
-                            }
-                    }else{
+        showLoading()
+        if (people.biography != ""){
+            if (currentLanguage != "en"){
+                Translator.translator.translate(people.biography)
+                    .addOnSuccessListener { translatedText ->
                         goneLoading(people)
+                        binding.layoutContent.tvBiography.text = translatedText
                     }
-
-                }
-                .addOnFailureListener { exception ->
-                    // Model couldn’t be downloaded or other internal error.
-                    MotionToast.darkColorToast(
-                        requireActivity(),
-                        "Error",
-                        exception.message.toString(),
-                        MotionToastStyle.ERROR,
-                        MotionToast.GRAVITY_BOTTOM,
-                        MotionToast.LONG_DURATION,
-                        ResourcesCompat.getFont(requireActivity(), R.font.quicksand)
-                    )
-                }
+                    .addOnFailureListener { exception ->
+                        // Error.
+                        CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                    }
+            }else{
+                goneLoading(people)
+                binding.layoutContent.tvBiography.text = people.biography
+            }
+        }else{
+            goneLoading(people)
+            binding.layoutContent.tvBiography.text = "-"
         }
     }
 
