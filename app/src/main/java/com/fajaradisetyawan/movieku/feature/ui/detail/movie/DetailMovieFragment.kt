@@ -17,6 +17,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -121,6 +122,13 @@ class DetailMovieFragment : Fragment() {
 
             }
         }
+
+        binding.fabTop.setOnClickListener {
+            binding.nested.post {
+                binding.nested.fling(0);
+                binding.nested.smoothScrollTo(0, 0);
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n", "ResourceAsColor", "StringFormatMatches", "NotifyDataSetChanged")
@@ -176,9 +184,9 @@ class DetailMovieFragment : Fragment() {
                 layoutContent.tvTagline.visibility = View.VISIBLE
             }
 
-            if (movieDetail.status != ""){
+            if (movieDetail.status != "") {
                 layoutContent.tvStatus.text = movieDetail.status
-            }else{
+            } else {
                 layoutContent.tvStatus.visibility = View.GONE
             }
 
@@ -216,8 +224,8 @@ class DetailMovieFragment : Fragment() {
                 }
             }
         }
-
-        if (movieDetail.backdropPath != null || movieDetail.backdropPath != "") {
+        Log.d("TAG", "detail: $movieDetail")
+        if (movieDetail.backdropPath != null) {
             Glide.with(this)
                 .asBitmap()
                 .load("${movieDetail.baseUrl}${movieDetail.backdropPath}")
@@ -247,7 +255,7 @@ class DetailMovieFragment : Fragment() {
                 })
                 .into(binding.ivBackdrops)
         } else {
-            if (movieDetail.posterPath != null || movieDetail.posterPath != "") {
+            if (movieDetail.posterPath != null) {
                 Glide.with(this)
                     .asBitmap()
                     .load("${movieDetail.baseUrl}${movieDetail.posterPath}")
@@ -282,7 +290,7 @@ class DetailMovieFragment : Fragment() {
             }
         }
 
-        if (movieDetail.posterPath != null || movieDetail.posterPath != "") {
+        if (movieDetail.posterPath != null) {
             Glide.with(this)
                 .load("${movieDetail.baseUrl}${movieDetail.posterPath}")
                 .centerCrop()
@@ -291,7 +299,7 @@ class DetailMovieFragment : Fragment() {
                 .error(R.drawable.placeholder_portrait_img)
                 .into(binding.ivPoster)
         } else {
-            if (movieDetail.backdropPath != null || movieDetail.backdropPath != "") {
+            if (movieDetail.backdropPath != null) {
                 Glide.with(this)
                     .load("${movieDetail.baseUrl}${movieDetail.backdropPath}")
                     .centerCrop()
@@ -363,15 +371,18 @@ class DetailMovieFragment : Fragment() {
     }
 
     private fun scrollToolbar(colorToolbar: Int?, textColor: Int?) {
-        val nav: Drawable = binding.toolbar.navigationIcon!!
 
+        val nav: Drawable = binding.toolbar.navigationIcon!!
         if (colorToolbar != null && textColor != null) {
             requireActivity().window.statusBarColor = colorToolbar
             nav.setTint(textColor)
-        } else {
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireActivity(), R.color.color_primary)
+            binding.cardBottomSheet.setCardBackgroundColor(colorToolbar)
+            binding.fabTop.setBackgroundColor(colorToolbar)
+        }else{
+            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.color_primary)
             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
+            binding.fabTop.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+            binding.cardBottomSheet.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
         }
 
         binding.appbar.addOnOffsetChangedListener(object :
@@ -390,25 +401,17 @@ class DetailMovieFragment : Fragment() {
 
                 //Check if the view is collapsed
                 if (scrollRange + verticalOffset == 0) {
+                    binding.fabTop.visibility = View.VISIBLE
                     if (colorToolbar != null && textColor != null) {
                         binding.toolbar.setBackgroundColor(colorToolbar)
                         binding.collapsingToolbar.setCollapsedTitleTextColor(textColor)
                     } else {
-                        binding.toolbar.setBackgroundColor(
-                            ContextCompat.getColor(
-                                requireActivity(),
-                                R.color.color_primary
-                            )
-                        )
-                        binding.collapsingToolbar.setCollapsedTitleTextColor(
-                            ContextCompat.getColor(
-                                requireActivity(),
-                                R.color.white
-                            )
-                        )
+                        binding.toolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+                        binding.collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
                         binding.toolbar.setTitleTextColor(R.color.white)
                     }
                 } else {
+                    binding.fabTop.visibility = View.GONE
                     binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
                     binding.collapsingToolbar.setCollapsedTitleTextColor(R.color.text_color)
                 }
@@ -746,34 +749,42 @@ class DetailMovieFragment : Fragment() {
             val count = viewModel.checkMovie(movieDetail.id)
             withContext(Dispatchers.Main) {
                 isFavorite = if (count > 0) {
-                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_24)
                     true
                 } else {
-                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_border_24)
                     false
                 }
             }
         }
 
-        binding.fab.setOnClickListener {
+        binding.btnFav.setOnClickListener {
             isFavorite = !isFavorite
             if (isFavorite) {
                 viewModel.addToFavorite(movieDetail)
-                binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                CustomToastDialog.successToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, movieDetail.title))
+                CustomToastDialog.successToast(
+                    requireActivity(),
+                    resources.getString(R.string.success),
+                    resources.getString(R.string.success_fav, movieDetail.title)
+                )
+                binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_24)
             } else {
                 viewModel.removeFromFavorite(movieDetail.id)
-                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.delete), resources.getString(R.string.deleted_fav, movieDetail.title))
-                binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                CustomToastDialog.deleteToast(
+                    requireActivity(),
+                    resources.getString(R.string.delete),
+                    resources.getString(R.string.deleted_fav, movieDetail.title)
+                )
+                binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_border_24)
             }
         }
     }
 
-    private fun prepareTranslate(detail: MovieDetail){
+    private fun prepareTranslate(detail: MovieDetail) {
         val currentLanguage = resources.configuration.locale.language
         showLoading()
-        if (detail.overview != ""){
-            if (currentLanguage != "en"){
+        if (detail.overview != "") {
+            if (currentLanguage != "en") {
                 translator.translate(detail.overview)
                     .addOnSuccessListener { translatedText ->
                         goneLoading(detail)
@@ -781,19 +792,23 @@ class DetailMovieFragment : Fragment() {
                     }
                     .addOnFailureListener { exception ->
                         // Error.
-                        CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
+                        CustomToastDialog.errorToast(
+                            requireActivity(),
+                            "Error",
+                            exception.message.toString()
+                        )
                     }
-            }else{
+            } else {
                 goneLoading(detail)
                 binding.layoutContent.tvOverview.text = detail.overview
             }
-        }else{
+        } else {
             goneLoading(detail)
             binding.layoutContent.tvOverview.text = "-"
         }
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         binding.apply {
             ivBackdropsShimmer.visibility = View.VISIBLE
             ivBackdropsShimmer.startShimmer()
@@ -822,7 +837,7 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
-    private fun goneLoading(detail: MovieDetail){
+    private fun goneLoading(detail: MovieDetail) {
         binding.apply {
             ivBackdropsShimmer.visibility = View.GONE
             ivBackdropsShimmer.stopShimmer()
@@ -877,6 +892,5 @@ class DetailMovieFragment : Fragment() {
         super.onDestroyView()
         fragmentDetailMovieBinding = null
     }
-
 
 }

@@ -85,7 +85,7 @@ class SearchFragment : Fragment() {
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
                 override fun afterTextChanged(edit: Editable) {
                     // Business logic for search here
-                    val query = edit.toString().toLowerCase(Locale.getDefault())
+                    val query = edit.toString().lowercase(Locale.getDefault())
                     toggleImageView(query)
 
                     val pagerAdapterSearch = ViewPagerAdapter(requireActivity(), query)

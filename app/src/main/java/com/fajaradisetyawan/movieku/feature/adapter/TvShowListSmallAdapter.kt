@@ -59,7 +59,11 @@ class TvShowListSmallAdapter : RecyclerView.Adapter<TvShowListSmallAdapter.ViewH
 
                 tvTitle.text = tvShow.name
 
-                tvReleaseDate.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+                if (tvShow.firstAirDate == "" || tvShow.firstAirDate.isNullOrBlank() || tvShow.firstAirDate.isNullOrEmpty()){
+                    tvReleaseDate.text = "-"
+                }else{
+                    tvReleaseDate.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+                }
 
                 val progress = tvShow.voteAverage * 10
 

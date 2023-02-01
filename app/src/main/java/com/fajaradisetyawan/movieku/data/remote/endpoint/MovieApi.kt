@@ -28,8 +28,8 @@ interface MovieApi {
     @GET("discover/movie")
     fun getMovieReleasedToday(
         @Query("api_key") apiKey: String,
-        @Query("primary_release.gte") dateToday: String,
-        @Query("primary_release.lte") dateToday2: String
+        @Query("primary_release_date.gte") dateToday: String,
+        @Query("primary_release_date.lte") dateToday2: String
     ): Call<MovieResponse>
 
     @GET("movie/{id}/videos")

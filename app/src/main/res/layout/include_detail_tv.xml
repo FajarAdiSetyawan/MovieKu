@@ -302,6 +302,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/quicksand"
+                android:textIsSelectable="true"
                 android:justificationMode="inter_word"
                 android:textSize="15sp"
                 />

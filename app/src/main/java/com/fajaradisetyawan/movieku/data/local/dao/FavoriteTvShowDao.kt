@@ -6,14 +6,16 @@
 
 package com.fajaradisetyawan.movieku.data.local.dao
 
+import android.database.sqlite.SQLiteException
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 
 @Dao
 interface FavoriteTvShowDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(tvShow: TvShowDetail)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Throws(SQLiteException::class)
+    fun insert(tvShow: TvShowDetail)
 
     @Query("DELETE FROM favorite_tv_show WHERE favorite_tv_show.id = :id" )
     suspend fun deleteTvShow(id: Int) : Int
@@ -23,5 +25,6 @@ interface FavoriteTvShowDao {
 
     @Query("SELECT count(*) FROM favorite_tv_show where favorite_tv_show.id =:id")
     suspend fun getTvShowById(id: Int): Int
+
 
 }

@@ -60,7 +60,12 @@ class TvShowFavAdapter: RecyclerView.Adapter<TvShowFavAdapter.ViewHolder>() {
 
                 tvTitle.text = tvShow.name
 
-                tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+                if (tvShow.firstAirDate == "" || tvShow.firstAirDate.isNullOrBlank() || tvShow.firstAirDate.isNullOrEmpty()){
+                    tvRelease.text = "-"
+                }else{
+                    tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
+                }
+
                 if (tvShow.overview == "") {
                     tvOverview.text = itemView.resources.getString(
                         R.string.overview_episode_empty, tvShow.name,

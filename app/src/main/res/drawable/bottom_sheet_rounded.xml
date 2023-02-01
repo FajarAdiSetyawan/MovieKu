@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Fajar Adi Setyawan on 1/2/2023 - 11:54:42
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/md_yellow_A400"/>
+    <corners android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"/>
+</shape>

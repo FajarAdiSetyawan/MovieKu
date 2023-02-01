@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -35,9 +35,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.fajaradisetyawan.movieku.R
+import com.fajaradisetyawan.movieku.databinding.FragmentDetailCompanyBinding
 import com.fajaradisetyawan.movieku.feature.adapter.MovieBigListPagingAdapter
 import com.fajaradisetyawan.movieku.feature.adapter.paging.StateAdapter
-import com.fajaradisetyawan.movieku.databinding.FragmentDetailCompanyBinding
 import com.fajaradisetyawan.movieku.feature.ui.detail.movie.viewmodel.DetailCompanyViewModel
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +57,8 @@ class DetailCompanyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        fragmentDetailCompanyBinding = FragmentDetailCompanyBinding.inflate(layoutInflater, container, false)
+        fragmentDetailCompanyBinding =
+            FragmentDetailCompanyBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -114,7 +115,10 @@ class DetailCompanyFragment : Fragment() {
 
         }
 
-        if (company.logoPath != null) {
+        if (company.logoPath == null) {
+            toolbarColor(null)
+            binding.ivPoster.setBackgroundResource(R.drawable.placeholder_portrait_img)
+        } else {
             Glide.with(requireActivity())
                 .asBitmap()
                 .load("${company.baseUrl}${company.logoPath}")
@@ -145,9 +149,6 @@ class DetailCompanyFragment : Fragment() {
                 })
                 .error(R.drawable.placeholder_portrait_img)
                 .into(binding.ivPoster)
-        } else {
-            toolbarColor(null)
-            binding.ivPoster.setBackgroundResource(R.drawable.placeholder_portrait_img)
         }
 
         getAllMovie(company.id.toString())
@@ -163,8 +164,8 @@ class DetailCompanyFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvCompanyNetwork.setHasFixedSize(true)
             rvCompanyNetwork.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = StateAdapter {adapter.retry()},
-                footer = StateAdapter {adapter.retry()}
+                header = StateAdapter { adapter.retry() },
+                footer = StateAdapter { adapter.retry() }
             )
             btnTryAgain.setOnClickListener {
                 adapter.retry()
@@ -172,13 +173,14 @@ class DetailCompanyFragment : Fragment() {
         }
 
         viewModel.getMovieByCompany(id)
-        viewModel.movies.observe(viewLifecycleOwner){ movies ->
+        viewModel.movies.observe(viewLifecycleOwner) { movies ->
             if (movies != null) {
                 adapter.submitData(lifecycle, movies)
                 binding.included.layoutEmpty.visibility = View.GONE
-            }else{
+            } else {
                 binding.included.layoutEmpty.visibility = View.VISIBLE
-                binding.included.tvTitleEmpty.text = resources.getString(R.string.data_for_movie_empty)
+                binding.included.tvTitleEmpty.text =
+                    resources.getString(R.string.data_for_movie_empty)
             }
         }
 
@@ -193,14 +195,21 @@ class DetailCompanyFragment : Fragment() {
                     }
                     is LoadState.Error -> {
                         showError()
-                        Toast.makeText(requireActivity(), state.error.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireActivity(),
+                            state.error.message.orEmpty(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
         }
 
         adapter.setOnItemClickListener { movie ->
-            val sendData = DetailCompanyFragmentDirections.actionDetailCompanyFragmentToDetailMovieFragment(movie.id)
+            val sendData =
+                DetailCompanyFragmentDirections.actionDetailCompanyFragmentToDetailMovieFragment(
+                    movie.id
+                )
             Navigation.findNavController(requireView()).navigate(sendData)
         }
     }
@@ -240,6 +249,7 @@ class DetailCompanyFragment : Fragment() {
 
     @SuppressLint("UseCompatTextViewDrawableApis")
     private fun scrollToolbar(colorToolbar: Int?, textColor: Int?) {
+        Log.d("TAG", "resource $colorToolbar, $textColor")
         val nav: Drawable = binding.toolbar.navigationIcon!!
 
         if (colorToolbar != null && textColor != null) {
@@ -260,12 +270,13 @@ class DetailCompanyFragment : Fragment() {
             binding.tvGlobe.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
             binding.tvTitle.setTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
             binding.tvLocation.setTextColor(
-                ContextCompat.getColor(requireActivity(), R.color.white))
+                ContextCompat.getColor(requireActivity(), R.color.white)
+            )
             binding.tvHomepage.setTextColor(
-                ContextCompat.getColor(requireActivity(), R.color.white))
+                ContextCompat.getColor(requireActivity(), R.color.white)
+            )
         }
-
-
+        
         binding.appbar.addOnOffsetChangedListener(object :
             AppBarLayout.OnOffsetChangedListener {
             var scrollRange = -1
@@ -287,8 +298,13 @@ class DetailCompanyFragment : Fragment() {
                         binding.collapsingToolbar.setBackgroundColor(colorToolbar)
                         nav.setTint(textColor)
                     } else {
-                        binding.toolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-                        binding.collapsingToolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+                        binding.toolbar.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.color_primary
+                            )
+                        )
+
                         nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
                     }
                 } else {
@@ -296,8 +312,18 @@ class DetailCompanyFragment : Fragment() {
                         nav.setTint(colorToolbar)
                         binding.layoutToolbar.setBackgroundColor(textColor)
                     } else {
-                        binding.layoutToolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-                        nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
+                        binding.layoutToolbar.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.color_primary
+                            )
+                        )
+                        nav.setTint(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.color_primary
+                            )
+                        )
                     }
                     binding.collapsingToolbar.setExpandedTitleMargin(-100, 0, 0, -100)
                     binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
@@ -306,7 +332,7 @@ class DetailCompanyFragment : Fragment() {
         })
     }
 
-    private fun hideLoading(){
+    private fun hideLoading() {
         binding.included.apply {
             shimmerCompanyNetwork.visibility = View.GONE
             shimmerCompanyNetwork.stopShimmer()
@@ -315,7 +341,7 @@ class DetailCompanyFragment : Fragment() {
         }
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         binding.included.apply {
             shimmerCompanyNetwork.visibility = View.VISIBLE
             shimmerCompanyNetwork.startShimmer()
@@ -324,7 +350,7 @@ class DetailCompanyFragment : Fragment() {
         }
     }
 
-    private fun showError(){
+    private fun showError() {
         binding.included.apply {
             shimmerCompanyNetwork.visibility = View.GONE
             shimmerCompanyNetwork.stopShimmer()

@@ -29,6 +29,7 @@
             android:background="@android:color/transparent"
             android:backgroundTint="@android:color/transparent"
             android:ellipsize="end"
+            app:collapsedTitleTextColor="@color/white"
             android:fitsSystemWindows="true"
             app:expandedTitleTextColor="@color/white"
             app:collapsedTitleTextAppearance="@style/titleToolbarDetail"
@@ -49,6 +50,7 @@
                     android:id="@+id/layout_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/color_primary"
                     >
 
                     <io.github.florent37.shapeofview.shapes.RoundRectView

@@ -6,6 +6,8 @@
 
 package com.fajaradisetyawan.movieku.repository.favorite
 
+import android.database.sqlite.SQLiteException
+import android.util.Log
 import com.fajaradisetyawan.movieku.data.local.dao.FavoritePeopleDao
 import com.fajaradisetyawan.movieku.data.model.people.PeopleDetail
 import javax.inject.Inject
@@ -14,7 +16,18 @@ import javax.inject.Inject
 class FavoritePeopleRepository @Inject constructor(
     private val favoritePeopleDao: FavoritePeopleDao
 ) {
-    suspend fun addFavorite(peopleDetail: PeopleDetail) = favoritePeopleDao.insert(peopleDetail)
+    fun addFavorite(peopleDetail: PeopleDetail) {
+        //Exception Handling while calling insert function
+        Thread {
+            try {
+                favoritePeopleDao.insert(peopleDetail)
+            } catch (e: SQLiteException) {
+                //handle exception
+                //show message
+                Log.d("LOG", "Insert People Error: ${e.message.toString()}")
+            }
+        }.start()
+    }
 
     suspend fun deleteFavorite(id: Int) = favoritePeopleDao.deletePeople(id)
 

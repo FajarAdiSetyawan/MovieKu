@@ -59,7 +59,11 @@ class MovieListSmallAdapter : RecyclerView.Adapter<MovieListSmallAdapter.ViewHol
 
                 tvTitle.text = movie.title
 
-                tvReleaseDate.text = ParseDateTime.parseDate(movie.releaseDate)
+                if (movie.releaseDate.isNullOrBlank() || movie.releaseDate == "" || movie.releaseDate.isNullOrEmpty()){
+                    tvReleaseDate.text = "-"
+                }else{
+                    tvReleaseDate.text = ParseDateTime.parseDate(movie.releaseDate)
+                }
 
                 val progress = movie.voteAverage * 10
 

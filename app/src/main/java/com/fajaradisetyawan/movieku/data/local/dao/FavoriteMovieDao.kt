@@ -6,14 +6,16 @@
 
 package com.fajaradisetyawan.movieku.data.local.dao
 
+import android.database.sqlite.SQLiteException
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 
 @Dao
 interface FavoriteMovieDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertMovie(movieDetail: MovieDetail)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Throws(SQLiteException::class)
+    fun insertMovie(movieDetail: MovieDetail)
 
     @Query("DELETE FROM favorite_movie WHERE favorite_movie.id = :id" )
     suspend fun deleteMovie(id: Int) : Int

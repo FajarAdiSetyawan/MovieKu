@@ -57,7 +57,11 @@ class MovieListBigAdapter: RecyclerView.Adapter<MovieListBigAdapter.ViewHolder>(
 
                 tvTitle.text = movie.title
 
-                tvRelease.text = ParseDateTime.parseDate(movie.releaseDate)
+                if (movie.releaseDate.isNullOrBlank() || movie.releaseDate == "" || movie.releaseDate.isNullOrEmpty()){
+                    tvRelease.text = "-"
+                }else{
+                    tvRelease.text = ParseDateTime.parseDate(movie.releaseDate)
+                }
 
                 if (movie.overview == "") {
                     tvOverview.text = itemView.resources.getString(

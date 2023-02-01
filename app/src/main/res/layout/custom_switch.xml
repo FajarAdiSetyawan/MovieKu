@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Fajar Adi Setyawan on 24/1/2023 - 12:33:44
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<Switch xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_switch_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:textColor="@android:color/white"
+    android:textIsSelectable="false"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    android:track="@drawable/switchtrack"
+    android:thumb="@drawable/switch_tumb"
+    tools:ignore="UseSwitchCompatOrMaterialXml" />

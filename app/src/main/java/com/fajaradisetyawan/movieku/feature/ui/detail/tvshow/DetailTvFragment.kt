@@ -116,6 +116,10 @@ class DetailTvFragment : Fragment() {
 
                 prepareTranslate(detail)
                 favoriteTvShow(detail)
+
+                if (detail.seasons.isEmpty()){
+                    binding.layoutContent.cardCollection.visibility = View.GONE
+                }
             }
         }
     }
@@ -162,7 +166,7 @@ class DetailTvFragment : Fragment() {
                 tvRuntime.text = "-"
             }
 
-            if (tvShowDetail.tagline == "" || tvShowDetail.tagline == null) {
+            if (tvShowDetail.tagline == "") {
                 tvTagline.visibility = View.GONE
 
             } else {
@@ -319,7 +323,6 @@ class DetailTvFragment : Fragment() {
                     val dominantSwatch = palette.dominantSwatch
                     val lightVibrantSwatch = palette.lightVibrantSwatch
 
-
                     if (dominantSwatch == null) {
                         if (darkVibrantSwatch == null) {
                             scrollToolbar(
@@ -391,7 +394,6 @@ class DetailTvFragment : Fragment() {
                 ContextCompat.getColor(requireActivity(), R.color.color_primary)
             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
         }
-
 
         binding.appbar.addOnOffsetChangedListener(object :
             AppBarLayout.OnOffsetChangedListener {
@@ -514,18 +516,26 @@ class DetailTvFragment : Fragment() {
                 .into(ivPosterSeason)
 
             cardCollection.setOnClickListener {
-                val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToSeasonFragment(
-                    tvShowDetail,
-                    seasons
-                )
-                Navigation.findNavController(requireView()).navigate(sendData)
+                when {
+                    seasons.episodes.isNotEmpty() -> {
+                        val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToSeasonFragment(
+                            tvShowDetail,
+                            seasons
+                        )
+                        Navigation.findNavController(requireView()).navigate(sendData)
+                    }
+                }
             }
 
             tvAllSeason.setOnClickListener {
-                val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToAllSeasonFragment(
-                    tvShowDetail
-                )
-                Navigation.findNavController(requireView()).navigate(sendData)
+                when {
+                    seasons.episodes.isNotEmpty() -> {
+                        val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToAllSeasonFragment(
+                            tvShowDetail
+                        )
+                        Navigation.findNavController(requireView()).navigate(sendData)
+                    }
+                }
             }
         }
     }
@@ -794,10 +804,12 @@ class DetailTvFragment : Fragment() {
         binding.fab.setOnClickListener {
             isFavorite = !isFavorite
             if (isFavorite) {
+
                 viewModel.addToFavorite(detail)
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, detail.name))
+                CustomToastDialog.successToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, detail.name))
             } else {
+                viewModel.removeFromFavorite(detail.id)
                 CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.delete), resources.getString(R.string.deleted_fav, detail.name))
                 binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
@@ -893,7 +905,9 @@ class DetailTvFragment : Fragment() {
         getGenre(detail)
         getNetwork(detail)
         getCreator(detail)
-        getSeason(detail)
+        if (detail.seasons.isNotEmpty()){
+            getSeason(detail)
+        }
         getRecommend(detail.id)
         getTrailerLink(detail.id)
         getKeyword(detail.id)

@@ -63,9 +63,9 @@ class PeopleFavAdapter: RecyclerView.Adapter<PeopleFavAdapter.ViewHolder>() {
                         .into(ivPoster)
                 }
 
-                if (peopleDetail.birthday.equals(null) || peopleDetail.birthday == "" || peopleDetail.birthday == null) {
+                if (peopleDetail.birthday == "" || peopleDetail.birthday.isNullOrBlank() || peopleDetail.birthday.isNullOrEmpty()){
                     tvBirthdate.text = "-"
-                } else {
+                }else{
                     tvBirthdate.text = itemView.resources.getString(
                         R.string.birthdate_with_age, peopleDetail.birthday, ParseDateTime.getAge(
                             peopleDetail.birthday!!

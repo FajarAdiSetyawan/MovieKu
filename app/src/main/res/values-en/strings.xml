@@ -143,11 +143,15 @@
     <string name="pref_about_title">About</string>
     <string name="pref_share_title">Share</string>
     <string name="pref_logout_title">Logout</string>
+    <string name="pref_daily_title">Daily Reminder</string>
+    <string name="pref_release_title">Reminder New Release</string>
     <string name="pref_account_summary">Change profile</string>
     <string name="pref_feedback_summary">Send Feedback Application </string>
     <string name="pref_about_summary">About Application </string>
     <string name="pref_share_summary">Share Application</string>
     <string name="pref_logout_summary">Logout Form Application</string>
+    <string name="pref_daily_summary">Reminder for return to app</string>
+    <string name="pref_release_summary">Reminder showing the movie released today</string>
     <string name="pref_theme_label_auto">System Default</string>
     <string name="pref_theme_label_dark">Dark Mode</string>
     <string name="pref_theme_label_light">Light Mode</string>
@@ -161,11 +165,28 @@
     <string name="pref_display_group_title">Display</string>
     <string name="pref_display_group_title_profile">Account</string>
     <string name="pref_display_group_title_application">Application</string>
+    <string name="pref_display_group_title_notification">Notification</string>
     <string name="pref_theme_title_account">Account</string>
     <string name="pref_lang_entry_auto">LANGUAGE_AUTOMATIC</string>
     <string name="pref_key_lang">pref_key_language</string>
     <string name="english">English</string>
     <string name="indonesia">Bahasa Indonesia</string>
+
+    <!--  Notification   -->
+    <string name="reminder_title_notif">Open Your %1$s</string>
+    <string name="reminder_msg_notif">Have you checked the movie to be watched today?</string>
+    <string name="reminder_setting_title">Daily Reminder</string>
+    <string name="reminder_setting_message">I will say hello to you every morning. Don\'t miss every update!</string>
+    <string name="release_reminder_title">%1$s has been released today!</string>
+    <string name="new_movie">%1$d new movies!</string>
+    <string name="new_movie_total">%1$d movies has been released today!</string>
+    <string name="new_movie_today">New movie today</string>
+    <string name="release_reminder_setting_message">We will give you notification for daily released movie</string>
+    <string name="setting_reminder">Setting Reminder</string>
+    <string name="deactive_reminder_notif">Daily Reminder is Not Active</string>
+    <string name="active_reminder_notif">Daily Reminder is Active</string>
+    <string name="deactive_release_notif">Release today active</string>
+    <string name="active_release_notif">Release is not active</string>
 
     <string-array name="pref_themes_label">
         <item>@string/pref_theme_label_auto</item>
@@ -196,4 +217,5 @@
         <item>Indonesian</item>
     </string-array>
     <string name="cancel">Cancel</string>
+    <string name="watchlist">Watchlist</string>
 </resources>

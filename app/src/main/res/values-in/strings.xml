@@ -136,11 +136,15 @@
     <string name="pref_about_title">Tentang</string>
     <string name="pref_share_title">Berbagi</string>
     <string name="pref_logout_title">Keluar</string>
+    <string name="pref_daily_title">Pengingat Harian</string>
+    <string name="pref_release_title">Pengingat Rilis Film Baru</string>
     <string name="pref_account_summary">Ubah profile</string>
     <string name="pref_feedback_summary">Kirim Masukkan </string>
     <string name="pref_about_summary">Tentang Aplikasi </string>
     <string name="pref_share_summary">Berbagi Aplikasi</string>
     <string name="pref_logout_summary">Keluar dari Aplikasi</string>
+    <string name="pref_daily_summary">Pengingat untuk kembali ke aplikasi</string>
+    <string name="pref_release_summary">Penginat untuk film yang dirilis hari ini</string>
     <string name="pref_lang_entry_auto">LANGUAGE_AUTOMATIC</string>
     <string name="pref_key_lang">pref_key_language</string>
     <string name="pref_lang_label_en">English</string>
@@ -157,6 +161,7 @@
     <string name="pref_display_group_title_profile">Akun</string>
     <string name="pref_theme_title_account">Akun</string>
     <string name="pref_display_group_title_application">Application</string>
+    <string name="pref_display_group_title_notification">Pemberitahuan</string>
     <!-- Language select dialog -->
     <string name="change">Change</string>
     <string-array name="lang_select">
@@ -164,4 +169,21 @@
         <item>Bahasa Indonesia</item>
     </string-array>
     <string name="cancel">Batal</string>
+
+    <!--  Pengingat  -->
+    <string name="reminder_title_notif">Buka %1$s Anda</string>
+    <string name="reminder_msg_notif">Sudah mengecek film apa yang akan ditonton hari ini?</string>
+    <string name="reminder_setting_title">Pengingat Harian</string>
+    <string name="reminder_setting_message">Saya akan menyapa Anda setiap pagi. Jangan lewatkan setiap pembaruan!</string>
+    <string name="release_reminder_title">%1$s telah dirilis hari ini!</string>
+    <string name="new_movie">%1$d film baru!</string>
+    <string name="new_movie_total">%1$d film telah dirilis hari ini!</string>
+    <string name="new_movie_today">Film baru hari ini</string>
+    <string name="release_reminder_setting_message">Kami akan memberi Anda pemberitahuan untuk film yang dirilis setiap hari</string>
+    <string name="setting_reminder">Mengatur Pengingat</string>
+    <string name="deactive_reminder_notif">Pengingat Harian Tidak Aktif</string>
+    <string name="active_reminder_notif">Pengingat Harian Aktif</string>
+    <string name="deactive_release_notif">Rilis hari ini aktif</string>
+    <string name="active_release_notif">Rilis tidak aktif</string>
+    <string name="watchlist">Watchlist</string>
 </resources>

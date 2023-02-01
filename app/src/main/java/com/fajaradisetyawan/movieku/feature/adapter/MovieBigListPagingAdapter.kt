@@ -56,7 +56,7 @@ class MovieBigListPagingAdapter: PagingDataAdapter<Movie, MovieBigListPagingAdap
 
                 tvTitle.text = movie.title
 
-                if (movie.releaseDate.isNullOrEmpty() || movie.releaseDate == ""){
+                if (movie.releaseDate.isNullOrBlank() || movie.releaseDate == "" || movie.releaseDate.isNullOrEmpty()){
                     tvRelease.text = "-"
                 }else{
                     tvRelease.text = ParseDateTime.parseDate(movie.releaseDate)
@@ -69,7 +69,7 @@ class MovieBigListPagingAdapter: PagingDataAdapter<Movie, MovieBigListPagingAdap
                 } else {
                     val currentLanguage = itemView.resources.configuration.locale.language
                     if (currentLanguage != "en"){
-                        Translator.translator.translate(movie.overview!!)
+                        Translator.translator.translate(movie.overview)
                             .addOnSuccessListener { translatedText ->
                                 tvOverview.text = translatedText
                             }

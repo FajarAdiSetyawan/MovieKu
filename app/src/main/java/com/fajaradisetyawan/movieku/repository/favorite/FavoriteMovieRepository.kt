@@ -6,6 +6,8 @@
 
 package com.fajaradisetyawan.movieku.repository.favorite
 
+import android.database.sqlite.SQLiteException
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
@@ -17,7 +19,18 @@ import javax.inject.Inject
 class FavoriteMovieRepository @Inject constructor(
     private val favoriteMovieDao: FavoriteMovieDao
 ) {
-    suspend fun addFavorite(movieDetail: MovieDetail) = favoriteMovieDao.insertMovie(movieDetail)
+    fun addFavorite(movieDetail: MovieDetail) {
+        //Exception Handling while calling insert function
+        Thread {
+            try {
+                favoriteMovieDao.insertMovie(movieDetail)
+            } catch (e: SQLiteException) {
+                //handle exception
+                //show message
+                Log.d("LOG", "Insert Movie Error: ${e.message.toString()}")
+            }
+        }.start()
+    }
 
     suspend fun getMovieById(id: Int) = favoriteMovieDao.getMovieById(id)
 

@@ -55,11 +55,10 @@ class TvShowBigListPagingAdapter : PagingDataAdapter<TvShow, TvShowBigListPaging
 
                 tvTitle.text = tvShow.name
 
-                if (tvShow.firstAirDate.isEmpty() || tvShow.firstAirDate == ""){
+                if (tvShow.firstAirDate == "" || tvShow.firstAirDate.isNullOrBlank() || tvShow.firstAirDate.isNullOrEmpty()){
                     tvRelease.text = "-"
                 }else{
                     tvRelease.text = ParseDateTime.parseDate(tvShow.firstAirDate)
-
                 }
 
                 if (tvShow.overview == "") {

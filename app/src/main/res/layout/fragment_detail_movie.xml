@@ -131,7 +131,7 @@
         android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <include
@@ -142,16 +142,62 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="#F1C68C"
         android:baselineAlignBottom="false"
-        android:src="@drawable/ic_baseline_favorite_24"
+        android:clickable="true"
+        android:src="@drawable/ic_top"
         app:fabSize="normal"
-        app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="end|bottom"
+        android:visibility="gone"
+        app:layout_anchor="@id/bottom_sheet"
+        app:layout_anchorGravity="end|top"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <FrameLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:layout_marginBottom="-10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <Button
+                    style="@style/Widget.Material3.Button.TonalButton.Icon"
+                    android:id="@+id/btn_wishlist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/watchlist"
+                    android:fontFamily="@font/quicksand_bold"
+                    app:icon="@drawable/ic_bookmark_outline"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.TonalButton.Icon"
+                    android:id="@+id/btn_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    app:icon="@drawable/ic_favorite"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="@string/favorite"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

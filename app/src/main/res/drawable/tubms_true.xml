@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="oval">
+            <solid
+                android:color="#fff"/>
+            <size
+                android:width="20dp"
+                android:height="20dp"/>
+            <stroke
+                android:width="1dp"
+                android:color="@color/md_green_A400"/>
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/ic_notifications_active_24"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp"
+        android:bottom="5dp"/>
+</layer-list>

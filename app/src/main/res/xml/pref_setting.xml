@@ -30,6 +30,28 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
+        app:title="@string/pref_display_group_title_notification">
+
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_daily_reminder"
+            app:title="@string/pref_daily_title"
+            app:summary="@string/pref_daily_summary"
+            app:icon="@drawable/ic_notification"/>
+
+        <CheckBoxPreference
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_release_reminder"
+            app:title="@string/pref_release_title"
+            app:summary="@string/pref_release_summary"
+            app:icon="@drawable/ic_notification_bell" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
         app:title="@string/pref_display_group_title_application">
 
         <Preference

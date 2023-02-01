@@ -72,11 +72,11 @@ data class TvShowDetail(
 
     @ColumnInfo(name = "last_air_date")
     @SerializedName("last_air_date")
-    var lastAirDate: String,
+    var lastAirDate: String?,
 
     @ColumnInfo(name = "tagline")
     @SerializedName("tagline")
-    var tagline: String,
+    var tagline: String?,
 
     @ColumnInfo(name = "homepage")
     @SerializedName("homepage")
@@ -146,7 +146,7 @@ data class TvShowDetail(
         0,
         0,
         0,
-        "",
+        null,
         "",
         "",
         "",
