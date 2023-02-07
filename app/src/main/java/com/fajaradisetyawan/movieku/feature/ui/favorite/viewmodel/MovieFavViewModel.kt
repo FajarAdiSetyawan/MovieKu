@@ -6,17 +6,28 @@
 
 package com.fajaradisetyawan.movieku.feature.ui.favorite.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
+import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 import com.fajaradisetyawan.movieku.repository.favorite.FavoriteMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieFavViewModel @Inject constructor(
-    repository: FavoriteMovieRepository
+    private val repository: FavoriteMovieRepository,
 ) : ViewModel() {
-    val movies = repository.getFavoriteMovies()
+
+    private val currentQuery = MutableLiveData<String>()
+    val movie = currentQuery.switchMap { query ->
+        if (query.isNotEmpty()){
+            repository.searchFavMovie(query).asLiveData()
+        }else{
+            repository.getFavoriteMovies().asLiveData()
+        }
+    }
+
+    fun searchMovies(query: String) {
+        currentQuery.value = query
+    }
 }

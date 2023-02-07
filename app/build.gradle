@@ -124,11 +124,13 @@ dependencies {
 
     implementation "com.github.smarteist:autoimageslider:$slider"
 
-    implementation 'androidx.palette:palette-ktx:1.0.0'
-    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation "androidx.palette:palette-ktx:$palette"
+    implementation "com.google.android.flexbox:flexbox:$flexbox"
 
     //app start up
-    implementation("androidx.startup:startup-runtime:1.1.1")
+    implementation "androidx.startup:startup-runtime:$startup"
+
+    implementation "com.github.gayanvoice:android-animations:$animations"
 }
 
 kapt {

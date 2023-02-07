@@ -8,21 +8,21 @@ package com.fajaradisetyawan.movieku.repository.favorite
 
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.fajaradisetyawan.movieku.data.local.dao.FavoriteTvShowDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoriteTvShowDao
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
-import com.fajaradisetyawan.movieku.utils.CustomToastDialog
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
 class FavoriteTvRepository @Inject constructor(
-    private val tvShowDao: FavoriteTvShowDao
+    private val favoriteTvShowDao: FavoriteTvShowDao
 ) {
 
     fun addFavorite(tvShowDetail: TvShowDetail) {
         //Exception Handling while calling insert function
         Thread {
             try {
-                tvShowDao.insert(tvShowDetail)
+                favoriteTvShowDao.insert(tvShowDetail)
             } catch (e: SQLiteException) {
                 //handle exception
                 //show message
@@ -31,11 +31,15 @@ class FavoriteTvRepository @Inject constructor(
         }.start()
     }
 
-    suspend fun deleteFavorite(id: Int) = tvShowDao.deleteTvShow(id)
+    suspend fun deleteFavorite(id: Int) = favoriteTvShowDao.deleteTvShow(id)
 
-    suspend fun getTvShowId(id: Int) = tvShowDao.getTvShowById(id)
+    suspend fun getTvShowId(id: Int) = favoriteTvShowDao.getTvShowById(id)
 
-    fun getAllFavoriteTvShow() = tvShowDao.getFavoriteTvShow()
+    fun getFavoriteTvShow(): Flow<List<TvShowDetail>> {
+        return favoriteTvShowDao.getFavoriteTvShow()
+    }
 
-
+    fun searchTvShow(searchQuery: String): Flow<List<TvShowDetail>> {
+        return favoriteTvShowDao.getSearchTv(searchQuery)
+    }
 }

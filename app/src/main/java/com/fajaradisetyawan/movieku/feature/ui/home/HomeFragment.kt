@@ -72,6 +72,10 @@ class HomeFragment : Fragment() {
             Navigation.findNavController(view).navigate(sendData)
         }
 
+        binding.searchBoxContainer.ivWatchlist.setOnClickListener {
+            val sendData = HomeFragmentDirections.actionHomeFragmentToWatchListFragment()
+            Navigation.findNavController(view).navigate(sendData)
+        }
 
         val currentLanguage = resources.configuration.locale.language
         if (currentLanguage != "en") {

@@ -1,10 +1,10 @@
 /*
- * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:48
+ * Created by Fajar Adi Setyawan on 7/2/2023 - 11:58:25
  * fajaras465@gmail.com
  * Copyright (c) 2023.
  */
 
-package com.fajaradisetyawan.movieku.feature.ui.favorite
+package com.fajaradisetyawan.movieku.feature.ui.watchlist
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -15,61 +15,62 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fajaradisetyawan.movieku.databinding.FragmentTvShowFavoriteBinding
+import com.fajaradisetyawan.movieku.databinding.FragmentWatchListTvBinding
 import com.fajaradisetyawan.movieku.feature.adapter.TvShowFavAdapter
-import com.fajaradisetyawan.movieku.feature.ui.favorite.viewmodel.TvShowFavViewModel
+import com.fajaradisetyawan.movieku.feature.ui.watchlist.viewmodel.WatchListTvViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TvShowFavoriteFragment : Fragment() {
-    private var fragmentTvShowFavoriteBinding: FragmentTvShowFavoriteBinding? = null
-    private val binding get() = fragmentTvShowFavoriteBinding!!
+class WatchListTvFragment : Fragment() {
+    private var fragmentWatchListTvBinding: FragmentWatchListTvBinding? = null
+    private val binding get() = fragmentWatchListTvBinding!!
 
-    private val viewModel by viewModels<TvShowFavViewModel>()
+    private val viewModel by viewModels<WatchListTvViewModel>()
 
     private var adapter : TvShowFavAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View{
         // Inflate the layout for this fragment
-        fragmentTvShowFavoriteBinding = FragmentTvShowFavoriteBinding.inflate(layoutInflater, container, false)
+        fragmentWatchListTvBinding = FragmentWatchListTvBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val bundle: Bundle? = this.arguments
         val query = bundle!!.getString("query")
 
         binding.apply {
-            rvFavTv.layoutManager =
+            rvWlTv.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            rvFavTv.setHasFixedSize(true)
+            rvWlTv.setHasFixedSize(true)
 
             adapter = TvShowFavAdapter()
-            rvFavTv.adapter = adapter
+            rvWlTv.adapter = adapter
 
-            shimmerFavTv.visibility = View.VISIBLE
+            shimmerWlTv.visibility = View.VISIBLE
 
-            viewModel.searchTvFav("%$query%")
+            viewModel.searchTvWatchList("%$query%")
             viewModel.tvShow.observe(viewLifecycleOwner) { tvShow ->
-                shimmerFavTv.visibility = View.GONE
+                shimmerWlTv.visibility = View.GONE
                 if (tvShow!!.isNotEmpty()) {
                     adapter!!.setTvShow(tvShow)
                     adapter!!.notifyDataSetChanged()
-                    rvFavTv.visibility = View.VISIBLE
+                    rvWlTv.visibility = View.VISIBLE
                 } else {
-                    rvFavTv.visibility = View.GONE
+                    rvWlTv.visibility = View.GONE
                     layoutEmpty.visibility = View.VISIBLE
                 }
             }
 
             adapter!!.setOnItemClickListener { tvShow ->
                 val sendData =
-                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailTvFragment(tvShow.id)
+                    WatchListFragmentDirections.actionWatchListFragmentToDetailTvFragment(tvShow.id)
                 Navigation.findNavController(view).navigate(sendData)
             }
         }
@@ -77,12 +78,12 @@ class TvShowFavoriteFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        fragmentTvShowFavoriteBinding = null
+        fragmentWatchListTvBinding = null
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fragmentTvShowFavoriteBinding = null
+        fragmentWatchListTvBinding = null
     }
 
     override fun onResume() {

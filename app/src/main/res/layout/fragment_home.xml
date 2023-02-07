@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/bg_card"
-                        app:tabRippleColor="@color/md_yellow_800"
+                        app:tabRippleColor="@color/md_blue_800"
                         app:tabSelectedTextColor="@color/md_grey_300"
                         app:tabTextColor="@color/text_color"
                         app:tabIndicator="@drawable/tab_indicator"
@@ -147,7 +147,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/quicksand_bold"
                     android:layout_marginTop="20dp"
-                    android:text="Trending"
+                    android:text="@string/trending"
                     android:textSize="18sp" />
 
                 <RelativeLayout
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/bg_card"
-                        app:tabRippleColor="@color/md_yellow_800"
+                        app:tabRippleColor="@color/md_blue_800"
                         app:tabSelectedTextColor="@color/md_grey_300"
                         app:tabTextColor="@color/text_color"
                         app:tabIndicator="@drawable/tab_indicator"

@@ -1,39 +1,31 @@
 /*
- * Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:48
+ * Created by Fajar Adi Setyawan on 7/2/2023 - 11:58:8
  * fajaras465@gmail.com
  * Copyright (c) 2023.
  */
 
-package com.fajaradisetyawan.movieku.feature.ui.favorite
+package com.fajaradisetyawan.movieku.feature.ui.watchlist
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fajaradisetyawan.movieku.databinding.FragmentMovieFavoriteBinding
+import com.fajaradisetyawan.movieku.databinding.FragmentWatchListMovieBinding
 import com.fajaradisetyawan.movieku.feature.adapter.MovieFavAdapter
-import com.fajaradisetyawan.movieku.feature.adapter.paging.StateAdapter
-import com.fajaradisetyawan.movieku.feature.ui.favorite.viewmodel.MovieFavViewModel
+import com.fajaradisetyawan.movieku.feature.ui.watchlist.viewmodel.WatchListMovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MovieFavoriteFragment : Fragment() {
-    private var fragmentMovieFavoriteBinding: FragmentMovieFavoriteBinding? = null
-    private val binding get() = fragmentMovieFavoriteBinding!!
+class WatchListMovieFragment : Fragment() {
+    private var fragmentWatchListMovieBinding: FragmentWatchListMovieBinding? = null
+    private val binding get() = fragmentWatchListMovieBinding!!
 
-    private val viewModel by viewModels<MovieFavViewModel>()
+    private val viewModel by viewModels<WatchListMovieViewModel>()
 
     private val adapter: MovieFavAdapter by lazy { MovieFavAdapter() }
 
@@ -42,58 +34,55 @@ class MovieFavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        fragmentMovieFavoriteBinding =
-            FragmentMovieFavoriteBinding.inflate(layoutInflater, container, false)
+        fragmentWatchListMovieBinding = FragmentWatchListMovieBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged", "UnsafeRepeatOnLifecycleDetector")
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val bundle: Bundle? = this.arguments
         val query = bundle!!.getString("query")
 
         binding.apply {
-            rvFavMovie.layoutManager =
+            rvWlMovie.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            rvFavMovie.setHasFixedSize(true)
+            rvWlMovie.setHasFixedSize(true)
 
-            rvFavMovie.adapter = adapter
+            rvWlMovie.adapter = adapter
 
-            shimmerFavMovie.visibility = View.VISIBLE
+            shimmerWlMovie.visibility = View.VISIBLE
             viewModel.searchMovies("%$query%")
 
             viewModel.movie.observe(viewLifecycleOwner) { movie ->
-                shimmerFavMovie.visibility = View.GONE
+                shimmerWlMovie.visibility = View.GONE
                 if (movie!!.isNotEmpty()) {
                     adapter.setMovie(movie)
                     adapter.notifyDataSetChanged()
-                    rvFavMovie.visibility = View.VISIBLE
+                    rvWlMovie.visibility = View.VISIBLE
                 } else {
-                    rvFavMovie.visibility = View.GONE
+                    rvWlMovie.visibility = View.GONE
                     layoutEmpty.visibility = View.VISIBLE
                 }
             }
 
             adapter.setOnItemClickListener { movie ->
                 val sendData =
-                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailMovieFragment(movie.id)
+                    WatchListFragmentDirections.actionWatchListFragmentToDetailMovieFragment(movie.id)
                 Navigation.findNavController(view).navigate(sendData)
             }
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        fragmentWatchListMovieBinding = null
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        fragmentMovieFavoriteBinding = null
-        requireActivity().viewModelStore.clear()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        fragmentMovieFavoriteBinding = null
-        requireActivity().viewModelStore.clear()
+        fragmentWatchListMovieBinding = null
     }
 
     override fun onResume() {

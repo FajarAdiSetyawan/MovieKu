@@ -16,6 +16,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -51,7 +52,7 @@ class ReminderReceiver: BroadcastReceiver(){
                 0, Intent(context, MainActivity::class.java).addFlags(
                     Intent.FLAG_ACTIVITY_SINGLE_TOP
                 ),
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
         } else {
             PendingIntent.getActivity(
@@ -93,9 +94,9 @@ class ReminderReceiver: BroadcastReceiver(){
 
         val notification = builder.build()
         notificationManagerCompat.notify(notifId, notification)
+        Log.d("TAG", "onNotifyReminder: $notification")
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     fun setRepeatingAlarm(context: Context) {
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -103,20 +104,19 @@ class ReminderReceiver: BroadcastReceiver(){
 
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, 11)
-        calendar.set(Calendar.MINUTE, 8)
+        calendar.set(Calendar.MINUTE, 22)
         calendar.set(Calendar.SECOND, 0)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
 
     }
 
-    @SuppressLint("UnspecifiedImmutableFlag")
     fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, ReminderReceiver::class.java)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         pendingIntent.cancel()
 
 
@@ -124,11 +124,9 @@ class ReminderReceiver: BroadcastReceiver(){
         alarmManager.cancel(pendingIntent)
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
-    @SuppressLint("UnspecifiedImmutableFlag")
     fun isAlarmSet(context: Context): Boolean {
         val intent = Intent(context, ReminderReceiver::class.java)
 
-        return PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE) != null
+        return PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT) != null
     }
 }

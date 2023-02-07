@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_watchListFragment"
+            app:destination="@id/watchListFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -391,6 +394,22 @@
         <action
             android:id="@+id/action_searchFragment_to_keywordFragment"
             app:destination="@id/keywordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/watchListFragment"
+        android:name="com.fajaradisetyawan.movieku.feature.ui.watchlist.WatchListFragment"
+        android:label="WatchListFragment"
+        tools:layout="@layout/fragment_watch_list">
+        <action
+            android:id="@+id/action_watchListFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
+        <action
+            android:id="@+id/action_watchListFragment_to_detailTvFragment"
+            app:destination="@id/detailTvFragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_swipe_left_exit" />
     </fragment>
 
 

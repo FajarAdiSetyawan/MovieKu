@@ -8,9 +8,9 @@ package com.fajaradisetyawan.movieku.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.fajaradisetyawan.movieku.data.local.dao.FavoriteMovieDao
-import com.fajaradisetyawan.movieku.data.local.dao.FavoritePeopleDao
-import com.fajaradisetyawan.movieku.data.local.dao.FavoriteTvShowDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoriteMovieDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoritePeopleDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoriteTvShowDao
 import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 import com.fajaradisetyawan.movieku.data.model.people.PeopleDetail
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail

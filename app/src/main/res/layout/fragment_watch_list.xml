@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Created by Fajar Adi Setyawan on 13/1/2023 - 10:17:38
+  ~ Created by Fajar Adi Setyawan on 7/2/2023 - 12:7:30
   ~ fajaras465@gmail.com
   ~ Copyright (c) 2023.
   -->
@@ -24,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="0dp"
-            app:title="@string/favorite"
+            app:title="@string/watchlist"
             app:titleTextAppearance="@style/titleToolbarDetail"
             android:background="@color/color_primary"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -45,7 +44,7 @@
         </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabFav"
+            android:id="@+id/tabWatchList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabRippleColor="@color/md_blue_900"
@@ -65,7 +64,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pagerFavorite"
+        android:id="@+id/pagerWatchList"
         android:layout_width="match_parent"
         android:layout_below="@+id/tabKeywordSearch"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

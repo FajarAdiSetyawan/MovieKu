@@ -78,4 +78,8 @@ ext {
     motionToast = '1.4'
     firebaseCore = '21.1.1'
     firebaseTranslate = '17.0.1'
+    animations = '1.0.2'
+    startup = '1.1.1'
+    flexbox = '3.0.0'
+    palette = '1.0.0'
 }

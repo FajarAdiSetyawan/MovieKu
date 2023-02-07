@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Created by Fajar Adi Setyawan on 3/2/2023 - 12:11:32
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter"
+        android:title="@string/search_result"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom|collapseActionView"/>
+</menu>

@@ -147,11 +147,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="#F1C68C"
         android:baselineAlignBottom="false"
-        android:clickable="true"
         android:src="@drawable/ic_top"
         app:fabSize="normal"
+        android:alpha="0.7"
         android:visibility="gone"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="end|top"
@@ -179,7 +178,7 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     style="@style/Widget.Material3.Button.TonalButton.Icon"
                     android:id="@+id/btn_wishlist"
                     android:layout_width="wrap_content"

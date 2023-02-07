@@ -8,8 +8,10 @@ package com.fajaradisetyawan.movieku.feature.ui.detail.movie
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +19,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -50,6 +51,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import render.animations.Fade
+import render.animations.Render
+import java.lang.String
 import java.text.NumberFormat
 import java.util.*
 
@@ -64,6 +68,7 @@ class DetailMovieFragment : Fragment() {
     private val args by navArgs<DetailMovieFragmentArgs>()
     private var duration = ""
     private var isFavorite: Boolean = false
+    private var isWatchList: Boolean = false
     private var genreListAdapter: GenreListAdapter? = null
     private var castDetailAdapter: CastDetailAdapter? = null
     private var movieListSmallAdapter: MovieListSmallAdapter? = null
@@ -120,13 +125,17 @@ class DetailMovieFragment : Fragment() {
                  */
                 favoriteMovie(detail)
 
+                /**
+                 * Part of Watchlist.
+                 */
+                watchListMovie(detail)
             }
         }
 
         binding.fabTop.setOnClickListener {
             binding.nested.post {
-                binding.nested.fling(0);
-                binding.nested.smoothScrollTo(0, 0);
+                binding.nested.fling(0)
+                binding.nested.smoothScrollTo(0, 0)
             }
         }
     }
@@ -370,20 +379,48 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables", "ResourceType")
     private fun scrollToolbar(colorToolbar: Int?, textColor: Int?) {
 
         val nav: Drawable = binding.toolbar.navigationIcon!!
+
+        //get the drawable
+        val myFabSrc = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_top)
+
+        //copy it in a new one
+        val willBeWhite = myFabSrc?.constantState!!.newDrawable()
+
         if (colorToolbar != null && textColor != null) {
             requireActivity().window.statusBarColor = colorToolbar
             nav.setTint(textColor)
             binding.cardBottomSheet.setCardBackgroundColor(colorToolbar)
             binding.fabTop.setBackgroundColor(colorToolbar)
-        }else{
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.color_primary)
+
+            //set the color filter, you can use also Mode.SRC_ATOP
+            willBeWhite.mutate().setColorFilter(textColor, PorterDuff.Mode.MULTIPLY)
+            //set it to your fab button initialized before
+            binding.fabTop.setImageDrawable(willBeWhite)
+        } else {
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.color_primary)
             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
-            binding.fabTop.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-            binding.cardBottomSheet.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
+            binding.cardBottomSheet.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.color_primary
+                )
+            )
+            //set the color filter, you can use also Mode.SRC_ATOP
+            willBeWhite.mutate().setColorFilter(ContextCompat.getColor(
+                requireActivity(),
+                R.color.color_primary
+            ), PorterDuff.Mode.MULTIPLY)
+            //set it to your fab button initialized before
+            binding.fabTop.setImageDrawable(willBeWhite)
+
         }
+
+        val animation = Render(requireActivity())
 
         binding.appbar.addOnOffsetChangedListener(object :
             AppBarLayout.OnOffsetChangedListener {
@@ -402,12 +439,24 @@ class DetailMovieFragment : Fragment() {
                 //Check if the view is collapsed
                 if (scrollRange + verticalOffset == 0) {
                     binding.fabTop.visibility = View.VISIBLE
+                    animation.setAnimation(Fade.InUp(binding.fabTop))
+                    animation.start()
                     if (colorToolbar != null && textColor != null) {
                         binding.toolbar.setBackgroundColor(colorToolbar)
                         binding.collapsingToolbar.setCollapsedTitleTextColor(textColor)
                     } else {
-                        binding.toolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-                        binding.collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+                        binding.toolbar.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.color_primary
+                            )
+                        )
+                        binding.collapsingToolbar.setCollapsedTitleTextColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.white
+                            )
+                        )
                         binding.toolbar.setTitleTextColor(R.color.white)
                     }
                 } else {
@@ -744,6 +793,9 @@ class DetailMovieFragment : Fragment() {
         }
     }
 
+    /**
+     * Part of Favorite.
+     */
     private fun favoriteMovie(movieDetail: MovieDetail) {
         CoroutineScope(Dispatchers.IO).launch {
             val count = viewModel.checkMovie(movieDetail.id)
@@ -776,6 +828,45 @@ class DetailMovieFragment : Fragment() {
                     resources.getString(R.string.deleted_fav, movieDetail.title)
                 )
                 binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+        }
+    }
+
+    /**
+     * Part of Watchlist.
+     */
+    private fun watchListMovie(movieDetail: MovieDetail) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = viewModel.checkMovieWatchList(movieDetail.id)
+            withContext(Dispatchers.Main) {
+                isWatchList = if (count > 0) {
+                    binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_filled)
+                    true
+                } else {
+                    binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_outline)
+                    false
+                }
+            }
+        }
+
+        binding.btnWishlist.setOnClickListener {
+            isWatchList = !isWatchList
+            if (isWatchList) {
+                viewModel.addToWatchList(movieDetail)
+                CustomToastDialog.successToast(
+                    requireActivity(),
+                    resources.getString(R.string.success),
+                    resources.getString(R.string.success_watchlist, movieDetail.title)
+                )
+                binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_filled)
+            } else {
+                viewModel.removeFromWatchList(movieDetail.id)
+                CustomToastDialog.deleteToast(
+                    requireActivity(),
+                    resources.getString(R.string.delete),
+                    resources.getString(R.string.deleted_watchlist, movieDetail.title)
+                )
+                binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_outline)
             }
         }
     }

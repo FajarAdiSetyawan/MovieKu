@@ -35,6 +35,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.fajaradisetyawan.movieku.R
+import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
 import com.fajaradisetyawan.movieku.data.model.tvshow.Seasons
 import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 import com.fajaradisetyawan.movieku.databinding.FragmentDetailTvBinding
@@ -52,6 +53,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import render.animations.Fade
+import render.animations.Render
 import java.text.NumberFormat
 import java.util.*
 
@@ -71,6 +74,7 @@ class DetailTvFragment : Fragment() {
 
     private val viewModel by viewModels<DetailTvShowViewModels>()
     private var isFavorite: Boolean = false
+    private var isWatchList: Boolean = false
     private val args by navArgs<DetailTvFragmentArgs>()
 
     var duration = ""
@@ -115,11 +119,29 @@ class DetailTvFragment : Fragment() {
                 activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_arrow)
 
                 prepareTranslate(detail)
-                favoriteTvShow(detail)
 
                 if (detail.seasons.isEmpty()){
                     binding.layoutContent.cardCollection.visibility = View.GONE
+                }else{
+                    binding.layoutContent.cardCollection.visibility = View.VISIBLE
                 }
+
+                /**
+                 * Part of Favorite.
+                 */
+                favoriteTvShow(detail)
+
+                /**
+                 * Part of Watchlist.
+                 */
+                watchListTv(detail)
+            }
+        }
+
+        binding.fabTop.setOnClickListener {
+            binding.nested.post {
+                binding.nested.fling(0)
+                binding.nested.smoothScrollTo(0, 0)
             }
         }
     }
@@ -343,6 +365,7 @@ class DetailTvFragment : Fragment() {
 
     private fun scrollToolbar(colorToolbar: Int?, textColor: Int?) {
         val nav: Drawable = binding.toolbar.navigationIcon!!
+        val animation = Render(requireActivity())
 
         if (colorToolbar != null && textColor != null) {
             binding.layoutContent.tvSeason.setTextColor(textColor)
@@ -411,6 +434,9 @@ class DetailTvFragment : Fragment() {
 
                 //Check if the view is collapsed
                 if (scrollRange + verticalOffset == 0) {
+                    binding.fabTop.visibility = View.VISIBLE
+                    animation.setAnimation(Fade.InUp(binding.fabTop))
+                    animation.start()
                     if (colorToolbar != null && textColor != null) {
                         binding.toolbar.setBackgroundColor(colorToolbar)
                         binding.collapsingToolbar.setCollapsedTitleTextColor(textColor)
@@ -430,6 +456,7 @@ class DetailTvFragment : Fragment() {
                         binding.toolbar.setTitleTextColor(R.color.white)
                     }
                 } else {
+                    binding.fabTop.visibility = View.GONE
                     binding.toolbar.setBackgroundColor(Color.TRANSPARENT)
                     binding.collapsingToolbar.setCollapsedTitleTextColor(R.color.text_color)
                 }
@@ -516,14 +543,13 @@ class DetailTvFragment : Fragment() {
                 .into(ivPosterSeason)
 
             cardCollection.setOnClickListener {
-                when {
-                    seasons.episodes.isNotEmpty() -> {
-                        val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToSeasonFragment(
+                if(seasons.episodes != null) {
+                    val sendData =
+                        DetailTvFragmentDirections.actionDetailTvFragmentToSeasonFragment(
                             tvShowDetail,
                             seasons
                         )
-                        Navigation.findNavController(requireView()).navigate(sendData)
-                    }
+                    Navigation.findNavController(requireView()).navigate(sendData)
                 }
             }
 
@@ -787,31 +813,80 @@ class DetailTvFragment : Fragment() {
         }
     }
 
+    /**
+     * Part of Favorite.
+     */
     private fun favoriteTvShow(detail: TvShowDetail) {
         CoroutineScope(Dispatchers.IO).launch {
             val count = viewModel.checkTvShow(detail.id)
             withContext(Dispatchers.Main) {
                 isFavorite = if (count > 0) {
-                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_24)
                     true
                 } else {
-                    binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                    binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_border_24)
                     false
                 }
             }
         }
 
-        binding.fab.setOnClickListener {
+        binding.btnFav.setOnClickListener {
             isFavorite = !isFavorite
             if (isFavorite) {
-
                 viewModel.addToFavorite(detail)
-                binding.fab.setImageResource(R.drawable.ic_baseline_favorite_24)
-                CustomToastDialog.successToast(requireActivity(), resources.getString(R.string.success), resources.getString(R.string.success_fav, detail.name))
+                CustomToastDialog.successToast(
+                    requireActivity(),
+                    resources.getString(R.string.success),
+                    resources.getString(R.string.success_fav, detail.name)
+                )
+                binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_24)
             } else {
                 viewModel.removeFromFavorite(detail.id)
-                CustomToastDialog.deleteToast(requireActivity(), resources.getString(R.string.delete), resources.getString(R.string.deleted_fav, detail.name))
-                binding.fab.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                CustomToastDialog.deleteToast(
+                    requireActivity(),
+                    resources.getString(R.string.delete),
+                    resources.getString(R.string.deleted_fav, detail.name)
+                )
+                binding.btnFav.setIconResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+        }
+    }
+
+    /**
+     * Part of Watchlist.
+     */
+    private fun watchListTv(detail: TvShowDetail) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = viewModel.checkTvShowWatchList(detail.id)
+            withContext(Dispatchers.Main) {
+                isWatchList = if (count > 0) {
+                    binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_filled)
+                    true
+                } else {
+                    binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_outline)
+                    false
+                }
+            }
+        }
+
+        binding.btnWishlist.setOnClickListener {
+            isWatchList = !isWatchList
+            if (isWatchList) {
+                viewModel.addToWatchList(detail)
+                CustomToastDialog.successToast(
+                    requireActivity(),
+                    resources.getString(R.string.success),
+                    resources.getString(R.string.success_watchlist, detail.name)
+                )
+                binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_filled)
+            } else {
+                viewModel.removeWatchLis(detail.id)
+                CustomToastDialog.deleteToast(
+                    requireActivity(),
+                    resources.getString(R.string.delete),
+                    resources.getString(R.string.deleted_watchlist, detail.name)
+                )
+                binding.btnWishlist.setIconResource(R.drawable.ic_bookmark_outline)
             }
         }
     }

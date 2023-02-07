@@ -97,7 +97,7 @@ class NewReleaseMovieWorker @AssistedInject constructor(
                 NOTIFICATION_REQUEST_CODE, Intent(context, MainActivity::class.java).addFlags(
                     Intent.FLAG_ACTIVITY_SINGLE_TOP
                 ),
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
         } else {
             PendingIntent.getActivity(
@@ -235,6 +235,6 @@ class NewReleaseMovieWorker @AssistedInject constructor(
 
         notificationManager.notify(idNotification, notification)
 
-        Log.d("Notif", "releaseReminder $builder")
+        Log.d("TAG", "releaseReminder $notification")
     }
 }

@@ -7,9 +7,9 @@
 <resources>
     <string name="app_name">Movie Ku</string>
 
-    <string name="welcome">Welcome.</string>
+    <string name="welcome">Selamat datang.</string>
     <string name="search_for_a_movie_tv_show">Cari film, acara tv ....</string>
-    <string name="sub_title">Millions of movies, TV shows and people to discover. Explore now.</string>
+    <string name="sub_title">Jutaan film, acara TV, dan orang untuk dijelajahi. Jelajahi sekarang.</string>
 
     <string name="pattern">%.0f</string>
     <string name="today">Hari ini</string>
@@ -111,7 +111,9 @@
     <string name="success">Berhasil</string>
     <string name="delete">Hapus</string>
     <string name="success_fav">Menambahkan %1$s ke favorit</string>
+    <string name="success_watchlist">Menambahkan %1$s ke daftar tonton</string>
     <string name="deleted_fav">Menghapus %1$s from favorit</string>
+    <string name="deleted_watchlist">Menghapus %1$s from daftar tonton</string>
     <string name="cast">Cast</string>
     <string name="crew">Kru</string>
     <string name="release_date">Tanggal Rilis :</string>

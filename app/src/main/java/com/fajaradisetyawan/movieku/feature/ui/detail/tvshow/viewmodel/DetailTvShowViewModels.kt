@@ -17,6 +17,7 @@ import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 import com.fajaradisetyawan.movieku.data.remote.response.tvshow.TvShowVideoResponse
 import com.fajaradisetyawan.movieku.repository.TvShowRepository
 import com.fajaradisetyawan.movieku.repository.favorite.FavoriteTvRepository
+import com.fajaradisetyawan.movieku.repository.watchlist.WatchListTvRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailTvShowViewModels @Inject constructor(
     private val repository: TvShowRepository,
-    private val favRepository: FavoriteTvRepository
+    private val repositoryFavorite: FavoriteTvRepository,
+    private val repositoryWatchList: WatchListTvRepository,
 ): ViewModel() {
     lateinit var tvDetail: MutableLiveData<TvShowDetail?>
     lateinit var tvKeyword: MutableLiveData<KeywordResponse?>
@@ -61,15 +63,30 @@ class DetailTvShowViewModels @Inject constructor(
     // Favorite
     fun addToFavorite(tvShowDetail: TvShowDetail) {
         viewModelScope.launch(Dispatchers.IO) {
-            favRepository.addFavorite(tvShowDetail)
+            repositoryFavorite.addFavorite(tvShowDetail)
         }
     }
 
     fun removeFromFavorite(id: Int){
         viewModelScope.launch(Dispatchers.IO) {
-            favRepository.deleteFavorite(id)
+            repositoryFavorite.deleteFavorite(id)
         }
     }
 
-    suspend fun checkTvShow(id: Int) = favRepository.getTvShowId(id)
+    suspend fun checkTvShow(id: Int) = repositoryFavorite.getTvShowId(id)
+
+    // WatchList
+    fun addToWatchList(tvShowDetail: TvShowDetail) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryWatchList.addWatchList(tvShowDetail)
+        }
+    }
+
+    fun removeWatchLis(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryWatchList.deleteWatchList(id)
+        }
+    }
+
+    suspend fun checkTvShowWatchList(id: Int) = repositoryWatchList.getTvShowId(id)
 }

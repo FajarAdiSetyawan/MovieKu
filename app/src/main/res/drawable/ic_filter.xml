@@ -1,0 +1,72 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="1080"
+    android:viewportHeight="1080"
+    android:width="30dp"
+    android:height="30dp">
+    <group
+        android:translateX="540"
+        android:translateY="540">
+        <path
+            android:pathData="M-540 -540H540V540H-540V-540Z"
+            android:fillColor="#00FFFFFF" />
+    </group>
+    <group
+        android:translateX="540"
+        android:translateY="540">
+        <group
+            android:rotation="-0"
+            android:scaleX="-13.89"
+            android:scaleY="13.89">
+            <path
+                android:pathData="M-24 -24H24V24H-24V-24Z"
+                android:strokeColor="#000000"
+                android:strokeWidth="0.00048" />
+        </group>
+        <group
+            android:rotation="-0"
+            android:scaleX="-13.89"
+            android:scaleY="13.89"
+            android:translateY="-166.67">
+            <group
+                android:translateX="-24"
+                android:translateY="-12">
+                <path
+                    android:pathData="M42 12C42 13.104569499661586 41.10456949966159 14 40 14L8 14C6.8954305003384135 14 6 13.104569499661586 6 12L6 12C6 10.895430500338414 6.8954305003384135 10 8 10L40 10C41.10456949966159 10 42 10.895430500338414 42 12Z"
+                    android:fillColor="#fff"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="0.00048" />
+            </group>
+        </group>
+        <group
+            android:rotation="-0"
+            android:scaleX="-13.89"
+            android:scaleY="13.89"
+            android:translateX="55.56">
+            <group
+                android:translateX="-20"
+                android:translateY="-24">
+                <path
+                    android:pathData="M34 24C34 25.104569499661586 33.10456949966159 26 32 26L8 26C6.8954305003384135 26 6 25.104569499661586 6 24L6 24C6 22.895430500338414 6.8954305003384135 22 8 22L32 22C33.10456949966159 22 34 22.895430500338414 34 24Z"
+                    android:fillColor="#fff"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="0.00048" />
+            </group>
+        </group>
+        <group
+            android:rotation="-0"
+            android:scaleX="-13.89"
+            android:scaleY="13.89"
+            android:translateX="111.11"
+            android:translateY="166.67">
+            <group
+                android:translateX="-16"
+                android:translateY="-36">
+                <path
+                    android:pathData="M26 36C26 37.10456949966159 25.104569499661586 38 24 38L8 38C6.8954305003384135 38 6 37.10456949966159 6 36L6 36C6 34.89543050033841 6.8954305003384135 34 8 34L24 34C25.104569499661586 34 26 34.89543050033841 26 36Z"
+                    android:fillColor="#fff"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="0.00048" />
+            </group>
+        </group>
+    </group>
+</vector>

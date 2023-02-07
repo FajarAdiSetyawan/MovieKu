@@ -8,8 +8,9 @@ package com.fajaradisetyawan.movieku.repository.favorite
 
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.fajaradisetyawan.movieku.data.local.dao.FavoritePeopleDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoritePeopleDao
 import com.fajaradisetyawan.movieku.data.model.people.PeopleDetail
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -33,5 +34,11 @@ class FavoritePeopleRepository @Inject constructor(
 
     suspend fun getPeopleById(id: Int) = favoritePeopleDao.getPeopleById(id)
 
-    fun getFavoritePeople() = favoritePeopleDao.getFavoritePeople()
+    fun getFavoritePeople(): Flow<List<PeopleDetail>> {
+        return favoritePeopleDao.getFavoritePeople()
+    }
+
+    fun searchFavPeople(searchQuery: String): Flow<List<PeopleDetail>> {
+        return favoritePeopleDao.getSearchPeople(searchQuery)
+    }
 }

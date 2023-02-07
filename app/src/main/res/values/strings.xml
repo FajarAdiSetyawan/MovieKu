@@ -112,7 +112,9 @@
     <string name="success">Success</string>
     <string name="delete">Delete</string>
     <string name="success_fav">Add %1$s to favorites</string>
+    <string name="success_watchlist">Add %1$s to watchlist</string>
     <string name="deleted_fav">Deleted %1$s from favorites</string>
+    <string name="deleted_watchlist">Deleted %1$s from watchlist</string>
     <string name="msgoffline">Please Connect to the Internet to continue.</string>
     <string name="connect">Connect</string>
     <string name="setting">Setting</string>

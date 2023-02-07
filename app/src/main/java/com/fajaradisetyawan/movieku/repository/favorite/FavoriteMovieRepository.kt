@@ -8,11 +8,9 @@ package com.fajaradisetyawan.movieku.repository.favorite
 
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.liveData
-import com.fajaradisetyawan.movieku.data.local.dao.FavoriteMovieDao
+import com.fajaradisetyawan.movieku.data.local.dao.favorite.FavoriteMovieDao
 import com.fajaradisetyawan.movieku.data.model.movie.MovieDetail
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 
@@ -36,5 +34,12 @@ class FavoriteMovieRepository @Inject constructor(
 
     suspend fun deleteFavorite(id: Int)  = favoriteMovieDao.deleteMovie(id)
 
-    fun getFavoriteMovies() = favoriteMovieDao.getFavoriteMovie()
+
+    fun getFavoriteMovies():  Flow<List<MovieDetail>> {
+        return favoriteMovieDao.getFavoriteMovie()
+    }
+
+    fun searchFavMovie(searchQuery: String): Flow<List<MovieDetail>> {
+        return favoriteMovieDao.getSearchMovie(searchQuery)
+    }
 }

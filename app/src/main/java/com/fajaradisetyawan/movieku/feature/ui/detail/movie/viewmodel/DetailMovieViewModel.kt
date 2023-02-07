@@ -15,6 +15,7 @@ import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieResponse
 import com.fajaradisetyawan.movieku.data.remote.response.movie.MovieVideoResponse
 import com.fajaradisetyawan.movieku.repository.MovieRepository
 import com.fajaradisetyawan.movieku.repository.favorite.FavoriteMovieRepository
+import com.fajaradisetyawan.movieku.repository.watchlist.WatchListMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailMovieViewModel @Inject constructor(
     private val repository: MovieRepository,
-    private val repositoryFavorite: FavoriteMovieRepository
+    private val repositoryFavorite: FavoriteMovieRepository,
+    private val repositoryWatchList: WatchListMovieRepository,
 ) : ViewModel() {
 
     lateinit var movieDetail: MutableLiveData<MovieDetail?>
@@ -72,4 +74,19 @@ class DetailMovieViewModel @Inject constructor(
     }
 
     suspend fun checkMovie(id: Int) = repositoryFavorite.getMovieById(id)
+
+    // Watchlist
+    fun addToWatchList(movieDetail: MovieDetail) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryWatchList.addWatchList(movieDetail)
+        }
+    }
+
+    fun removeFromWatchList(id: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repositoryWatchList.deleteWatchList(id)
+        }
+    }
+
+    suspend fun checkMovieWatchList(id: Int) = repositoryWatchList.getMovieById(id)
 }

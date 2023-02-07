@@ -41,6 +41,8 @@ class PersonFavoriteFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle: Bundle? = this.arguments
+        val query = bundle!!.getString("query")
 
         binding.apply {
             rvFavPeople.layoutManager =
@@ -52,6 +54,7 @@ class PersonFavoriteFragment : Fragment() {
 
             shimmerFavPeople.visibility = View.VISIBLE
 
+            viewModel.searchPeople("%$query%")
             viewModel.people.observe(viewLifecycleOwner) { people ->
                 shimmerFavPeople.visibility = View.GONE
                 if (people!!.isNotEmpty()) {

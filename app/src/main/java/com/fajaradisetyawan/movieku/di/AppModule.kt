@@ -9,6 +9,7 @@ package com.fajaradisetyawan.movieku.di
 import android.content.Context
 import androidx.room.Room
 import com.fajaradisetyawan.movieku.data.local.FavoriteDatabase
+import com.fajaradisetyawan.movieku.data.local.WatchListDatabase
 import com.fajaradisetyawan.movieku.data.remote.endpoint.*
 import dagger.Module
 import dagger.Provides
@@ -80,5 +81,21 @@ object AppModule {
     @Provides
     fun provideFavPeopleDao(db: FavoriteDatabase) = db.favoritePeopleDao()
 
+    @Singleton
+    @Provides
+    fun provideWatchListDb(
+        @ApplicationContext app: Context
+    ) = Room.databaseBuilder(
+        app,
+        WatchListDatabase::class.java,
+        "watch_db"
+    ).build()
 
+    @Singleton
+    @Provides
+    fun provideWatchListMovieDao(db: WatchListDatabase) = db.watchListMovieDao()
+
+    @Singleton
+    @Provides
+    fun provideWatchListTvDao(db: WatchListDatabase) = db.watchListTvDao()
 }

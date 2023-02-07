@@ -65,8 +65,9 @@
 
         <receiver
             android:name="com.fajaradisetyawan.movieku.receiver.ReminderReceiver"
+            android:exported="true"
             android:enabled="true"
-            android:exported="true" />
+            android:label="AlarmReceiver"/>
     </application>
 
 

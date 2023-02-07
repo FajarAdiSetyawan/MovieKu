@@ -19,7 +19,10 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+
     </style>
+
+
 
     <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Small">
         <item name="android:layout_width">wrap_content</item>
@@ -101,5 +104,7 @@
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.NavigationBarView.ActiveIndicator</item>
         <item name="android:color">@color/color_secondary</item>
     </style>
+
+
 
 </resources>

@@ -34,7 +34,7 @@
                 android:id="@+id/search_image_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="5dp"
                 android:padding="8dp"
                 android:src="@android:drawable/ic_menu_search"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,6 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:textColor="@color/md_grey_500"
                 android:textStyle="bold"
-                android:layout_marginEnd="20dp"
                 android:textSize="16sp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,10 +65,21 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_favorite_24"
         app:tint="@color/white"
-        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintEnd_toStartOf="@+id/iv_watchlist"
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintStart_toEndOf="@+id/item_search"/>
 
+    <ImageView
+        android:id="@+id/iv_watchlist"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_bookmark_filled"
+        app:tint="@color/white"
+        android:layout_marginStart="10dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintStart_toEndOf="@+id/iv_fav"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
