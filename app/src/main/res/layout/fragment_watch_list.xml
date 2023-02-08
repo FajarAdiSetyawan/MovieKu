@@ -36,7 +36,6 @@
                 app:queryBackground="@null"
                 app:searchHintIcon="@drawable/ic_search"
                 app:searchIcon="@drawable/ic_search"
-
                 android:gravity="end"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"/>
@@ -66,7 +65,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pagerWatchList"
         android:layout_width="match_parent"
-        android:layout_below="@+id/tabKeywordSearch"
+        android:layout_below="@+id/tabWatchList"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="wrap_content"
         android:layout_gravity="top" />

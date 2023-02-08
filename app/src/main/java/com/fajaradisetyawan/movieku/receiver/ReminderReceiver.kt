@@ -103,8 +103,8 @@ class ReminderReceiver: BroadcastReceiver(){
         val intent = Intent(context, ReminderReceiver::class.java)
 
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 11)
-        calendar.set(Calendar.MINUTE, 22)
+        calendar.set(Calendar.HOUR_OF_DAY, 12)
+        calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
 
         val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
@@ -119,14 +119,11 @@ class ReminderReceiver: BroadcastReceiver(){
         val pendingIntent = PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         pendingIntent.cancel()
 
-
-
         alarmManager.cancel(pendingIntent)
     }
 
     fun isAlarmSet(context: Context): Boolean {
         val intent = Intent(context, ReminderReceiver::class.java)
-
         return PendingIntent.getBroadcast(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT) != null
     }
 }

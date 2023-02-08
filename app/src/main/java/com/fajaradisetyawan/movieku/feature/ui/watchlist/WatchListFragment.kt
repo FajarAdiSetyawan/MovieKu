@@ -8,10 +8,12 @@ package com.fajaradisetyawan.movieku.feature.ui.watchlist
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -20,6 +22,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.databinding.FragmentWatchListBinding
 import com.fajaradisetyawan.movieku.feature.ui.favorite.FavoriteFragment
+import com.fajaradisetyawan.movieku.feature.ui.favorite.MovieFavoriteFragment
+import com.fajaradisetyawan.movieku.feature.ui.favorite.PersonFavoriteFragment
+import com.fajaradisetyawan.movieku.feature.ui.favorite.TvShowFavoriteFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,8 +60,8 @@ class WatchListFragment : Fragment() {
         val nav: Drawable = binding.toolbar.navigationIcon!!
         nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
 
-        val pagerAdapterSearch = ViewPagerAdapter(requireActivity(), "")
-        binding.pagerWatchList.adapter = pagerAdapterSearch
+        val adapterWatchList = ViewPagerAdapter(requireActivity(), "")
+        binding.pagerWatchList.adapter = adapterWatchList
 
         TabLayoutMediator(binding.tabWatchList, binding.pagerWatchList) { tab, position ->
             val tabNames =
@@ -71,18 +76,18 @@ class WatchListFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
-                    val pagerAdapterSearch =
-                        FavoriteFragment.ViewPagerAdapter(requireActivity(), query)
-                    binding.pagerWatchList.adapter = pagerAdapterSearch
+                    val adapterWatchList = ViewPagerAdapter(requireActivity(), query)
+                    binding.pagerWatchList.adapter = adapterWatchList
                 }
                 return true
             }
 
             override fun onQueryTextChange(query: String?): Boolean {
                 if (query != null) {
-                    val pagerAdapterSearch =
-                        FavoriteFragment.ViewPagerAdapter(requireActivity(), query)
-                    binding.pagerWatchList.adapter = pagerAdapterSearch
+                    val adapterWatchList =
+                       ViewPagerAdapter(requireActivity(), query)
+                    binding.pagerWatchList.adapter = adapterWatchList
+
                 }
                 return true
             }
@@ -98,15 +103,15 @@ class WatchListFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("query", query)
 
-            val movieWL = WatchListMovieFragment()
-            val tvWL = WatchListTvFragment()
+            val movieFav = WatchListMovieFragment()
+            val tvFav = WatchListTvFragment()
 
-            movieWL.arguments = bundle
-            tvWL.arguments = bundle
+            movieFav.arguments = bundle
+            tvFav.arguments = bundle
 
             return when (position) {
-                0 -> movieWL
-                else -> tvWL
+                0 -> movieFav
+                else -> tvFav
             }
         }
 

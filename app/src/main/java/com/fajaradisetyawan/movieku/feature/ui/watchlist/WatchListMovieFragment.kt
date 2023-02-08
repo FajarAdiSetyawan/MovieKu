@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +46,7 @@ class WatchListMovieFragment : Fragment() {
         val bundle: Bundle? = this.arguments
         val query = bundle!!.getString("query")
 
+
         binding.apply {
             rvWlMovie.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -53,7 +55,7 @@ class WatchListMovieFragment : Fragment() {
             rvWlMovie.adapter = adapter
 
             shimmerWlMovie.visibility = View.VISIBLE
-            viewModel.searchMovies("%$query%")
+            viewModel.searchWatchList("%$query%")
 
             viewModel.movie.observe(viewLifecycleOwner) { movie ->
                 shimmerWlMovie.visibility = View.GONE

@@ -192,7 +192,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener,
             val selected = sharedPreferences?.getBoolean(releaseReminder, false)
             if (selected == true) {
                 stopReleaseMovie()
-                scheduleReleaseMovie(11, 25)
+                scheduleReleaseMovie(12, 5)
                 CustomToastDialog.successToast(requireActivity(), "Notification Active", resources.getString(R.string.active_release_notif))
             } else {
                 stopReleaseMovie()

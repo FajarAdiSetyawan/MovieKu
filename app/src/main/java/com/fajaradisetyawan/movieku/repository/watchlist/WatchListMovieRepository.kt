@@ -35,11 +35,13 @@ class WatchListMovieRepository @Inject constructor(
     suspend fun deleteWatchList(id: Int)  = watchListMovieDao.deleteMovie(id)
 
     fun getWatchListMovies(): Flow<List<MovieDetail>> {
+        Log.d("TAG", "Search WL function getWL Repo")
         return watchListMovieDao.getWatchListMovie()
     }
 
-    fun searchMovie(searchQuery: String): Flow<List<MovieDetail>> {
-        return watchListMovieDao.getSearchMovie(searchQuery)
+    fun getSearchWatchList(searchQuery: String): Flow<List<MovieDetail>> {
+        Log.d("TAG", "Search WL function $searchQuery Repo")
+        return watchListMovieDao.getSearchWatchList(searchQuery)
     }
 
 }

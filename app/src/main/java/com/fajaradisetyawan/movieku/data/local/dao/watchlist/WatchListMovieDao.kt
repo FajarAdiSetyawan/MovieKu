@@ -31,5 +31,5 @@ interface WatchListMovieDao {
     suspend fun getMovieById(id: Int): Int
 
     @Query("SELECT * FROM movie_detail WHERE movie_detail.title LIKE :search OR movie_detail.original_title LIKE :search")
-    fun getSearchMovie(search: String?): Flow<List<MovieDetail>>
+    fun getSearchWatchList(search: String?): Flow<List<MovieDetail>>
 }

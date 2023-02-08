@@ -6,6 +6,7 @@
 
 package com.fajaradisetyawan.movieku.feature.ui.watchlist.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -21,13 +22,15 @@ class WatchListMovieViewModel @Inject constructor(
     private val currentQuery = MutableLiveData<String>()
     val movie = currentQuery.switchMap { query ->
         if (query.isNotEmpty()){
-            repository.searchMovie(query).asLiveData()
+            Log.d("TAG", "Search WL switch $query VM")
+            repository.getSearchWatchList(query).asLiveData()
         }else{
             repository.getWatchListMovies().asLiveData()
         }
     }
 
-    fun searchMovies(query: String) {
+    fun searchWatchList(query: String) {
+        Log.d("TAG", "Search WL function $query VM")
         currentQuery.value = query
     }
 }
