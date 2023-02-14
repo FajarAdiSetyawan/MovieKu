@@ -66,7 +66,13 @@ class AllPeopleMovieFragment : Fragment() {
 
         val movie = args.movieDetail
 
-        binding.toolbar.title = movie.title + " (${ParseDateTime.getYear(movie.releaseDate)})"
+        if (movie.releaseDate != null || movie.releaseDate != "" || movie.releaseDate.isNotEmpty()){
+            binding.toolbar.title = movie.title + " (${ParseDateTime.getYear(movie.releaseDate)})"
+
+        }else{
+            binding.toolbar.title = movie.title
+        }
+
 
         val activity = activity as AppCompatActivity?
 
@@ -142,9 +148,11 @@ class AllPeopleMovieFragment : Fragment() {
     private fun populateMovie(movieDetail: MovieDetail) {
         if (movieDetail.backdropPath == null) {
             if (movieDetail.posterPath == null) {
+                binding.ivPoster.visibility = View.GONE
                 binding.ivBackdrops.setImageResource(R.drawable.placeholder_landscape_img)
                 toolbarColor(null)
             } else {
+                binding.ivPoster.visibility = View.VISIBLE
                 Glide.with(this)
                     .asBitmap()
                     .load("${movieDetail.baseUrl}${movieDetail.posterPath}")
@@ -205,26 +213,15 @@ class AllPeopleMovieFragment : Fragment() {
                 .into(binding.ivBackdrops)
         }
 
-
         if (movieDetail.posterPath == null) {
-            if (movieDetail.backdropPath == null) {
-                binding.ivPoster.setImageResource(R.drawable.placeholder_portrait_img)
-            } else {
-                Glide.with(this)
-                    .load("${movieDetail.baseUrl}${movieDetail.backdropPath}")
-                    .centerCrop()
-                    .transform(RoundedCorners(25))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.placeholder_portrait_img)
-                    .into(binding.ivPoster)
-            }
-        } else {
+            binding.ivPoster.visibility = View.GONE
+        }else{
+            binding.ivPoster.visibility = View.VISIBLE
             Glide.with(this)
+                .asBitmap()
                 .load("${movieDetail.baseUrl}${movieDetail.posterPath}")
                 .centerCrop()
-                .transform(RoundedCorners(25))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.placeholder_portrait_img)
+                .transform(RoundedCorners(20))
                 .into(binding.ivPoster)
         }
     }

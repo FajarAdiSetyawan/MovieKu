@@ -6,13 +6,14 @@
 
 package com.fajaradisetyawan.movieku.feature.ui.home
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -22,8 +23,7 @@ import com.fajaradisetyawan.movieku.utils.CustomToastDialog
 import com.fajaradisetyawan.movieku.utils.Translator
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import www.sanju.motiontoast.MotionToast
-import www.sanju.motiontoast.MotionToastStyle
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -42,7 +42,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.color_primary)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireActivity(), R.color.color_primary)
 
         val pagerAdapterPopular = ViewPagerAdapterPopular(requireActivity())
         binding.pagerPopular.adapter = pagerAdapterPopular
@@ -53,12 +54,14 @@ class HomeFragment : Fragment() {
         binding.pagerTrending.isUserInputEnabled = false
 
         TabLayoutMediator(binding.tabLayoutTrending, binding.pagerTrending) { tab, position ->
-            val tabNames = listOf(resources.getString(R.string.today), resources.getString(R.string.week))
+            val tabNames =
+                listOf(resources.getString(R.string.today), resources.getString(R.string.week))
             tab.text = tabNames[position]
         }.attach()
 
         TabLayoutMediator(binding.tabLayoutPopular, binding.pagerPopular) { tab, position ->
-            val tabNames = listOf(resources.getString(R.string.movie), resources.getString(R.string.tvshow))
+            val tabNames =
+                listOf(resources.getString(R.string.movie), resources.getString(R.string.tvshow))
             tab.text = tabNames[position]
         }.attach()
 
@@ -79,16 +82,40 @@ class HomeFragment : Fragment() {
 
         val currentLanguage = resources.configuration.locale.language
         if (currentLanguage != "en") {
-            CustomToastDialog.showLoadingDialog(requireActivity(), resources.getString(R.string.downloading_modal))
-            Translator.translator.downloadModelIfNeeded()
-                .addOnSuccessListener {
-                    CustomToastDialog.goneLoadingDialog()
-                }
-                .addOnFailureListener { exception ->
-                    // Model couldn’t be downloaded or other internal error.
-                    CustomToastDialog.goneLoadingDialog()
-                    CustomToastDialog.errorToast(requireActivity(), "Error", exception.message.toString())
-                }
+
+            var firstrun: Boolean =
+                requireActivity().getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("firstrun", true)
+
+            if (firstrun){
+                CustomToastDialog.showLoadingDialog(
+                    requireActivity(),
+                    resources.getString(R.string.downloading_modal)
+                )
+
+                Translator.translator.downloadModelIfNeeded()
+                    .addOnCompleteListener {
+                        CustomToastDialog.goneLoadingDialog()
+                    }
+                    .addOnSuccessListener {
+                        CustomToastDialog.goneLoadingDialog()
+                    }
+                    .addOnFailureListener { exception ->
+                        // Model couldn’t be downloaded or other internal error.
+                        CustomToastDialog.goneLoadingDialog()
+                        CustomToastDialog.errorToast(
+                            requireActivity(),
+                            "Error",
+                            exception.message.toString()
+                        )
+                    }
+
+                requireActivity().getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                    .edit()
+                    .putBoolean("firstrun", false)
+                    .commit()
+            }
+
+
         }
     }
 

@@ -1,0 +1,18 @@
+<!--
+  ~ Created by Fajar Adi Setyawan on 9/2/2023 - 11:14:5
+  ~ fajaras465@gmail.com
+  ~ Copyright (c) 2023.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M10.71,7.29l-4,-4a1,1 0,0 0,-1.42 0l-4,4A1,1 0,0 0,2.71 8.71L5,6.41V19a1,1 0,0 0,2 0V6.41l2.29,2.3a1,1 0,0 0,1.42 0A1,1 0,0 0,10.71 7.29Z"
+      android:fillColor="#2CA9BC"/>
+  <path
+      android:pathData="M20,18L10,18a1,1 0,0 1,0 -2L20,16a1,1 0,0 1,0 2ZM20,13L13,13a1,1 0,0 1,0 -2h7a1,1 0,0 1,0 2ZM20,8L15,8a1,1 0,0 1,0 -2h5a1,1 0,0 1,0 2Z"
+      android:fillColor="#000000"/>
+</vector>

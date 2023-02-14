@@ -233,7 +233,7 @@ class DetailMovieFragment : Fragment() {
                 }
             }
         }
-        Log.d("TAG", "detail: $movieDetail")
+
         if (movieDetail.backdropPath != null) {
             Glide.with(this)
                 .asBitmap()
@@ -295,11 +295,13 @@ class DetailMovieFragment : Fragment() {
                     .into(binding.ivBackdrops)
             } else {
                 binding.ivBackdrops.setImageResource(R.drawable.placeholder_landscape_img)
+                binding.ivPoster.visibility = View.GONE
                 toolbarColor(null)
             }
         }
 
         if (movieDetail.posterPath != null) {
+            binding.ivPoster.visibility = View.VISIBLE
             Glide.with(this)
                 .load("${movieDetail.baseUrl}${movieDetail.posterPath}")
                 .centerCrop()
@@ -308,19 +310,7 @@ class DetailMovieFragment : Fragment() {
                 .error(R.drawable.placeholder_portrait_img)
                 .into(binding.ivPoster)
         } else {
-            if (movieDetail.backdropPath != null) {
-                Glide.with(this)
-                    .load("${movieDetail.baseUrl}${movieDetail.backdropPath}")
-                    .centerCrop()
-                    .transform(RoundedCorners(25))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.placeholder_portrait_img)
-                    .into(binding.ivPoster)
-
-            } else {
-                binding.ivPoster.setImageResource(R.drawable.placeholder_portrait_img)
-
-            }
+            binding.ivPoster.visibility = View.GONE
         }
 
         if (movieDetail.spokenLanguages.isNotEmpty()) {
@@ -384,22 +374,12 @@ class DetailMovieFragment : Fragment() {
 
         val nav: Drawable = binding.toolbar.navigationIcon!!
 
-        //get the drawable
-        val myFabSrc = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_top)
-
-        //copy it in a new one
-        val willBeWhite = myFabSrc?.constantState!!.newDrawable()
-
         if (colorToolbar != null && textColor != null) {
             requireActivity().window.statusBarColor = colorToolbar
             nav.setTint(textColor)
             binding.cardBottomSheet.setCardBackgroundColor(colorToolbar)
-            binding.fabTop.setBackgroundColor(colorToolbar)
-
-            //set the color filter, you can use also Mode.SRC_ATOP
-            willBeWhite.mutate().setColorFilter(textColor, PorterDuff.Mode.MULTIPLY)
-            //set it to your fab button initialized before
-            binding.fabTop.setImageDrawable(willBeWhite)
+            binding.fabTop.backgroundTintList = ColorStateList.valueOf(colorToolbar)
+            binding.fabTop.imageTintList = ColorStateList.valueOf(textColor)
         } else {
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireActivity(), R.color.color_primary)
@@ -410,14 +390,8 @@ class DetailMovieFragment : Fragment() {
                     R.color.color_primary
                 )
             )
-            //set the color filter, you can use also Mode.SRC_ATOP
-            willBeWhite.mutate().setColorFilter(ContextCompat.getColor(
-                requireActivity(),
-                R.color.color_primary
-            ), PorterDuff.Mode.MULTIPLY)
-            //set it to your fab button initialized before
-            binding.fabTop.setImageDrawable(willBeWhite)
-
+            binding.fabTop.backgroundTintList = ColorStateList.valueOf(R.color.color_primary)
+            binding.fabTop.imageTintList = ColorStateList.valueOf(Color.rgb(255, 255, 255))
         }
 
         val animation = Render(requireActivity())

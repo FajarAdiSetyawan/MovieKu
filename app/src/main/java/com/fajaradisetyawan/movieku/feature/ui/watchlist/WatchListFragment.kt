@@ -21,10 +21,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.databinding.FragmentWatchListBinding
-import com.fajaradisetyawan.movieku.feature.ui.favorite.FavoriteFragment
-import com.fajaradisetyawan.movieku.feature.ui.favorite.MovieFavoriteFragment
-import com.fajaradisetyawan.movieku.feature.ui.favorite.PersonFavoriteFragment
-import com.fajaradisetyawan.movieku.feature.ui.favorite.TvShowFavoriteFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -71,6 +67,7 @@ class WatchListFragment : Fragment() {
                 )
             tab.text = tabNames[position]
         }.attach()
+
 
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

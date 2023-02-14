@@ -17,6 +17,7 @@ import com.fajaradisetyawan.movieku.data.model.ProductionCountries
 import com.fajaradisetyawan.movieku.data.model.SpokenLanguages
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlin.math.roundToInt
 
 @Parcelize
 @Entity(tableName = "movie_detail")
@@ -135,4 +136,20 @@ data class MovieDetail(
         arrayListOf(),
         arrayListOf()
     )
+
+    companion object {
+
+        var sortByAscPopular = Comparator<MovieDetail> { o1, o2 -> o1.popularity.compareTo(o2.popularity) }
+
+        var sortByDescPopular = Comparator<MovieDetail> { o1, o2 -> o2.popularity.compareTo(o1.popularity) }
+
+        var sortByTitleAZ = Comparator<MovieDetail> { o1, o2 -> o1.title.compareTo(o2.title) }
+
+        var sortByTitleZA = Comparator<MovieDetail> { o1, o2 -> o2.title.compareTo(o1.title) }
+
+        var sortByAscVote = Comparator<MovieDetail> { o1, o2 -> o1.voteAverage.compareTo(o2.voteAverage) }
+
+        var sortByDescVote = Comparator<MovieDetail> { o1, o2 -> o2.voteAverage.compareTo(o1.voteAverage) }
+    }
 }
+

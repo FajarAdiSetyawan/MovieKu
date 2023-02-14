@@ -63,6 +63,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
                     android:scaleType="fitXY"
+                    android:visibility="gone"
                     android:src="@drawable/bg_shimmer" />
             </io.github.florent37.shapeofview.shapes.RoundRectView>
 

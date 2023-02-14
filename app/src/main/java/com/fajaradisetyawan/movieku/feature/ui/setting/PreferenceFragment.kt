@@ -6,6 +6,7 @@
 
 package com.fajaradisetyawan.movieku.feature.ui.setting
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -22,6 +23,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.fajaradisetyawan.movieku.BuildConfig
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.receiver.NewReleaseMovieWorker
 import com.fajaradisetyawan.movieku.receiver.ReminderReceiver
@@ -40,6 +42,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener,
     private lateinit var prefTheme: ListPreference
     private lateinit var prefLang: Preference
     private lateinit var prefShare: Preference
+    private lateinit var prefAbout: Preference
 
     private var localizationAgent: LocalizationAgent? = null
 
@@ -58,12 +61,11 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener,
     override fun beforeLocaleChanged() = Unit
     override fun afterLocaleChanged() = Unit
 
-
-
     private fun setLanguage(language: String) {
         localizationAgent?.language = language
     }
 
+    @SuppressLint("StringFormatInvalid")
     private fun initComponents() {
         prefTheme = findPreference<ListPreference>(getString(R.string.pref_key_theme))
                 as ListPreference
@@ -76,6 +78,12 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener,
         prefLang = findPreference<Preference>(getString(R.string.pref_key_lang))
                 as Preference
         prefLang.onPreferenceClickListener = onLangPreferenceChange()
+
+        prefAbout = findPreference<Preference>(getString(R.string.pref_key_about))
+                as Preference
+
+        prefAbout.summary = resources.getString(R.string.pref_about_summary, BuildConfig.VERSION_NAME)
+
 
         dailyReminder = resources.getString(R.string.pref_key_daily_reminder)
         releaseReminder = resources.getString(R.string.pref_key_release_reminder)
@@ -244,6 +252,8 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener,
         // hitung berapa selisih waktu saat ini yang dibutuhkan untuk menuju hari esok pukul 7 pagi
         return calendar.timeInMillis - nowMillis
     }
+
+
 
     override fun onPause() {
         super.onPause()

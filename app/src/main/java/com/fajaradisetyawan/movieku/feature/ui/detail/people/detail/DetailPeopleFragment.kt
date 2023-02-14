@@ -214,18 +214,29 @@ class DetailPeopleFragment : Fragment() {
                 layoutDeathday.visibility = View.GONE
             } else {
                 layoutDeathday.visibility = View.VISIBLE
-                tvDeathday.text = people.deathday
             }
 
             if (people.birthday.equals(null) || people.birthday == "" || people.birthday == null) {
                 layoutBirthdate.visibility = View.GONE
             } else {
                 layoutBirthdate.visibility = View.VISIBLE
-                tvBirthdate.text = resources.getString(
-                    R.string.birthdate_with_age, people.birthday, ParseDateTime.getAge(
-                        people.birthday!!
+
+                if (people.birthday != null && people.deathday == null){
+                    tvBirthdate.text = resources.getString(
+                        R.string.birthdate_with_age, people.birthday, ParseDateTime.calculateAge(
+                            people.birthday!!
+                        )
                     )
-                )
+                }
+
+                if (people.birthday != null && people.deathday != null){
+                    tvBirthdate.text = people.birthday
+                    tvDeathday.text = resources.getString(
+                        R.string.birthdate_with_age, people.deathday, ParseDateTime.calculateAgeWithDeathDate(
+                            people.birthday!!, people.deathday!!
+                        )
+                    )
+                }
             }
 
             if (people.biography == "") {

@@ -11,8 +11,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.fajaradisetyawan.movieku.data.model.tvshow.TvShowDetail
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlin.math.roundToInt
 
 @Parcelize
 @Entity(tableName = "favorite_people")
@@ -80,4 +82,15 @@ data class PeopleDetail(
         "",
         arrayListOf()
     )
+
+    companion object {
+
+        var sortByAscPopular = Comparator<PeopleDetail> { o1, o2 -> (o1.popularity - o2.popularity).roundToInt() }
+
+        var sortByDescPopular = Comparator<PeopleDetail> { o1, o2 -> (o2.popularity - o1.popularity).roundToInt() }
+
+        var sortByTitleAZ = Comparator<PeopleDetail> { o1, o2 -> o1.name.compareTo(o2.name) }
+
+        var sortByTitleZA = Comparator<PeopleDetail> { o1, o2 -> o2.name.compareTo(o1.name) }
+    }
 }

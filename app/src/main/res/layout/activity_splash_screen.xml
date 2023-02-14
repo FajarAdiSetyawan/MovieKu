@@ -27,4 +27,13 @@
         android:layout_gravity="center"
         app:lottie_speed="1"
         />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_tmdb"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

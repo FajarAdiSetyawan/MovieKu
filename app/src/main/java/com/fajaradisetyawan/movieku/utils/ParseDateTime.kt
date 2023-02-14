@@ -9,11 +9,13 @@ package com.fajaradisetyawan.movieku.utils
 import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.fajaradisetyawan.movieku.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.Period
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -59,28 +61,21 @@ object ParseDateTime {
         return Resources.getSystem().getString(R.string.time, hour, min)
     }
 
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getAge(dobString: String): Int {
+    fun calculateAge(birthday: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val birthDay = LocalDate.parse(birthday, formatter)
+        val today = LocalDate.now()
+        return Period.between(birthDay, today).years
+    }
 
-        val firstApiFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val date = LocalDate.parse(dobString , firstApiFormat)
-
-        val day = date.dayOfMonth
-        val month = date.monthValue
-        val year = date.year
-
-        val dob = Calendar.getInstance()
-        val today = Calendar.getInstance()
-
-        dob[year, month] = day
-
-        var age = today[Calendar.YEAR] - dob[Calendar.YEAR]
-
-        if (today[Calendar.DAY_OF_YEAR] < dob[Calendar.DAY_OF_YEAR]) {
-            age--
-        }
-
-        return age
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun calculateAgeWithDeathDate(birthday: String, deathdate: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val birthDay = LocalDate.parse(birthday, formatter)
+        val deathDay = LocalDate.parse(deathdate, formatter)
+        return Period.between(birthDay, deathDay).years
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

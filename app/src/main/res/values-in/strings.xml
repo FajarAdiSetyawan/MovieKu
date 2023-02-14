@@ -63,7 +63,7 @@
     <string name="data_for_collection_empty">Tidak ada Koleksi yang ditemukan.</string>
     <string name="data_for_person_empty">Tidak Ada Orang yang ditemukan.</string>
     <string name="personal_info">Info Pribadi</string>
-    <string name="know_for">Tahu Untuk</string>
+    <string name="know_for">Dikenal Sebagai</string>
     <string name="birthdate">Tanggal lahir</string>
     <string name="birthdate_with_age">%1$s (%2$d tahun).</string>
     <string name="place_of_birth">Tempat Lahir</string>
@@ -104,7 +104,7 @@
     <string name="data_failed_to_load">Data gagal dimuat</string>
     <string name="favorite">Favorite</string>
     <string name="person">Person</string>
-    <string name="also_known_as">Also Known As</string>
+    <string name="also_known_as">Dikenal Juga</string>
     <string name="data_for_network_empty">Data for Network Empty</string>
     <string name="language">Bahasa</string>
     <string name="episode_count">%1$s (%2$d Episode)</string>
@@ -142,7 +142,7 @@
     <string name="pref_release_title">Pengingat Rilis Film Baru</string>
     <string name="pref_account_summary">Ubah profile</string>
     <string name="pref_feedback_summary">Kirim Masukkan </string>
-    <string name="pref_about_summary">Tentang Aplikasi </string>
+    <string name="pref_about_summary">Versi Aplikasi %1$s</string>
     <string name="pref_share_summary">Berbagi Aplikasi</string>
     <string name="pref_logout_summary">Keluar dari Aplikasi</string>
     <string name="pref_daily_summary">Pengingat untuk kembali ke aplikasi</string>

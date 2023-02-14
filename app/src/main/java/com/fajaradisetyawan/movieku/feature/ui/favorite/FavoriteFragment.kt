@@ -6,29 +6,46 @@
 
 package com.fajaradisetyawan.movieku.feature.ui.favorite
 
-import android.graphics.Color
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fajaradisetyawan.movieku.R
 import com.fajaradisetyawan.movieku.databinding.FragmentFavoriteBinding
-import com.fajaradisetyawan.movieku.utils.CustomToastDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
     private var fragmentFavoriteBinding: FragmentFavoriteBinding? = null
     private val binding get() = fragmentFavoriteBinding!!
+
+    private lateinit var materialAlertDialogBuilder: MaterialAlertDialogBuilder
+    private lateinit var customAlertDialogView : View
+
+    lateinit var rbTitleAsc: MaterialRadioButton
+    lateinit var rbTitleDesc: MaterialRadioButton
+    lateinit var rbPopAsc: MaterialRadioButton
+    lateinit var rbPopDesc: MaterialRadioButton
+    lateinit var rbVoteAsc: MaterialRadioButton
+    lateinit var rbVoteDesc: MaterialRadioButton
+    lateinit var radioGroup: RadioGroup
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,11 +105,12 @@ class FavoriteFragment : Fragment() {
                 return true
             }
         })
+
     }
 
     internal class ViewPagerAdapter(
         fragmentActivity: FragmentActivity,
-        private val query: String
+        private val query: String,
     ) : FragmentStateAdapter(fragmentActivity) {
 
         override fun createFragment(position: Int): Fragment {
@@ -118,7 +136,6 @@ class FavoriteFragment : Fragment() {
             return 3
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         fragmentFavoriteBinding = null

@@ -66,11 +66,21 @@ class PeopleFavAdapter: RecyclerView.Adapter<PeopleFavAdapter.ViewHolder>() {
                 if (peopleDetail.birthday == "" || peopleDetail.birthday.isNullOrBlank() || peopleDetail.birthday.isNullOrEmpty()){
                     tvBirthdate.text = "-"
                 }else{
-                    tvBirthdate.text = itemView.resources.getString(
-                        R.string.birthdate_with_age, peopleDetail.birthday, ParseDateTime.getAge(
-                            peopleDetail.birthday!!
+                    if (peopleDetail.birthday != null && peopleDetail.deathday == null){
+                        tvBirthdate.text = itemView.resources.getString(
+                            R.string.birthdate_with_age, peopleDetail.birthday, ParseDateTime.calculateAge(
+                                peopleDetail.birthday!!
+                            )
                         )
-                    )
+                    }
+
+                    if (peopleDetail.birthday != null && peopleDetail.deathday != null){
+                        tvBirthdate.text = itemView.resources.getString(
+                            R.string.birthdate_with_age, peopleDetail.birthday, ParseDateTime.calculateAgeWithDeathDate(
+                                peopleDetail.birthday!!, peopleDetail.deathday!!
+                            )
+                        )
+                    }
                 }
 
                 if (peopleDetail.place != null || peopleDetail.place != ""){

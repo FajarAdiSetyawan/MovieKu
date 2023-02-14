@@ -17,10 +17,7 @@
         android:id="@+id/rv_fav_movie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="top"
         tools:listitem="@layout/item_list_big"
         android:visibility="gone"/>
 
@@ -28,9 +25,7 @@
         android:id="@+id/shimmer_fav_movie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="top"
         android:visibility="visible">
 
         <LinearLayout
@@ -110,5 +105,24 @@
             android:visibility="gone"
             tools:visibility="visible" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:baselineAlignBottom="true"
+        android:layout_gravity="end|bottom"
+        android:foregroundGravity="bottom"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/ic_filter"
+        app:fabSize="normal"
+        app:backgroundTint="@color/md_blue_A400"
+        android:alpha="0.7"
+        android:fitsSystemWindows="true"
+        app:maxImageSize="40dp"
+        app:elevation="6dp"
+        android:visibility="visible"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </FrameLayout>

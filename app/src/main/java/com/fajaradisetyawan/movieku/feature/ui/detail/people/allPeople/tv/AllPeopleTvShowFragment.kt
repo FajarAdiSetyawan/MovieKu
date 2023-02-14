@@ -53,7 +53,8 @@ class AllPeopleTvShowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        fragmentAllPeopleTvShowBinding = FragmentAllPeopleTvShowBinding.inflate(layoutInflater, container, false)
+        fragmentAllPeopleTvShowBinding =
+            FragmentAllPeopleTvShowBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -63,7 +64,14 @@ class AllPeopleTvShowFragment : Fragment() {
 
         val tvShow = args.tvShowDetail
 
-        binding.toolbar.title = tvShow.name + " (${ParseDateTime.getYear(tvShow.firstAirDate)})"
+
+        if (tvShow.firstAirDate == "" || tvShow.firstAirDate == null) {
+            binding.toolbar.title = tvShow.name
+        } else {
+            binding.toolbar.title = tvShow.name + " (${ParseDateTime.getYear(tvShow.firstAirDate)})"
+
+        }
+
 
         val activity = activity as AppCompatActivity?
 
@@ -81,14 +89,14 @@ class AllPeopleTvShowFragment : Fragment() {
         binding.pagerAllPeople.adapter = pagerAdapter
 
         viewModel.getCreditsTv(tvShow.id)
-        viewModel.tvCredits.observe(viewLifecycleOwner){ result ->
+        viewModel.tvCredits.observe(viewLifecycleOwner) { result ->
             val badge1Drawable: BadgeDrawable = binding.tabAllPeople.getTabAt(0)!!.orCreateBadge
             badge1Drawable.isVisible = true
             badge1Drawable.maxCharacterCount = 3
             badge1Drawable.badgeGravity = BadgeDrawable.BOTTOM_END
-            if (result!!.cast.isNotEmpty()){
+            if (result!!.cast.isNotEmpty()) {
                 badge1Drawable.number = result.cast.size
-            }else{
+            } else {
                 badge1Drawable.number = 0
             }
 
@@ -96,9 +104,9 @@ class AllPeopleTvShowFragment : Fragment() {
             badge2Drawable.isVisible = true
             badge2Drawable.maxCharacterCount = 3
             badge2Drawable.badgeGravity = BadgeDrawable.BOTTOM_END
-            if (result.crew.isNotEmpty()){
+            if (result.crew.isNotEmpty()) {
                 badge2Drawable.number = result.crew.size
-            }else{
+            } else {
                 badge2Drawable.number = 0
             }
         }
@@ -139,12 +147,15 @@ class AllPeopleTvShowFragment : Fragment() {
         }
     }
 
-    private fun populateTvShow(tvShowDetail: TvShowDetail){
+    @SuppressLint("ResourceType")
+    private fun populateTvShow(tvShowDetail: TvShowDetail) {
         if (tvShowDetail.backdropPath == null) {
             if (tvShowDetail.posterPath == null) {
+                binding.ivPoster.visibility = View.GONE
                 binding.ivBackdrops.setImageResource(R.drawable.placeholder_landscape_img)
                 toolbarColor(null)
             } else {
+                binding.ivPoster.visibility = View.VISIBLE
                 Glide.with(this)
                     .asBitmap()
                     .load("${tvShowDetail.baseUrl}${tvShowDetail.posterPath}")
@@ -205,26 +216,15 @@ class AllPeopleTvShowFragment : Fragment() {
                 .into(binding.ivBackdrops)
         }
 
-
-        if (tvShowDetail.backdropPath == null) {
-            if (tvShowDetail.posterPath == null) {
-                binding.ivPoster.setImageResource(R.drawable.placeholder_portrait_img)
-            } else {
-                Glide.with(this)
-                    .load("${tvShowDetail.baseUrl}${tvShowDetail.backdropPath}")
-                    .centerCrop()
-                    .transform(RoundedCorners(25))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.placeholder_portrait_img)
-                    .into(binding.ivPoster)
-            }
-        } else {
+        if (tvShowDetail.posterPath == null) {
+            binding.ivPoster.visibility = View.GONE
+        }else{
+            binding.ivPoster.visibility = View.VISIBLE
             Glide.with(this)
+                .asBitmap()
                 .load("${tvShowDetail.baseUrl}${tvShowDetail.posterPath}")
                 .centerCrop()
-                .transform(RoundedCorners(25))
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .error(R.drawable.placeholder_portrait_img)
+                .transform(RoundedCorners(20))
                 .into(binding.ivPoster)
         }
     }
@@ -263,9 +263,10 @@ class AllPeopleTvShowFragment : Fragment() {
         if (colorToolbar != null && textColor != null) {
             requireActivity().window.statusBarColor = colorToolbar
             nav.setTint(textColor)
-        }else{
+        } else {
             nav.setTint(ContextCompat.getColor(requireActivity(), R.color.white))
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireActivity(), R.color.color_primary)
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireActivity(), R.color.color_primary)
         }
 
         binding.appbar.addOnOffsetChangedListener(object :
@@ -288,8 +289,18 @@ class AllPeopleTvShowFragment : Fragment() {
                         binding.toolbar.setBackgroundColor(colorToolbar)
                         binding.collapsingToolbar.setCollapsedTitleTextColor(textColor)
                     } else {
-                        binding.toolbar.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.color_primary))
-                        binding.collapsingToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(requireActivity(), R.color.white))
+                        binding.toolbar.setBackgroundColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.color_primary
+                            )
+                        )
+                        binding.collapsingToolbar.setCollapsedTitleTextColor(
+                            ContextCompat.getColor(
+                                requireActivity(),
+                                R.color.white
+                            )
+                        )
                         binding.toolbar.setTitleTextColor(R.color.white)
                     }
                 } else {

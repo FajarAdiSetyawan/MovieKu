@@ -12,7 +12,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
-    android:background="@color/bg_layout">
+    android:background="@color/bg_layout"
+    android:id="@+id/parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -37,7 +38,7 @@
                 app:queryBackground="@null"
                 app:searchHintIcon="@drawable/ic_search"
                 app:searchIcon="@drawable/ic_search"
-
+                android:theme="@style/ThemeOverlay.SearchView"
                 android:gravity="end"
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"/>
@@ -69,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/tabFav"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="top" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

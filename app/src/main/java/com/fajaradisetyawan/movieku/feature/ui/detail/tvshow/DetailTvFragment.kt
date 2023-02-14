@@ -300,11 +300,13 @@ class DetailTvFragment : Fragment() {
                     .into(binding.ivBackdrops)
             } else {
                 binding.ivBackdrops.setImageResource(R.drawable.placeholder_landscape_img)
+                binding.ivPoster.visibility = View.GONE
                 toolbarColor(null)
             }
         }
 
         if (tvShowDetail.posterPath != null) {
+            binding.ivPoster.visibility = View.VISIBLE
             Glide.with(this)
                 .load("${tvShowDetail.baseUrl}${tvShowDetail.posterPath}")
                 .centerCrop()
@@ -313,17 +315,7 @@ class DetailTvFragment : Fragment() {
                 .error(R.drawable.placeholder_portrait_img)
                 .into(binding.ivPoster)
         } else {
-            if (tvShowDetail.backdropPath != null) {
-                Glide.with(this)
-                    .load("${tvShowDetail.baseUrl}${tvShowDetail.backdropPath}")
-                    .centerCrop()
-                    .transform(RoundedCorners(25))
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .error(R.drawable.placeholder_portrait_img)
-                    .into(binding.ivPoster)
-            } else {
-                binding.ivPoster.setImageResource(R.drawable.placeholder_portrait_img)
-            }
+            binding.ivPoster.visibility = View.GONE
         }
 
         binding.layoutContent.tvMoreCast.setOnClickListener {
@@ -376,6 +368,7 @@ class DetailTvFragment : Fragment() {
             binding.layoutContent.divider.setBackgroundColor(textColor)
             requireActivity().window.statusBarColor = colorToolbar
             nav.setTint(textColor)
+            binding.cardBottomSheet.setCardBackgroundColor(colorToolbar)
         } else {
             binding.layoutContent.tvSeason.setTextColor(
                 ContextCompat.getColor(
@@ -393,6 +386,12 @@ class DetailTvFragment : Fragment() {
                 ContextCompat.getColor(
                     requireActivity(),
                     R.color.white
+                )
+            )
+            binding.cardBottomSheet.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireActivity(),
+                    R.color.color_primary
                 )
             )
             binding.layoutContent.tvYearSeason.setTextColor(
@@ -554,14 +553,10 @@ class DetailTvFragment : Fragment() {
             }
 
             tvAllSeason.setOnClickListener {
-                when {
-                    seasons.episodes.isNotEmpty() -> {
-                        val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToAllSeasonFragment(
-                            tvShowDetail
-                        )
-                        Navigation.findNavController(requireView()).navigate(sendData)
-                    }
-                }
+                val sendData = DetailTvFragmentDirections.actionDetailTvFragmentToAllSeasonFragment(
+                    tvShowDetail
+                )
+                Navigation.findNavController(requireView()).navigate(sendData)
             }
         }
     }

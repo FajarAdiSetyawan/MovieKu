@@ -38,7 +38,8 @@
                 app:searchIcon="@drawable/ic_search"
                 android:gravity="end"
                 android:layout_gravity="end"
-                android:layout_marginEnd="10dp"/>
+                android:layout_marginEnd="10dp"
+                android:theme="@style/ThemeOverlay.SearchView"/>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -67,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/tabWatchList"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="top" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
